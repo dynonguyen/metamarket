@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
-const UserSchema = require('../../schema/mongoose/user.schema');
-const { DB_URL } = require('../../utils/constants');
+const { sequelizeConnect } = require('../../configs/sequelize');
+const UserSchema = require('../../schema/mysql/user.schema');
+const { DB_CONFIG } = require('../../utils/constants');
 
-const userSvcConn = mongoose.createConnection(DB_URL.USER_SERVICE);
-const UserModel = userSvcConn.model('UserModel', UserSchema, 'users');
+const userDb = sequelizeConnect({
+	dbName: DB_CONFIG.USER_SERVICE.DB_NAME,
+	hostname: DB_CONFIG.USER_SERVICE.HOSTNAME,
+	dialect: 'mysql',
+	username: DB_CONFIG.USER_SERVICE.USERNAME,
+	password: DB_CONFIG.USER_SERVICE.PASSWORD,
+});
 
-module.exports = {
-	userSvcConn,
-	UserModel,
-};
+userDb.sync({ alter: true });
+
+const User = userDb.define(...UserSchema);
+
+module.exports = User;

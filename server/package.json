@@ -22,11 +22,13 @@
     "moleculer-repl": "^0.6.6"
   },
   "dependencies": {
-    "dotenv": "^16.0.0",
-    "moleculer": "^0.14.16",
-    "moleculer-web": "^0.10.2",
-    "mongoose": "^6.2.10",
-    "nats": "^2.2.0"
+    "dotenv": "16.0.0",
+    "moleculer": "0.14.16",
+    "moleculer-web": "0.10.2",
+    "mongoose": "6.2.10",
+    "mysql2": "^2.3.3",
+    "nats": "2.2.0",
+    "sequelize": "6.18.0"
   },
   "engines": {
     "node": ">= 12.x.x"

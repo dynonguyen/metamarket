@@ -43,7 +43,9 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 - Kiến trúc Microservices
 - [Moleculer Framework](https://moleculer.services/docs/0.14/index.html) v0.14.16 (NodeJS)
-- MongoDB, MongooseJS
+- MongoDB v5.0.6, MongooseJS
+- MySQL v8.0, Sequelize
+- Socket.io
 
 > **Development Tools**
 
@@ -61,3 +63,57 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 **Use Case Diagram**
 
 ![UC-Diagram](https://res.cloudinary.com/dynonary/image/upload/v1649652591/metamarket/UC-Diagram.png)
+
+**Microservices Architecture**
+
+![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1649667503/metamarket/Microservice_Architecture.png)
+
+# Hướng dẫn chạy
+
+> **Client**
+
+- Đã cài PHP (version >= 8), bật các extensions sau trong file `php.ini` hoặc `php-development.ini` [Tham khảo](https://www.php.net/manual/en/install.pecl.windows.php):
+  - curl
+  - mysqli
+  - pdo_mysql
+
+```sh
+  cd client/src
+  php -S localhost:8080
+```
+
+> **Server**
+
+- B1: Cài đặt các cơ sở dữ liệu (có thể cài bên ngoài máy host thay vì dùng docker)
+
+```sh
+  # Mongodb (Thay {host_path} thành nơi lưu dữ liệu cho MongoDB)
+  docker run --name mongodb -h mongodb -p 27017:27017 -v {host_path}:/data/db -d mongo:5.0.6
+
+  # MySQL v8.0 (Thay {host_path} thành nơi lưu dữ liệu cho MySQL # MongoDB)
+  docker network create mysql_network
+  docker run --name mysql -h mysql -p 3306:3306 -v {host_path}:/var/lib/mysql -e MYSQL_ROOT_PASSWORD={MY_PASSWORD} --network mysql_network -d mysql:8.0.28
+
+  # PHP Myadmin nếu cần, truy cập tại port 9999
+  docker run --name pma -p 9999:80 -e PMA_ARBITRARY=1 --network mysql_network -d phpmyadmin:5.1.3
+  # Truy cập http://localhost:9999 > server = mysql, username = root, password = {MY_PASSWORD}
+```
+
+- B2: Tạo các CSDL, thêm dữ liệu mẫu (nếu có)
+
+- Chạy các services (Nên dùng yarn thay cho npm)
+
+```sh
+  cd server
+
+  npm install
+  # hoặc yarn install
+
+  # Tạo file .env từ file .local.env
+  # Chỉnh sửa giá trị phù hợp
+  cp .local.env .env
+
+  # Khởi chạy
+  npm run dev
+  # yarn dev
+```

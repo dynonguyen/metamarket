@@ -1,5 +1,5 @@
-const { SVC_NAME } = require("../../utils/constants");
-const { UserModel } = require("./user-db");
+const { SVC_NAME } = require('../../utils/constants');
+const User = require('./user-db');
 
 module.exports = {
 	name: SVC_NAME.USER,
@@ -9,8 +9,8 @@ module.exports = {
 			cache: false,
 
 			async handler(ctx) {
-				const users = await UserModel.find({});
-				return [];
+				const users = User.findAll({});
+				return users;
 			},
 		},
 	},

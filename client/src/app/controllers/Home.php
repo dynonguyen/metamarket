@@ -7,14 +7,14 @@ class Home extends Controller
         $this->render('layouts/main-layout', $this->data);
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "http://gateway:3000/api/v1/users/list");
+        curl_setopt($curl, CURLOPT_URL, "http://localhost:3000/api/v1/users/list");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $users = curl_exec($curl);
         $err = curl_error($curl);
         echo $err;
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "http://gateway:3000/api/v1/products/list");
+        curl_setopt($curl, CURLOPT_URL, "http://localhost:3000/api/v1/products/list");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $products = curl_exec($curl);
         $err = curl_error($curl);

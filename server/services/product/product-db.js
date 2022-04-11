@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const ProductSchema = require('../../schema/mongoose/product.schema');
-const { DB_URL } = require('../../utils/constants');
+const { DB_CONFIG } = require('../../utils/constants');
 
-const productSvcConn = mongoose.createConnection(DB_URL.PRODUCT_SERVICE);
+const productSvcConn = mongoose.createConnection(DB_CONFIG.PRODUCT_SERVICE.URL);
 const ProductModel = productSvcConn.model(
 	'ProductModel',
 	ProductSchema,
