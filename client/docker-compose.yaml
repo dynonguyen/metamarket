@@ -1,0 +1,35 @@
+version: '3'
+
+# Networks
+networks:
+  metamarket_network:
+    external: true
+
+# Services
+services:
+  # PHP FPM
+  php-service:
+    image: php:8.1.4-fpm
+    container_name: php
+    hostname: php
+    networks:
+      - metamarket_network
+    volumes:
+      - ./src:/app
+
+  # Apache
+  apache-service:
+    image: httpd:2.4.53
+    container_name: httpd
+    hostname: httpd
+    networks:
+      - metamarket_network
+    volumes:
+      - ./src:/app
+      - ./docker-configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - php-service

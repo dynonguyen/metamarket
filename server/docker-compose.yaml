@@ -1,0 +1,88 @@
+version: "3.3"
+
+services:
+  # Gateway service
+  gateway:
+    build:
+      context: .
+    image: metamarket
+    container_name: gateway
+    hostname: gateway
+    env_file: docker-compose.env
+    environment:
+      SERVICES: gateway
+      GATEWAY_PORT: 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - nats
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-gw.rule=PathPrefix(`/`)"
+      - "traefik.http.services.api-gw.loadbalancer.server.port=3000"
+    volumes:
+      - ./:/app
+    networks:
+      - metamarket_network
+
+  # User service
+  user-serivce:
+    build:
+      context: .
+    image: metamarket
+    container_name: user-service
+    hostname: user-service
+    env_file: docker-compose.env
+    environment:
+      SERVICES: user
+    depends_on:
+      - nats
+    volumes:
+      - ./:/app
+    networks:
+      - metamarket_network
+
+  # Product Service
+  product-serivce:
+    build:
+      context: .
+    image: metamarket
+    container_name: product-service
+    hostname: product-service
+    env_file: docker-compose.env
+    environment:
+      SERVICES: product
+    depends_on:
+      - nats
+    volumes:
+      - ./:/app
+    networks:
+      - metamarket_network
+
+  # Communication network
+  nats:
+    image: nats:2
+    hostname: nats
+    container_name: nats
+    networks:
+      - metamarket_network
+
+  traefik:
+    image: traefik:v2.1
+    container_name: traefik
+    hostname: traefik
+    command:
+      - "--api.insecure=true" # Don't do that in production!
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - 3001:80
+      - 3002:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - metamarket_network
+
+networks:
+  metamarket_network:
+    external: true
