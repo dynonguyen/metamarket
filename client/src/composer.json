@@ -1,0 +1,8 @@
+{
+	"name": "metamarket/client",
+	"type": "project",
+	"description": "MetaMarket Client",
+	"require": {
+		"vlucas/phpdotenv": "^5.4"
+	}
+}

@@ -16,3 +16,5 @@ jspm_packages/
 .env
 .vscode
 script.sh
+client/src/vendor
+composer.lock

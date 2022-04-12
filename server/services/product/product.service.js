@@ -1,5 +1,5 @@
-const { SVC_NAME } = require("../../utils/constants");
-const { ProductModel } = require("./product-db");
+const { SVC_NAME } = require('../../utils/constants');
+const { ProductModel } = require('./product-db');
 
 module.exports = {
 	name: SVC_NAME.PRODUCT,
@@ -11,7 +11,7 @@ module.exports = {
 			async handler(ctx) {
 				try {
 					const products = await ProductModel.find({});
-					return products;
+					return 'Hello';
 				} catch (error) {
 					this.logger.error(error);
 					return [];
@@ -22,7 +22,7 @@ module.exports = {
 		getProductByName: {
 			cache: false,
 			params: {
-				name: { type: "string", min: 1 },
+				name: { type: 'string', min: 1 },
 			},
 			async handler(ctx) {
 				const { params } = ctx;

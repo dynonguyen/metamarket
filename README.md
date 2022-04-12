@@ -77,8 +77,11 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
   - mysqli
   - pdo_mysql
 
+- Cài php composer
+
 ```sh
   cd client/src
+  composer install
   php -S localhost:8080
 ```
 

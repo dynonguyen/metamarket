@@ -12,9 +12,17 @@ if (!empty($config_files)) {
     }
 }
 
+// Load ENV
+$dotenv = Dotenv\Dotenv::createImmutable(_DIR_ROOT);
+$dotenv->safeLoad();
+
 // Load App
 require_once 'app/App.php';
 
 // Load Core Class
 require_once 'core/Controller.php';
 require_once 'core/Route.php';
+
+// Load utils
+require_once 'utils/constants.php';
+require_once 'utils/ApiCaller.php';
