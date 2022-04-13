@@ -4,7 +4,7 @@ class Home extends Controller
     public function index()
     {
         $this->setBasicData('home/index', 'Trang chủ');
-        $this->render('layouts/main-layout', $this->data);
+        $this->render('layouts/main', $this->data);
 
         $apiRes = ApiCaller::get(USER_SERVICE_API_URL . '/list');
         extract($apiRes);
