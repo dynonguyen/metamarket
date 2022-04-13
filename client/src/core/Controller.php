@@ -26,9 +26,9 @@ class Controller
         }
     }
 
-    public function setBasicData(string $viewPath, string $pageTitle = 'Title')
+    public function setBasicData(string $viewPath, string $pageTitle = '')
     {
         $this->data['viewPath'] = $viewPath;
-        $this->data['pageTitle'] = $pageTitle;
+        $this->data['pageTitle'] = $pageTitle . ' | MetaMarket';
     }
 }

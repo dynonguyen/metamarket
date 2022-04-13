@@ -1,0 +1,106 @@
+header {
+	background-color: var(--bs-primary);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+header * {
+	color: #fff;
+}
+
+.nav-wrapper {
+	height: 7.2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.margin-header {
+	margin-top: 7.2rem;
+}
+
+nav .logo {
+	width: 5.4rem;
+}
+
+.logo-name {
+	font-size: 2.2rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-left: 8px;
+	color: #fff;
+}
+
+.search-bar {
+	max-width: 48rem;
+	height: 3.8rem;
+	position: relative;
+}
+
+.search-bar input {
+	padding-right: 3.2rem;
+	font-size: 1.6rem;
+}
+
+.search-bar .bi-search {
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	transform: translateY(-50%);
+	color: var(--bs-primary);
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.account-group span,
+.cart-group span {
+	font-size: 1.5rem;
+}
+
+.account-group i,
+.cart-group i {
+	font-size: 2.8rem;
+}
+
+@media only screen and (max-width: 992px) {
+	html,
+	body header {
+		font-size: 50%;
+	}
+
+	header .container {
+		max-width: 100%;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	header .right-side {
+		display: none !important;
+	}
+
+	.nav-mobile {
+		display: flex !important;
+		border-bottom: solid 1px var(--bs-secondary);
+		justify-content: flex-end;
+		height: 4.8rem;
+	}
+
+	.margin-header {
+		margin-bottom: 12rem;
+	}
+
+	.logo-name {
+		font-size: 2.8rem;
+		letter-spacing: 1px;
+	}
+	.logo-name.desk {
+		display: none;
+	}
+	.logo-name.mobile {
+		display: inline !important;
+	}
+}
