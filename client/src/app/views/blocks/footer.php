@@ -1,4 +1,4 @@
-<footer class="bg-secondary pt-4 w-100">
+<footer id="footer" class="bg-secondary pt-4 w-100">
     <div class="container pb-4">
         <div class="row gx-5 gy-3 gy-md-0">
             <div class="col col-12 col-sm-6 col-md-3">
