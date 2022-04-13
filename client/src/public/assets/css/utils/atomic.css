@@ -3,6 +3,16 @@
 	align-items: center;
 }
 
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .orange-color {
 	color: var(--bs-orange);
+}
+
+.text-gray {
+	color: var(--mm-gray-color);
 }

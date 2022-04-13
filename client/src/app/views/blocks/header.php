@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/assets/css/header.css">
-
 <header>
     <nav class="container-fluid">
         <div class="nav-mobile container d-none">

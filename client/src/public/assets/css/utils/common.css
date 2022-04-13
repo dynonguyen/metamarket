@@ -1,6 +1,12 @@
 html,
 body {
 	font-size: 62.5%;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+:root {
+	--mm-gray-color: #888;
 }
 
 /* Scroll bar */
@@ -13,5 +19,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #888;
+	background: var(--mm-gray-color);
+}
+
+ul {
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+a:hover {
+	color: var(--bs-info);
 }

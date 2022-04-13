@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="/public/assets/css/utils/common.css">
     <link rel="stylesheet" href="/public/assets/css/utils/atomic.css">
     <link rel="stylesheet" href="/public/assets/css/utils/bootstrap-custom.css">
+    <link rel="stylesheet" href="/public/assets/css/header.css">
+    <link rel="stylesheet" href="/public/assets/css/footer.css">
 
     <?php
     // Bootstrap icon

@@ -1,0 +1,37 @@
+footer {
+	background-color: var(--bs-secondary);
+	color: #fff;
+	font-size: 1.4rem;
+}
+
+.logo-name {
+	font-size: 2.2rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-left: 8px;
+	color: #fff;
+}
+
+footer .logo {
+	width: 6.4rem;
+}
+
+footer img.check {
+	width: 15rem;
+}
+
+.footer-label {
+	font-size: 1.6rem;
+	color: var(--mm-gray-color);
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+footer li {
+	margin-bottom: 6px;
+}
+
+footer li * {
+	color: #ccc;
+	font-size: 1.5rem;
+}

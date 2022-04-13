@@ -73,15 +73,21 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 > **Client**
 
 - Đã cài PHP (version >= 8), bật các extensions sau trong file `php.ini` hoặc `php-development.ini` [Tham khảo](https://www.php.net/manual/en/install.pecl.windows.php):
+
   - curl
   - mysqli
   - pdo_mysql
 
-- Cài php composer
+- Cài php [Composer](https://getcomposer.org/download/)
 
 ```sh
   cd client/src
   composer install
+
+  # Tạo file .env từ file .local.env
+  # Chỉnh sửa giá trị phù hợp
+  cp .local.env .env
+
   php -S localhost:8080
 ```
 
