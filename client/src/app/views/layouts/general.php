@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/public/assets/css/utils/atomic.css">
     <link rel="stylesheet" href="/public/assets/css/utils/bootstrap-custom.css">
     <link rel="stylesheet" href="/public/assets/css/header.css">
+    <link rel="stylesheet" href="/public/assets/css/catalog.css">
     <link rel="stylesheet" href="/public/assets/css/footer.css">
 
     <?php
@@ -51,11 +52,13 @@
 
     <?php $this->render($viewPath, isset($viewContent) ? $viewContent : []); ?>
 
-    <?php require_once _DIR_ROOT . '/app/views/blocks/footer.php' ?>
+    <?php require_once _DIR_ROOT . '/app/views/blocks/footer.php'; ?>
 </body>
 
+<?php require_once _DIR_ROOT . '/app/views/blocks/cdn/popper.php' ?>
 <script src="/public/vendors/bootstrap/bootstrap.min.js"></script>
 <script src="/public/vendors/jquery/jquery.min.js"></script>
+<script src="/public/assets/js/catalog.js"></script>
 
 <!-- Add JS link -->
 <?php

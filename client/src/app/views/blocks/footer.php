@@ -35,7 +35,7 @@
             <div class="col col-12 col-sm-6 col-md-3 pt-4">
                 <div class="footer-label">Hỗ trợ</div>
                 <ul>
-                    <li><b><a href="/dang-ky-ban-hang" class="orange-color">Đăng ký bán hàng cùng MetaMarket</a></b></li>
+                    <li><b><a href="/dang-ky-ban-hang" style="color: var(--bs-orange) !important;">Đăng ký bán hàng cùng MetaMarket</a></b></li>
                     <li>Tổng đài: 1900.1080 (7:00 - 21:00)</li>
                     <li>Email: cskh@metamarket.com</li>
                 </ul>

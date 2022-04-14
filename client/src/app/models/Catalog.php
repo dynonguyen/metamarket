@@ -1,17 +1,17 @@
 <?php
-class UserModel
+class CatalogModel
 {
-    private $id;
-    private $firstName;
-    private $lastName;
-    private $birthday;
+    private $_id;
+    private $name;
+    private $link;
+    private $categories;
 
-    public function __construct($id, $firstName, $lastName, $birthday)
+    public function __construct($_id, $name, $link, $categories)
     {
-        $this->id = $id;
-        $this->$firstName = $firstName;
-        $this->$lastName = $lastName;
-        $this->birthday = $birthday;
+        $this->_id = $_id;
+        $this->name = $name;
+        $this->link = $link;
+        $this->categories = $categories;
     }
 
     public function __get($property)

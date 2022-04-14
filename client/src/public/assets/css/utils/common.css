@@ -6,7 +6,11 @@ body {
 }
 
 :root {
-	--mm-gray-color: #888;
+	--mm-dark: #151522;
+	--mm-dark-gray: #333;
+	--mm-gray: #888;
+	--mm-light-gray: #ccc;
+	--mm-light: #eee;
 }
 
 /* Scroll bar */
@@ -19,7 +23,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--mm-gray-color);
+	background: var(--mm-gray);
 }
 
 ul {

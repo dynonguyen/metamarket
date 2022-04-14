@@ -6,7 +6,7 @@ header {
 	width: 100%;
 }
 
-header * {
+nav * {
 	color: #fff;
 }
 
@@ -64,6 +64,23 @@ nav .logo {
 .account-group i,
 .cart-group i {
 	font-size: 2.8rem;
+}
+
+.sub-nav {
+	background-color: var(--mm-light);
+	box-shadow: 0 2px 1px -1px rgb(0 0 0 / 25%);
+}
+
+.sub-nav .support-block:hover * {
+	color: var(--mm-gray);
+}
+
+.sub-nav .support-block {
+	font-size: 1.8rem;
+}
+
+.sub-nav .support-block strong {
+	font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 992px) {
