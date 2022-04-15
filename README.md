@@ -64,16 +64,17 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 # Kiến trúc hệ thống
 
-**Use Case Diagram**
+### **Use Case Diagram**
 
 ![UC-Diagram](https://res.cloudinary.com/dynonary/image/upload/v1649652591/metamarket/UC-Diagram.png)
 
-**Microservices Architecture**
+### **Microservices Architecture**
 
-![Microservices Architecture]()
+![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1650014745/metamarket/Microservice_Architecture.png)
 
-**Database Diagram**
-![DB Diagram]()
+### **Database Diagram**
+
+![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1650014745/metamarket/db-diagram.png)
 
 # Hướng dẫn chạy
 

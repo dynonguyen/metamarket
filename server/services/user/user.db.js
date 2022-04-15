@@ -101,4 +101,13 @@ Contract.belongsTo(Shop, { foreignKey: 'shopId' });
 // ------ Sync database
 userDb.sync({ alter: true });
 
-module.exports = { User, Account, Province };
+module.exports = {
+	Account,
+	Contract,
+	District,
+	Province,
+	Shop,
+	User,
+	UserAddress,
+	Ward,
+};

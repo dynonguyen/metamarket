@@ -1,9 +1,17 @@
 module.exports = {
 	// Services name
 	SVC_NAME: {
+		AGGREGATE: 'aggregate',
 		GATEWAY: 'gateway',
-		USER: 'user',
+		INTERNAL: 'internal',
+		ORDER: 'order',
+		PAYMENT: 'payment',
 		PRODUCT: 'product',
+		REVIEW: 'review',
+		SHIPPING: 'shipping',
+		SHOP: 'shop',
+		SUPPORT: 'support',
+		USER: 'user',
 	},
 
 	// Database URL
@@ -14,8 +22,39 @@ module.exports = {
 				'mongodb://localhost/product_service',
 		},
 
+		ORDER_SERVICE: {
+			URL:
+				process.env.ORDER_SERVICE_DB_URL || 'mongodb://localhost/order_service',
+		},
+
+		REVIEW_SERVICE: {
+			URL:
+				process.env.REVIEW_SERVICE_DB_URL ||
+				'mongodb://localhost/review_service',
+		},
+
+		SUPPORT_SERVICE: {
+			URL:
+				process.env.SUPPORT_SERVICE_DB_URL ||
+				'mongodb://localhost/support_service',
+		},
+
 		USER_SERVICE: {
 			DB_NAME: process.env.USER_SERVICE_DB_NAME || 'user_service',
+			HOSTNAME: process.env.MYSQL_HOSTNAME || 'localhost',
+			USERNAME: process.env.MYSQL_USERNAME || 'root',
+			PASSWORD: process.env.MYSQL_PASSWORD || '',
+		},
+
+		INTERNAL_SERVICE: {
+			DB_NAME: process.env.INTERNAL_SERVICE_DB_NAME || 'internal_service',
+			HOSTNAME: process.env.MYSQL_HOSTNAME || 'localhost',
+			USERNAME: process.env.MYSQL_USERNAME || 'root',
+			PASSWORD: process.env.MYSQL_PASSWORD || '',
+		},
+
+		PAYMENT_SERVICE: {
+			DB_NAME: process.env.PAYMENT_SERVICE_DB_NAME || 'payment_service',
 			HOSTNAME: process.env.MYSQL_HOSTNAME || 'localhost',
 			USERNAME: process.env.MYSQL_USERNAME || 'root',
 			PASSWORD: process.env.MYSQL_PASSWORD || '',
@@ -40,10 +79,18 @@ module.exports = {
 
 	// To create mongoose model & reference
 	MONGOOSE_MODEL_NAME: {
-		PRODUCT: 'Product',
+		ANO_SHOP_CHAT: 'AnoShopChat',
+		ANO_SYSTEM_CHAT: 'AnoSystemChat',
+		APP_REVIEW: 'AppReview',
 		CATALOG: 'Catalog',
 		CATEGORY: 'Category',
+		COMMENT: 'Comment',
+		ORDER: 'Order',
 		PRODUCT_DETAIL: 'ProductDetail',
+		PRODUCT: 'Product',
+		SHOP_CHAT: 'ShopChat',
+		SHOP_REVIEW: 'ShopReview',
+		SYSTEM_CHAT: 'SystemChat',
 	},
 
 	// Min, max
@@ -69,5 +116,10 @@ module.exports = {
 	USER_VOCATIVE: {
 		MALE: 'Anh',
 		FEMALE: 'Chị',
+	},
+
+	ADMIN_ACCOUNT_POSITION: {
+		ADMIN: 1,
+		SUPPORTER: 2,
 	},
 };

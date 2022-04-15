@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { USER_VOCATIVE } = require('../../utils/constants');
 const { Schema } = mongoose;
 
 const AnonymousSysChatSchema = new Schema({
