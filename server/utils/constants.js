@@ -29,6 +29,15 @@ module.exports = {
 		ACTIVE: 1,
 	},
 
+	ORDER_STATUS: {
+		PROCESSING: 0,
+		PENDING_PAYMENT: 1,
+		PENDING: 2,
+		SHIPPING: 3,
+		COMPLETE: 4,
+		CANCELED: 5,
+	},
+
 	// To create mongoose model & reference
 	MONGOOSE_MODEL_NAME: {
 		PRODUCT: 'Product',
@@ -50,5 +59,10 @@ module.exports = {
 	DEFAULT: {
 		PRODUCT_AVT: '',
 		PRODUCT_UNIT: 'Sản phẩm',
+	},
+
+	PAYMENT_METHOD: {
+		COD: 0,
+		PAYPAL: 1,
 	},
 };
