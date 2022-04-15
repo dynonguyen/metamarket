@@ -19,10 +19,6 @@ nav * {
 	padding-bottom: 6px;
 }
 
-.margin-header {
-	margin-top: 7.2rem;
-}
-
 nav .logo {
 	width: 5.4rem;
 }
@@ -69,6 +65,7 @@ nav .logo {
 .sub-nav {
 	background-color: var(--mm-light);
 	box-shadow: 0 2px 1px -1px rgb(0 0 0 / 25%);
+	height: 3.6rem;
 }
 
 .sub-nav .support-block:hover * {
@@ -81,6 +78,10 @@ nav .logo {
 
 .sub-nav .support-block strong {
 	font-size: 1.5rem;
+}
+
+.margin-header {
+	margin-top: 10.8rem;
 }
 
 @media only screen and (max-width: 992px) {
