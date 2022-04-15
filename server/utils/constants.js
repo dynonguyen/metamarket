@@ -21,4 +21,11 @@ module.exports = {
 			PASSWORD: process.env.MYSQL_PASSWORD || '',
 		},
 	},
+
+	// Status
+	ACCOUNT_STATUS: {
+		LOCKED: -1,
+		WAITING_APPROVAL: 0,
+		ACTIVE: 1,
+	},
 };

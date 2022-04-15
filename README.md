@@ -1,5 +1,9 @@
 <h1 align="center">MetaMarket Project</h1>
 
+<div  align="center">
+  <img src="https://res.cloudinary.com/dynonary/image/upload/v1649991439/metamarket/logo.svg" alt="Logo" />
+</div>
+
 > Ứng dụng đi chợ Online - Đồ án môn Ứng dụng phân tán - Microservice Architecture
 
 # Giới thiệu dự án
@@ -66,7 +70,10 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 **Microservices Architecture**
 
-![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1649667503/metamarket/Microservice_Architecture.png)
+![Microservices Architecture]()
+
+**Database Diagram**
+![DB Diagram]()
 
 # Hướng dẫn chạy
 
