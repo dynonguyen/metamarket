@@ -65,4 +65,9 @@ module.exports = {
 		COD: 0,
 		PAYPAL: 1,
 	},
+
+	USER_VOCATIVE: {
+		MALE: 'Anh',
+		FEMALE: 'Chị',
+	},
 };
