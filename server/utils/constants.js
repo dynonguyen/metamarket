@@ -28,4 +28,27 @@ module.exports = {
 		WAITING_APPROVAL: 0,
 		ACTIVE: 1,
 	},
+
+	// To create mongoose model & reference
+	MONGOOSE_MODEL_NAME: {
+		PRODUCT: 'Product',
+		CATALOG: 'Catalog',
+		CATEGORY: 'Category',
+		PRODUCT_DETAIL: 'ProductDetail',
+	},
+
+	// Min, max
+	MIN: {},
+	MAX: {
+		CATEGORY_NAME: 50,
+		CATALOG_NAME: 50,
+		PRODUCT_NAME: 150,
+		PRODUCT_PRICE: 1_000_000_000,
+		PRODUCT_STOCK: 1_000_000,
+	},
+
+	DEFAULT: {
+		PRODUCT_AVT: '',
+		PRODUCT_UNIT: 'Sản phẩm',
+	},
 };
