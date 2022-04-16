@@ -1,31 +1,18 @@
 <?php
 class CategoryModel
 {
-    private $_id;
-    private $catalogId;
-    private $name;
-    private $link;
+    use GetterSetter;
 
-    public function __construct($catalogId, $_id, $name, $link)
+    private string $_id;
+    private int $catalogId;
+    private string $name;
+    private string $link;
+
+    public function __construct(int $catalogId, string $_id, string $name, string $link)
     {
         $this->_id = $_id;
         $this->catalogId = $catalogId;
         $this->name = $name;
         $this->link = $link;
-    }
-
-    public function __get($property)
-    {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-        return null;
-    }
-
-    public function __set($property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
     }
 }

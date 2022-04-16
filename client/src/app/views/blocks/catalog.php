@@ -30,14 +30,14 @@ $catalogs = [
         <ul class="dropdown-menu catalog-menu" aria-labelledby="catalogDropdownBtn">
             <?php
             foreach ($catalogs as $catalog) {
-                $catalogName = $catalog->__get('name');
-                $catalogLink = $catalog->__get('link');
-                $categories = $catalog->__get('categories');
+                $catalogName = $catalog->_get('name');
+                $catalogLink = $catalog->_get('link');
+                $categories = $catalog->_get('categories');
 
                 $categoryMenuXml = "";
                 foreach ($categories as $category) {
-                    $categoryName = $category->__get('name');
-                    $categoryLink = $category->__get('link');
+                    $categoryName = $category->_get('name');
+                    $categoryLink = $category->_get('link');
 
                     $categoryMenuXml .= "<li class='category-item'>";
                     $categoryMenuXml .= "<a href='/category/$categoryLink'>$categoryName</a></li>";

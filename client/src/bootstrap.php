@@ -2,6 +2,10 @@
 <?php
 define('_DIR_ROOT', __DIR__);
 
+// Load ENV
+$dotenv = Dotenv\Dotenv::createImmutable(_DIR_ROOT);
+$dotenv->safeLoad();
+
 // Load config
 $config_files = scandir('configs');
 if (!empty($config_files)) {
@@ -12,16 +16,14 @@ if (!empty($config_files)) {
     }
 }
 
-// Load ENV
-$dotenv = Dotenv\Dotenv::createImmutable(_DIR_ROOT);
-$dotenv->safeLoad();
-
 // Load App
 require_once 'app/App.php';
 
 // Load Core Class
 require_once 'core/Controller.php';
 require_once 'core/Route.php';
+require_once 'core/MySQLConnection.php';
+require_once 'core/traits/GetterSetter.php';
 
 // Load utils
 require_once 'utils/constants.php';
