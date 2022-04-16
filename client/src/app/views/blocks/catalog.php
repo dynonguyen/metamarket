@@ -1,19 +1,11 @@
 <?php
-require_once _DIR_ROOT . '/app/models/Category.php';
-require_once _DIR_ROOT . '/app/models/Catalog.php';
 
-// dummy data
-$catalogs = [
-    new CatalogModel(1, 'Rau củ, trái cây', 'raucu-traicay', [
-        new CategoryModel(1, 1, 'Rau củ', 'rau-cu'),
-        new CategoryModel(1, 2, 'Trái cây', 'trai-cay')
-    ]),
-    new CatalogModel(2, 'Thịt, trứng, hải sản', 'thit-trung-haisan', [
-        new CategoryModel(2, 3, 'Thịt', 'thit'),
-        new CategoryModel(2, 4, 'Trứng', 'trung'),
-        new CategoryModel(2, 5, 'Hải sản', 'hai-san')
-    ])
-];
+$catalogs = [];
+$catalogApiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalog-category');
+extract($catalogApiRes);
+if ($statusCode == 200) {
+    $catalogs = $data;
+}
 
 ?>
 
@@ -30,14 +22,14 @@ $catalogs = [
         <ul class="dropdown-menu catalog-menu" aria-labelledby="catalogDropdownBtn">
             <?php
             foreach ($catalogs as $catalog) {
-                $catalogName = $catalog->_get('name');
-                $catalogLink = $catalog->_get('link');
-                $categories = $catalog->_get('categories');
+                $catalogName = $catalog->name;
+                $catalogLink = $catalog->link;
+                $categories = $catalog->categories;
 
                 $categoryMenuXml = "";
                 foreach ($categories as $category) {
-                    $categoryName = $category->_get('name');
-                    $categoryLink = $category->_get('link');
+                    $categoryName = $category->name;
+                    $categoryLink = $category->link;
 
                     $categoryMenuXml .= "<li class='category-item'>";
                     $categoryMenuXml .= "<a href='/category/$categoryLink'>$categoryName</a></li>";

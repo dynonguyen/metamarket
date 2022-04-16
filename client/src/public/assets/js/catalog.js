@@ -1,19 +1,17 @@
+/// <reference path="/home/dyno/development/my-devtools-config/Vscode/typings/jquery/globals/jquery/index.d.ts" />
+
 jQuery(function () {
-	const catalogItems = $('.catalog-item');
+	const catalogItems = $('.catalog-item i.bi');
 
-	catalogItems.on('mouseover', function () {
-		$(this)
-			.find('i.bi')
-			.removeClass('bi-chevron-down')
-			.addClass('bi-chevron-up');
-		$(this).find('.category-menu').slideDown(75);
-	});
+	catalogItems.on('click', function () {
+		const catalogItem = $(this).parents('.catalog-item');
 
-	catalogItems.on('mouseleave', function () {
-		$(this)
-			.find('i.bi')
-			.removeClass('bi-chevron-up')
-			.addClass('bi-chevron-down');
-		$(this).find('.category-menu').slideUp(75);
+		if ($(this).hasClass('bi-chevron-down')) {
+			$(this).removeClass('bi-chevron-down').addClass('bi-chevron-up');
+			catalogItem.find('.category-menu').slideDown();
+		} else {
+			$(this).removeClass('bi-chevron-up').addClass('bi-chevron-down');
+			catalogItem.find('.category-menu').slideUp();
+		}
 	});
 });

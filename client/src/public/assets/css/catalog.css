@@ -14,6 +14,11 @@
 	font-size: 1.8rem;
 }
 
+.dropdown-menu {
+	max-height: calc(100vh - 10.8rem);
+	overflow-y: auto;
+}
+
 .dropdown:hover .dropdown-menu {
 	display: block;
 	margin-top: 0;
@@ -24,17 +29,21 @@
 }
 
 .catalog-menu {
-	min-width: 24rem;
+	min-width: 28rem;
 	width: -webkit-max-content;
 	width: -moz-max-content;
 	width: max-content;
-	max-width: 28rem;
+	max-width: 32rem;
 
 	background-color: var(--mm-light);
 	padding: 0px;
 	border: none;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
 		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.catalog-menu::-webkit-scrollbar {
+	width: 4px;
 }
 
 .catalog-item {
@@ -68,9 +77,10 @@
 }
 
 .catalog-item-label i.bi {
-	flex-basis: 4rem;
+	flex-basis: 4.5rem;
 	flex-shrink: 0;
 	text-align: end;
+	cursor: pointer;
 }
 
 .category-menu {
@@ -82,10 +92,17 @@
 .category-item {
 	padding: 4px 0;
 	font-size: 1.6rem;
+	text-transform: capitalize;
 }
 
 .category-item:hover a,
 .category-item:active a {
 	color: var(--bs-orange);
 	font-weight: 500;
+}
+
+@media only screen and (max-width: 640px) {
+	.dropdown-menu {
+		max-height: calc(100vh - 15.6rem);
+	}
 }

@@ -74,7 +74,7 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 ### **Database Diagram**
 
-![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1650014745/metamarket/db-diagram.png)
+![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1650093397/metamarket/db-diagram.png)
 
 # Hướng dẫn chạy
 
