@@ -1,5 +1,5 @@
 const ApiGateway = require('moleculer-web');
-const { SVC_NAME } = require('../../utils/constants');
+const { SVC_NAME, CORS_URL } = require('../../utils/constants');
 const routes = require('./routes');
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
 		port: Number(process.env.GATEWAY_PORT) || 3000,
 		routes: routes,
 		cors: {
-			origin: '*',
+			origin: CORS_URL,
 			methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
 			allowedHeaders: [],
 			exposedHeaders: [],

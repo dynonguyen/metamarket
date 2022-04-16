@@ -45,6 +45,21 @@ const ProductSchema = new Schema({
 		min: 0,
 		max: 100,
 	},
+	purchaseTotal: {
+		type: Number,
+		required: true,
+		default: 0,
+	},
+	reviewTotal: {
+		type: Number,
+		required: true,
+		default: 0,
+	},
+	rateAvg: {
+		type: Number,
+		required: true,
+		default: 0,
+	},
 	avt: {
 		type: String,
 		required: true,

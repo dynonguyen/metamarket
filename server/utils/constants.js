@@ -122,4 +122,6 @@ module.exports = {
 		ADMIN: 1,
 		SUPPORTER: 2,
 	},
+
+	CORS_URL: process.env.CORS_URL || '*',
 };

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Moleculer ServiceBroker configuration file
@@ -27,23 +27,23 @@
  */
 module.exports = {
 	// Namespace of nodes to segment your nodes on the same network.
-	namespace: "metamarket",
+	namespace: 'metamarket',
 	// Unique node identifier. Must be unique in a namespace.
-	nodeID: "",
+	nodeID: '',
 	// Custom metadata store. Store here what you want. Accessing: `this.broker.metadata`
 	metadata: {},
 
 	// Enable/disable logging or use custom logger. More info: https://moleculer.services/docs/0.14/logging.html
 	// Available logger types: "Console", "File", "Pino", "Winston", "Bunyan", "debug", "Log4js", "Datadog"
 	logger: {
-		type: "Console",
+		type: 'Console',
 		options: {
 			// Using colors on the output
 			colors: true,
 			// Print module names with different colors (like docker-compose for containers)
 			moduleColors: false,
 			// Line formatter. It can be "json", "short", "simple", "full", a `Function` or a template string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
-			formatter: "full",
+			formatter: 'full',
 			// Custom object printer. If not defined, it uses the `util.inspect` method.
 			objectPrinter: null,
 			// Auto-padding the module name in order to messages begin at the same column.
@@ -52,7 +52,7 @@ module.exports = {
 	},
 	// Default log level for built-in console logger. It can be overwritten in logger options above.
 	// Available values: trace, debug, info, warn, error, fatal
-	logLevel: "info",
+	logLevel: 'info',
 
 	// Define transporter.
 	// More info: https://moleculer.services/docs/0.14/networking.html
@@ -62,12 +62,12 @@ module.exports = {
 
 	// Define a cacher.
 	// More info: https://moleculer.services/docs/0.14/caching.html
-	cacher: null,
+	cacher: 'memory',
 
 	// Define a serializer.
 	// Available values: "JSON", "Avro", "ProtoBuf", "MsgPack", "Notepack", "Thrift".
 	// More info: https://moleculer.services/docs/0.14/networking.html#Serialization
-	serializer: "JSON",
+	serializer: 'JSON',
 
 	// Number of milliseconds to wait before reject a request with a RequestTimeout error. Disabled: 0
 	requestTimeout: 5000,
@@ -114,7 +114,7 @@ module.exports = {
 	registry: {
 		// Define balancing strategy. More info: https://moleculer.services/docs/0.14/balancing.html
 		// Available values: "RoundRobin", "Random", "CpuUsage", "Latency", "Shard"
-		strategy: "RoundRobin",
+		strategy: 'RoundRobin',
 		// Enable local action call preferring. Always call the local action instance if available.
 		preferLocal: true,
 	},
@@ -155,12 +155,12 @@ module.exports = {
 		enabled: false,
 		// Available built-in reporters: "Console", "CSV", "Event", "Prometheus", "Datadog", "StatsD"
 		reporter: {
-			type: "Prometheus",
+			type: 'Prometheus',
 			options: {
 				// HTTP port
 				port: 3030,
 				// HTTP URL path
-				path: "/metrics",
+				path: '/metrics',
 				// Default labels which are appended to all metrics labels
 				defaultLabels: (registry) => ({
 					namespace: registry.broker.namespace,
@@ -175,7 +175,7 @@ module.exports = {
 		enabled: true,
 		// Available built-in exporters: "Console", "Datadog", "Event", "EventLegacy", "Jaeger", "Zipkin"
 		exporter: {
-			type: "Console", // Console exporter is only for development!
+			type: 'Console', // Console exporter is only for development!
 			options: {
 				// Custom logger
 				logger: null,
