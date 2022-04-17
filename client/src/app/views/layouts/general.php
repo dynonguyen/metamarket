@@ -55,9 +55,9 @@
     <?php require_once _DIR_ROOT . '/app/views/blocks/footer.php'; ?>
 </body>
 
+<script src="/public/vendors/jquery/jquery.min.js"></script>
 <?php require_once _DIR_ROOT . '/app/views/blocks/cdn/popper.php' ?>
 <script src="/public/vendors/bootstrap/bootstrap.min.js"></script>
-<script src="/public/vendors/jquery/jquery.min.js"></script>
 <script src="/public/assets/js/catalog.js"></script>
 
 <!-- Add JS link -->
