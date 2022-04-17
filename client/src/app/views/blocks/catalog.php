@@ -1,10 +1,13 @@
 <?php
 
 $catalogs = [];
-$catalogApiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalog-category');
+$catalogApiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs');
 extract($catalogApiRes);
 if ($statusCode == 200) {
     $catalogs = $data;
+    usort($catalogs, function ($cat1, $cat2) {
+        return $cat1->name <=> $cat2->name;
+    });
 }
 
 ?>

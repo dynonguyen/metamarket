@@ -14,6 +14,13 @@ const CatalogSchema = new Schema({
 		required: true,
 		trim: true,
 	},
+	categories: [
+		{
+			id: Number,
+			name: String,
+			link: String,
+		},
+	],
 });
 
 module.exports = CatalogSchema;

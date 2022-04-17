@@ -40,8 +40,6 @@ module.exports = [
 			// Product service
 			'GET products/demo': `${PRODUCT_SVC}.demo`,
 			'GET products/catalogs': `${PRODUCT_SVC}.getAllCatalogs`,
-			'GET products/categories': `${PRODUCT_SVC}.getAllCategories`,
-			'GET products/catalog-category': `${PRODUCT_SVC}.getCatalogWithCategory`,
 
 			// Review service
 			'GET reviews/demo': `${REVIEW_SVC}.demo`,
