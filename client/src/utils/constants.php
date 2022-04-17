@@ -11,3 +11,5 @@ define('SHIPPING_SERVICE_API_URL', $_ENV['SHIPPING_SERVICE_API'] ?? '');
 define('SHOP_SERVICE_API_URL', $_ENV['SHOP_SERVICE_API'] ?? '');
 define('SUPPORT_SERVICE_API_URL', $_ENV['SUPPORT_SERVICE_API'] ?? '');
 define('USER_SERVICE_API_URL', $_ENV['USER_SERVICE_API'] ?? '');
+
+define('DEFAULT_PRODUCT_AVT', 'https://res.cloudinary.com/dynonary/image/upload/v1650187901/metamarket/product-not-found.png');

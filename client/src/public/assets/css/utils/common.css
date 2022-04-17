@@ -3,14 +3,17 @@ body {
 	font-size: 62.5%;
 	width: 100%;
 	overflow-x: hidden;
+	background-color: #e5e6e7;
 }
 
 :root {
 	--mm-dark: #151522;
 	--mm-dark-gray: #333;
 	--mm-gray: #888;
+	--mm-medium-gray: #aaa;
 	--mm-light-gray: #ccc;
 	--mm-light: #eee;
+	--mm-light-primary: #394c6e;
 }
 
 /* Scroll bar */
@@ -36,4 +39,15 @@ li {
 
 a:hover {
 	color: var(--bs-info);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+	padding: 0;
 }

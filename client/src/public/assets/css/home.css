@@ -1,0 +1,21 @@
+.catalog-wrapper {
+	background-color: #fff;
+}
+
+.catalog-title {
+	padding: 1.2rem 1rem;
+	text-transform: uppercase;
+	font-size: 1.7rem;
+	background-color: var(--mm-light-primary);
+	color: #fff;
+}
+
+.catalog-more {
+	padding: 1.2rem 1rem;
+	border-top: solid 1px var(--mm-light);
+	text-align: center;
+	font-size: 1.5rem;
+	cursor: pointer;
+	font-weight: 500;
+	color: var(--bs-orange);
+}

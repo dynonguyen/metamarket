@@ -10,10 +10,10 @@
                 <img src="/public/assets/images/banner/banner-1.jpg" class="d-block w-100" alt="Khuyến mãi" data-bs-interval="1000">
             </div>
             <div class="carousel-item">
-                <img src="/public/assets/images/banner/banner-2.jpg" class="d-block w-100" alt="Khuyến m" data-bs-interval="1000">
+                <img src="/public/assets/images/banner/banner-2.jpg" class="d-block w-100" alt="Khuyến mãi" data-bs-interval="1000">
             </div>
             <div class="carousel-item">
-                <img src="/public/assets/images/banner/banner-3.jpg" class="d-block w-100" alt="Khuyến m" data-bs-interval="1000">
+                <img src="/public/assets/images/banner/banner-3.jpg" class="d-block w-100" alt="Khuyến mãi" data-bs-interval="1000">
             </div>
         </div>
         <button class="carousel-control-prev" style="width: 5%;" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">

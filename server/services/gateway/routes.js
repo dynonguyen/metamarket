@@ -11,6 +11,11 @@ const SHOP_SVC = SVC_NAME.SHOP;
 const SUPPORT_SVC = SVC_NAME.SUPPORT;
 const USER_SVC = SVC_NAME.USER;
 
+const productAliases = {
+	'GET products/demo': `${PRODUCT_SVC}.demo`,
+	'GET products/catalogs': `${PRODUCT_SVC}.getAllCatalogs`,
+};
+
 module.exports = [
 	{
 		path: '/api/v1',
@@ -38,8 +43,7 @@ module.exports = [
 			'GET payments/demo': `${PAYMENT_SVC}.demo`,
 
 			// Product service
-			'GET products/demo': `${PRODUCT_SVC}.demo`,
-			'GET products/catalogs': `${PRODUCT_SVC}.getAllCatalogs`,
+			...productAliases,
 
 			// Review service
 			'GET reviews/demo': `${REVIEW_SVC}.demo`,

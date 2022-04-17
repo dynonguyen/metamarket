@@ -37,3 +37,15 @@
 	background-color: rgba(0, 0, 0, 0.25);
 	display: none;
 }
+
+.btn-outline-accent {
+	border-color: var(--bs-orange) !important;
+	color: var(--bs-orange) !important;
+	outline: none;
+	box-shadow: none;
+}
+
+.btn-outline-primary-accent {
+	border-color: var(--bs-primary) !important;
+	color: var(--bs-primary) !important;
+}
