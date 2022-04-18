@@ -5,7 +5,7 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit)
     $discountRateXML = !empty($discount) ? "<label class='discount-rate'>-$discount%</label>" : "";
     $discountPrice = number_format(((100 + $discount) * $price) / 100, 0, ',', '.') . ' ₫';
     $discountPriceXML = !empty($discount) ? "<div class='discount'>$discountPrice</div>" :  "";
-    $formattedPrice = number_format($price, 0, ',', '.') . '<sup>₫</sup>';
+    $formattedPrice = number_format($price, 0, ',', '.') . ' ₫';
 
     echo "<div class='product-card'>
             <a href='/san-pham/$_id' class='product-top'>

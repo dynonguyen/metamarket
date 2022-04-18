@@ -6,7 +6,10 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports = {
 	getProductWithCatalog: {
-		cache: false,
+		cache: {
+			ttl: 5 * 60,
+			keys: ['catalogId', 'page', 'pageSize', 'select'],
+		},
 
 		params: {
 			catalogId: [

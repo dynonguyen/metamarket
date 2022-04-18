@@ -11,7 +11,9 @@ class Home extends Controller
 
         $this->setBasicData('home/index', 'Trang chủ');
         $this->data['cssLinks'] = ['home.css', 'product-card.css'];
-        $this->data['jsLinks'] = ['home.js', 'scroll-top.js'];
+        $this->data['jsLinks'] = ['utils/format.js', 'home.js', 'scroll-top.js'];
+        $this->data['passedVariables'] = ['PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL];
+
         $this->render('layouts/general', $this->data);
     }
 

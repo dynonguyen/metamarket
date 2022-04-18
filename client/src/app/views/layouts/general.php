@@ -58,10 +58,21 @@
 <script src="/public/vendors/jquery/jquery.min.js"></script>
 <?php require_once _DIR_ROOT . '/app/views/blocks/cdn/popper.php' ?>
 <script src="/public/vendors/bootstrap/bootstrap.min.js"></script>
+<?php
+// passed variable
+if (!empty($passedVariables)) {
+    echo "<script>";
+    foreach ($passedVariables as $key => $value) {
+        echo "const $key = '$value'";
+    }
+    echo "</script>";
+}
+?>
+
 <script src="/public/assets/js/catalog.js"></script>
 
-<!-- Add JS link -->
 <?php
+// Add JS link
 if (!empty($jsLinks)) {
     foreach ($jsLinks as $filename) {
         echo "<script src='/public/assets/js/$filename'></script>";

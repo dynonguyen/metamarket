@@ -4,7 +4,7 @@ const { MoleculerError } = require('moleculer').Errors;
 module.exports = {
 	getAllCatalogs: {
 		cache: {
-			key: ['select'],
+			keys: ['select'],
 			ttl: 86400, // 1 days
 		},
 

@@ -27,6 +27,7 @@ module.exports = {
 							})
 							.then((products) => {
 								result.push({
+									catalogId: catalog._id,
 									catalogName: catalog.name,
 									products,
 								});
