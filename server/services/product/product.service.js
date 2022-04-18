@@ -1,6 +1,6 @@
 const { SVC_NAME } = require('../../utils/constants');
-const { Product, Catalog, ProductDetail } = require('./product.db');
 const catalogActions = require('./actions/catalog.action');
+const productAction = require('./actions/product.action');
 
 module.exports = {
 	name: SVC_NAME.PRODUCT,
@@ -15,5 +15,6 @@ module.exports = {
 		},
 
 		...catalogActions,
+		...productAction,
 	},
 };

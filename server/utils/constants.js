@@ -106,6 +106,7 @@ module.exports = {
 	DEFAULT: {
 		PRODUCT_AVT: '',
 		PRODUCT_UNIT: 'Sản phẩm',
+		PAGE_SIZE: 10,
 	},
 
 	PAYMENT_METHOD: {

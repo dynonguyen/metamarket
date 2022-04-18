@@ -146,7 +146,7 @@ module.exports = {
 	},
 
 	// Enable action & event parameter validation. More info: https://moleculer.services/docs/0.14/validating.html
-	validator: true,
+	validator: 'Fastest',
 
 	errorHandler: null,
 

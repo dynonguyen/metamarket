@@ -12,8 +12,12 @@ const SUPPORT_SVC = SVC_NAME.SUPPORT;
 const USER_SVC = SVC_NAME.USER;
 
 const productAliases = {
-	'GET products/demo': `${PRODUCT_SVC}.demo`,
 	'GET products/catalogs': `${PRODUCT_SVC}.getAllCatalogs`,
+	'GET products/list/catalog/:catalogId': `${PRODUCT_SVC}.getProductWithCatalog`,
+};
+
+const aggregateAliases = {
+	'GET aggregates/homepage-products': `${AGGREGATE_SVC}.getHomepageProducts`,
 };
 
 module.exports = [
@@ -32,6 +36,7 @@ module.exports = [
 		aliases: {
 			// Aggregate service
 			'GET aggregates/demo': `${AGGREGATE_SVC}.demo`,
+			...aggregateAliases,
 
 			// Internal service
 			'GET internal/demo': `${INTERNAL_SVC}.demo`,
@@ -43,6 +48,7 @@ module.exports = [
 			'GET payments/demo': `${PAYMENT_SVC}.demo`,
 
 			// Product service
+			'GET products/demo': `${PRODUCT_SVC}.demo`,
 			...productAliases,
 
 			// Review service

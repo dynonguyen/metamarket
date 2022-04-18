@@ -1,4 +1,5 @@
 const { SVC_NAME } = require('../../utils/constants');
+const productAction = require('./actions/product.action');
 
 module.exports = {
 	name: SVC_NAME.AGGREGATE,
@@ -13,6 +14,8 @@ module.exports = {
 
 			return 'Kết quả tổng hợp lại nè: ' + data.toString();
 		},
+
+		...productAction,
 	},
 
 	events: {

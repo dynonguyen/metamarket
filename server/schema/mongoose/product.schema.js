@@ -3,9 +3,13 @@ const { MONGOOSE_MODEL_NAME, MAX, DEFAULT } = require('../../utils/constants');
 const { Schema } = mongoose;
 
 const ProductSchema = new Schema({
-	categoryId: {
+	catalogId: {
 		type: Schema.Types.ObjectId,
-		ref: MONGOOSE_MODEL_NAME.CATEGORY,
+		ref: MONGOOSE_MODEL_NAME.CATALOG,
+		required: true,
+	},
+	categoryId: {
+		type: Number,
 		required: true,
 	},
 	shopId: {
