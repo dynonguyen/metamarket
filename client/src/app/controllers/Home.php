@@ -3,7 +3,11 @@ class Home extends Controller
 {
     public function index()
     {
-        $this->data['viewContent']['data'] = [];
+        $this->data['viewContent']['productData'] = [];
+        $apiRes = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/homepage-products');
+        if ($apiRes['statusCode'] === 200) {
+            $this->data['viewContent']['productData'] = $apiRes['data'];
+        }
 
         $this->setBasicData('home/index', 'Trang chủ');
         $this->data['cssLinks'] = ['home.css', 'product-card.css'];
