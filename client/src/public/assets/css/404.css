@@ -1,0 +1,155 @@
+/*
+  Reference: https://freefrontend.com/html-css-404-page-templates/
+  Author: Manaswini
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	overflow: hidden;
+	background-color: #f4f6ff;
+}
+
+.container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Poppins', sans-serif;
+	position: relative;
+	left: 6vmin;
+	text-align: center;
+	transform: scale(0.75);
+}
+
+.cog-wheel1,
+.cog-wheel2 {
+	transform: scale(0.7);
+}
+
+.cog1,
+.cog2 {
+	width: 40vmin;
+	height: 40vmin;
+	border-radius: 50%;
+	border: 6vmin solid #ff5500;
+	position: relative;
+}
+
+.cog2 {
+	border: 6vmin solid #6f42c1;
+}
+
+.top,
+.down,
+.left,
+.right,
+.left-top,
+.left-down,
+.right-top,
+.right-down {
+	width: 10vmin;
+	height: 10vmin;
+	background-color: #ff5500;
+	position: absolute;
+}
+
+.cog2 .top,
+.cog2 .down,
+.cog2 .left,
+.cog2 .right,
+.cog2 .left-top,
+.cog2 .left-down,
+.cog2 .right-top,
+.cog2 .right-down {
+	background-color: #6f42c1;
+}
+
+.top {
+	top: -14vmin;
+	left: 9vmin;
+}
+
+.down {
+	bottom: -14vmin;
+	left: 9vmin;
+}
+
+.left {
+	left: -14vmin;
+	top: 9vmin;
+}
+
+.right {
+	right: -14vmin;
+	top: 9vmin;
+}
+
+.left-top {
+	transform: rotateZ(-45deg);
+	left: -8vmin;
+	top: -8vmin;
+}
+
+.left-down {
+	transform: rotateZ(45deg);
+	left: -8vmin;
+	top: 25vmin;
+}
+
+.right-top {
+	transform: rotateZ(45deg);
+	right: -8vmin;
+	top: -8vmin;
+}
+
+.right-down {
+	transform: rotateZ(-45deg);
+	right: -8vmin;
+	top: 25vmin;
+}
+
+.cog2 {
+	position: relative;
+	left: -10.2vmin;
+	bottom: 10vmin;
+}
+
+h1 {
+	color: #11254b;
+}
+
+.first-four {
+	position: relative;
+	left: 6vmin;
+	font-size: 40vmin;
+}
+
+.second-four {
+	position: relative;
+	right: 18vmin;
+	z-index: -1;
+	font-size: 40vmin;
+}
+
+.wrong-para {
+	font-family: 'Montserrat', sans-serif;
+	position: absolute;
+	bottom: 15vmin;
+	padding: 12px;
+	font-weight: 600;
+	color: #092532;
+	text-align: center;
+	width: 100vw;
+}
+
+.wrong-para a {
+	text-decoration: none;
+	color: #6f42c1;
+	font-weight: bold;
+}
