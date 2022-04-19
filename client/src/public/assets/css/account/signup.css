@@ -63,3 +63,25 @@
 .other-options a {
 	font-size: 1.6rem;
 }
+
+.password-field {
+	position: relative;
+}
+
+.password-field input {
+	padding: 0.75rem 3rem 0.75rem 1rem !important;
+}
+
+.password-field i {
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(calc(-50% + 0.2rem));
+	font-size: 1.6rem;
+	color: var(--mm-gray);
+	cursor: pointer;
+}
+
+.password-field i.bi-eye-fill {
+	color: var(--bs-info);
+}

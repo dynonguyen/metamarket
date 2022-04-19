@@ -50,4 +50,14 @@ jQuery(function () {
 
 		this.submit();
 	});
+
+	$('.password-icon').on('click', function () {
+		if ($(this).hasClass('bi-eye-slash-fill')) {
+			$(this).removeClass('bi-eye-slash-fill').addClass('bi-eye-fill');
+			$(this).siblings('input').attr('type', 'text');
+		} else {
+			$(this).removeClass('bi-eye-fill').addClass('bi-eye-slash-fill');
+			$(this).siblings('input').attr('type', 'password');
+		}
+	});
 });

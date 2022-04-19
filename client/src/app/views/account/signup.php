@@ -14,8 +14,14 @@
         ?>
 
         <input id='email' name='email' type='text' class='form-control form-control-lg' minlength="1" maxlength="150" placeholder='Email'>
-        <input id='password' name='password' type='password' class='form-control form-control-lg' placeholder='Mật khẩu' maxlength="100">
-        <input id='confirmPwd' type='password' class='form-control form-control-lg' placeholder='Nhập lại mật khẩu' maxlength="100">
+        <div class='password-field'>
+            <input id='password' name='password' type='password' class='form-control form-control-lg' placeholder='Mật khẩu' maxlength="100">
+            <i class='bi bi-eye-slash-fill password-icon'></i>
+        </div>
+        <div class='password-field'>
+            <input id='confirmPwd' type='password' class='form-control form-control-lg' placeholder='Nhập lại mật khẩu' maxlength="100">
+            <i class='bi bi-eye-slash-fill password-icon'></i>
+        </div>
         <input id='fullname' name='fullname' type='text' class='form-control form-control-lg' placeholder='Họ tên' maxlength="50">
 
         <button type='submit' id='submitBtn' class='btn btn-primary'>Đăng ký</button>
