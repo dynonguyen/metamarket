@@ -1,0 +1,65 @@
+#form {
+	padding: 2.8rem 3.6rem;
+	background-color: #fff;
+	max-width: 48rem;
+	margin: 0 auto;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.form-logo {
+	width: 10rem;
+	height: 10rem;
+}
+
+.form-title {
+	text-transform: uppercase;
+	font-size: 2rem;
+}
+
+.form-error {
+	color: var(--bs-danger);
+	font-size: 1.6rem;
+}
+
+#form .form-control {
+	margin-bottom: 1.2rem;
+	padding: 0.75rem 1rem;
+	font-size: 1.5rem;
+}
+
+#form .form-control::-webkit-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::-moz-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control:-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::placeholder {
+	color: var(--mm-gray);
+}
+
+#submitBtn {
+	width: 100%;
+	padding: 0.65rem 1rem;
+	font-size: 1.5rem;
+	border-radius: 6px;
+}
+
+.other-options {
+	display: flex;
+	justify-content: space-between;
+	border-top: solid 1px var(--mm-light-gray);
+}
+
+.other-options a {
+	font-size: 1.6rem;
+}

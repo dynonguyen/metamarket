@@ -3,19 +3,17 @@ class Controller
 {
     protected $data = [];
 
-    public function model($modelName = '')
+    function __construct()
     {
-        $pathModelFile = _DIR_ROOT . '/app/models/' . $modelName . '.php';
-        if (file_exists($pathModelFile)) {
-            require_once $pathModelFile;
-            if (class_exists($modelName)) {
-                return new $modelName();
-            }
-        }
-        return null;
+        $this->data['cssLinks'] = [];
+        $this->data['jsLinks'] = [];
+        $this->data['pageTitle'] = 'MetaMarket';
+        $this->data['passedVariables'] = [];
+        $this->data['viewPath'] = '';
+        $this->data['viewContent'] = [];
     }
 
-    public function render($view = '', $data = [])
+    public function render(string $view = '', array $data = [])
     {
         // Transform array keys to variables
         extract($data);
@@ -26,9 +24,49 @@ class Controller
         }
     }
 
-    public function setBasicData(string $viewPath, string $pageTitle = '')
+    public function appendCssLink(string | array $cssFileName)
+    {
+        if (is_array($cssFileName)) {
+            $this->data['cssLinks'] = array_merge($this->data['cssLinks'], $cssFileName);
+        } else {
+            array_push($this->data['cssLinks'], $cssFileName);
+        }
+    }
+
+    public function appendJSLink(string | array $jsFileName)
+    {
+        if (is_array($jsFileName)) {
+            $this->data['jsLinks'] = array_merge($this->data['jsLinks'], $jsFileName);
+        } else {
+            array_push($this->data['jsLinks'], $jsFileName);
+        }
+    }
+
+    public function setPassedVariables(array $variables)
+    {
+        $this->data['passedVariables'] = array_merge($this->data['passedVariables'], $variables);
+    }
+
+    public function setPageTitle(string $pageTitle = '')
+    {
+        if (!empty($pageTitle)) {
+            $this->data['pageTitle'] = $pageTitle . ' | MetaMarket';
+        }
+    }
+
+    public function setContentViewPath(string $viewPath)
     {
         $this->data['viewPath'] = $viewPath;
-        $this->data['pageTitle'] = $pageTitle . ' | MetaMarket';
+    }
+
+    public function setViewContent(string $key, $value)
+    {
+        $this->data['viewContent'][$key] = $value;
+    }
+
+    public static function redirect(string $url = '', int $statusCode = 301)
+    {
+        header('Location:' . $url, true, $statusCode);
+        exit(0);
     }
 }
