@@ -19,3 +19,13 @@ define('MAX_LEN_EMAIL', 150);
 define('MAX_LEN_FULLNAME', 50);
 define('MAX_LEN_PASSWORD', 50);
 define('BCRYPT_SALT', 10);
+
+// Jwt
+define('JWT_SECRET_KEY', $_ENV['JWT_SECRET_KEY'] ?? 'secret');
+define('JWT_ISSUER', $_ENV['JWT_ISSUER'] ?? 'MetaMarket');
+define('JWT_ALG', $_ENV['JWT_ALG'] ?? 'HS265');
+define('JWT_EXP', 3 * 86400); // 3 days
+
+// Cookie
+define('COOKIE_LOGIN_KEY', 'atk');
+define('COOKIE_LOGIN_EXP', time() + 3 * 86400); // 3 days

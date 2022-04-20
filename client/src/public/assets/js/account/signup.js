@@ -46,6 +46,10 @@ jQuery(function () {
 			);
 		}
 
+		if (password !== confirmPwd) {
+			return showFormError('Mật khẩu không khớp !');
+		}
+
 		$('#formError').addClass('d-none');
 
 		this.submit();

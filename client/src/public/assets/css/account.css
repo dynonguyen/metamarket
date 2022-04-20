@@ -49,9 +49,10 @@
 
 #submitBtn {
 	width: 100%;
-	padding: 0.65rem 1rem;
+	padding: 0.75rem 1rem;
 	font-size: 1.5rem;
 	border-radius: 6px;
+	text-transform: capitalize;
 }
 
 .other-options {
@@ -84,4 +85,20 @@
 
 .password-field i.bi-eye-fill {
 	color: var(--bs-info);
+}
+
+.login-gg-btn {
+	padding: 0.75rem 1rem;
+	border-radius: 6px;
+	border: solid 1px var(--mm-light-gray);
+	cursor: pointer;
+}
+
+.login-gg-btn i {
+	font-size: 1.8rem;
+}
+
+.login-gg-btn span {
+	font-size: 1.5rem;
+	text-transform: capitalize;
 }

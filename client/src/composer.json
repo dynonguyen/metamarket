@@ -3,6 +3,7 @@
 	"type": "project",
 	"description": "MetaMarket Client",
 	"require": {
-		"vlucas/phpdotenv": "^5.4"
+		"vlucas/phpdotenv": "^5.4",
+		"firebase/php-jwt": "^6.1"
 	}
 }
