@@ -7,7 +7,7 @@ class Account extends Controller
 {
     public function index()
     {
-        self::redirect('/tai-khoan/dang-ky', 301);
+        self::redirect('/tai-khoan/dang-nhap', 301);
     }
 
     public function signup()
@@ -71,7 +71,12 @@ class Account extends Controller
 
     public function login()
     {
-        $this->renderLoginPage();
+        global $user;
+        if ($user->_get('userId')) {
+            self::redirect('/');
+        } else {
+            $this->renderLoginPage();
+        }
     }
 
     public function postLogin()

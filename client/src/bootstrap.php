@@ -24,6 +24,7 @@ require_once 'core/Controller.php';
 require_once 'core/Route.php';
 require_once 'core/MySQLConnection.php';
 require_once 'core/traits/GetterSetter.php';
+require_once 'core/global-var.php';
 
 // Load utils
 require_once 'utils/constants.php';

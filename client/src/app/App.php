@@ -1,5 +1,7 @@
 <?php
 
+require_once _DIR_ROOT . '/utils/Jwt.php';
+
 /** 
  *
  * Phân tích URL thành controller, action và params
@@ -17,6 +19,7 @@ class App
             $this->controller = $routes['default_controller'];
             unset($routes['default_controller']);
         }
+
         $this->action = 'index';
         $this->params = [];
         $this->routes = new Route();
@@ -97,6 +100,7 @@ class App
         $this->params = array_values($urlSplits);
         // check the existence of action method
         if (method_exists($this->controller, $this->action)) {
+            $this->getUser();
             call_user_func_array([$this->controller, $this->action], $this->params);
         } else {
             $this->handleError('404');
@@ -106,5 +110,23 @@ class App
     function handleError($name = '404')
     {
         require_once 'errors/' . $name . '.php';
+    }
+
+    private function getUser()
+    {
+        global $user;
+        if (isset($_COOKIE[COOKIE_LOGIN_KEY])) {
+            $accessToken = $_COOKIE[COOKIE_LOGIN_KEY];
+            $jwtDecoded = JwtUtil::decode($accessToken);
+
+            if (!empty($jwtDecoded)) {
+                $userId = $jwtDecoded['sub']->userId;
+                $checkUser = UserModel::findUserById($userId);
+
+                if (!empty($checkUser)) {
+                    $user = $checkUser;
+                }
+            }
+        }
     }
 }
