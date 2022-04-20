@@ -9,7 +9,10 @@
 
                 if (!empty($user->_get('userId'))) {
                     $fullname = $fullname = substr($user->_get('fullname'), 0, 30);
-                    echo "<span>$fullname</span>";
+                    echo "<div class='d-flex flex-column ms-2'>
+                            <span>$fullname</span>
+                            <a href='/account/logout' id='logout'>Đăng xuất</a>
+                        </div>";
                 } else {
                     echo "<span>Tài khoản</span>";
                 }
@@ -42,7 +45,10 @@
 
                     if (!empty($user->_get('userId'))) {
                         $fullname = substr($user->_get('fullname'), 0, 15);
-                        echo "<span>$fullname</span>";
+                        echo "<div class='d-flex flex-column ms-2'>
+                            <span>$fullname</span>
+                            <a href='/account/logout' id='logout'>Đăng xuất</a>
+                        </div>";
                     } else {
                         echo "<span>Tài khoản</span>";
                     }
@@ -50,7 +56,7 @@
                 </a>
                 <a href="/gio-hang" class="vertical-center cart-group ms-5">
                     <i class="bi bi-cart-fill me-2"></i>
-                    <span>Giỏ hàng <span id="quantity">(1)</span></span>
+                    <span>Giỏ hàng <span id="quantity"></span></span>
                 </a>
             </div>
         </div>

@@ -119,12 +119,19 @@ class Account extends Controller
         self::redirect('/', 301);
     }
 
+    public function logout()
+    {
+        setcookie(COOKIE_LOGIN_KEY, "", time() - COOKIE_LOGIN_EXP, "/");
+        self::redirect('/');
+    }
+
     // Private methods
     private function renderSignupPage()
     {
         $this->setContentViewPath('account/signup');
         $this->appendCssLink(['account.css']);
         $this->appendJSLink(['account/signup.js']);
+        $this->setPageTitle('Đăng ký');
         $this->render('layouts/general', $this->data);
     }
 
@@ -133,6 +140,7 @@ class Account extends Controller
         $this->setContentViewPath('account/login');
         $this->appendCssLink(['account.css']);
         $this->appendJSLink(['account/login.js']);
+        $this->setPageTitle('Đăng nhập');
         $this->render('layouts/general', $this->data);
     }
 }
