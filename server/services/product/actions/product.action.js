@@ -77,8 +77,7 @@ module.exports = {
 				});
 				return product;
 			} catch (error) {
-				this.logger.error(error);
-				return null;
+				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
@@ -97,8 +96,7 @@ module.exports = {
 				const productDetail = await ProductDetail.findOne({ productId });
 				return productDetail;
 			} catch (error) {
-				this.logger.error(error);
-				return null;
+				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
@@ -126,8 +124,7 @@ module.exports = {
 
 				return products;
 			} catch (error) {
-				this.logger.error(error);
-				return null;
+				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},

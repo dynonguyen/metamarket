@@ -7,7 +7,7 @@
 	width: 100%;
 	height: 100%;
 	-o-object-fit: contain;
-	   object-fit: contain;
+	object-fit: contain;
 }
 
 .product-photo .avt {
@@ -50,15 +50,15 @@
 }
 
 /* Basic info */
-.product-name {
+.product .product-name {
 	font-size: 2.2rem;
 	font-weight: 400;
 	letter-spacing: 0.5px;
 	word-break: break-all;
 }
 
-.product-code,
-.product-exp {
+.product .product-code,
+.product .product-exp {
 	color: var(--mm-gray);
 	font-size: 1.6rem;
 	font-weight: normal;
@@ -80,20 +80,20 @@
 	font-weight: bold;
 }
 
-.product-price {
+.product .product-price {
 	padding: 2rem 1.4rem;
 	margin: 12px 0;
 	background-color: var(--mm-secondary-bg);
 }
 
-.product-price .price {
+.product .product-price .price {
 	font-size: 3rem;
 	letter-spacing: 1px;
 	color: var(--bs-danger);
 	font-weight: 500;
 }
 
-.product-price .discount {
+.product .product-price .discount {
 	margin: 0 12px;
 	font-size: 1.6rem;
 	color: var(--mm-gray);
@@ -216,6 +216,11 @@ h2.title {
 	text-align: right;
 }
 
+.updating {
+	font-size: 1.8rem;
+	color: var(--mm-gray);
+}
+
 /* Shop info */
 .shop-info .logo {
 	width: 8rem;
@@ -271,16 +276,21 @@ h2.title {
 	padding-bottom: 6px;
 	border-bottom: solid 1px var(--mm-light-gray);
 	margin-bottom: 16px;
+	max-width: 800px;
 }
 
 .comment-name {
 	font-size: 1.5rem;
+	font-weight: 500;
 }
 
 .comment-rating {
 	color: var(--bs-orange);
-	font-size: 1.6rem;
-	margin-right: 4px;
+	font-size: 1.2rem;
+}
+
+.comment-rating i {
+	margin-right: 2px;
 }
 
 .comment-date {
@@ -292,6 +302,22 @@ h2.title {
 	font-size: 1.6rem;
 	word-break: break-all;
 	margin-top: 6px;
+}
+
+.comment-box {
+	max-width: 800px;
+}
+
+.comment-box .form-control,
+.comment-box .btn {
+	font-size: 1.6rem;
+	padding: 0.75rem 1.25rem;
+}
+
+.comment-box i {
+	font-size: 2rem;
+	margin-right: 4px;
+	cursor: pointer;
 }
 
 /* Shop's other products */

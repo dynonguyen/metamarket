@@ -2,6 +2,26 @@
 	box-shadow: none !important;
 }
 
+.form-control::-webkit-input-placeholder {
+	color: var(--mm-gray);
+}
+
+.form-control::-moz-placeholder {
+	color: var(--mm-gray);
+}
+
+.form-control:-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+.form-control::-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+.form-control::placeholder {
+	color: var(--mm-gray);
+}
+
 a {
 	text-decoration: none;
 }

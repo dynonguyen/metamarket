@@ -1,6 +1,7 @@
 const { SVC_NAME } = require('../../utils/constants');
 const { Shop, Account } = require('../user/user.db');
 const { Sequelize } = require('sequelize');
+const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	name: SVC_NAME.SHOP,
@@ -38,8 +39,7 @@ module.exports = {
 					});
 					return shop;
 				} catch (error) {
-					this.logger.error(error);
-					return null;
+					throw new MoleculerError(error.toString(), 500);
 				}
 			},
 		},

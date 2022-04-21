@@ -1,5 +1,6 @@
 const { SVC_NAME } = require('../../utils/constants');
 const { AppReview, Comment, ShopReview } = require('./review.db');
+const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	name: SVC_NAME.REVIEW,
@@ -21,8 +22,7 @@ module.exports = {
 					);
 					return comments;
 				} catch (error) {
-					this.logger.error(error);
-					return [];
+					throw new MoleculerError(error.toString(), 500);
 				}
 			},
 		},
