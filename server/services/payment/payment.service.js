@@ -4,9 +4,5 @@ const { UserPayment, ShopPayment } = require('./payment.db');
 module.exports = {
 	name: SVC_NAME.PAYMENT,
 
-	actions: {
-		demo(ctx) {
-			return 'Hi Payment';
-		},
-	},
+	actions: {},
 };

@@ -18,6 +18,7 @@ const productAliases = {
 
 const aggregateAliases = {
 	'GET aggregates/homepage-products': `${AGGREGATE_SVC}.getHomepageProducts`,
+	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
 };
 
 module.exports = [

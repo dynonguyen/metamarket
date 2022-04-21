@@ -9,9 +9,5 @@ const {
 module.exports = {
 	name: SVC_NAME.SUPPORT,
 
-	actions: {
-		demo(ctx) {
-			return 'Hi support';
-		},
-	},
+	actions: {},
 };

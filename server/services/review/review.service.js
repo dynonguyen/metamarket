@@ -5,8 +5,26 @@ module.exports = {
 	name: SVC_NAME.REVIEW,
 
 	actions: {
-		demo(ctx) {
-			return 'Hi review';
+		getCommentByProductId: {
+			cache: false,
+			params: {
+				productId: {
+					type: 'string',
+					length: 24,
+				},
+			},
+			async handler(ctx) {
+				const { productId } = ctx.params;
+				try {
+					const comments = await Comment.find({ productId }).select(
+						'-_id -productId',
+					);
+					return comments;
+				} catch (error) {
+					this.logger.error(error);
+					return [];
+				}
+			},
 		},
 	},
 };
