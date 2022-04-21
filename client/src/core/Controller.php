@@ -69,4 +69,10 @@ class Controller
         header('Location:' . $url, true, $statusCode);
         exit(0);
     }
+
+    public static function renderErrorPage(string $errorCode = '404')
+    {
+        require_once _DIR_ROOT . '/app/errors/' . $errorCode . '.php';
+        exit(0);
+    }
 }

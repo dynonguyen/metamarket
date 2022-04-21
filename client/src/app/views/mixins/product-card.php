@@ -1,4 +1,5 @@
 <?php
+// Required product-card.css
 function renderProductCard($_id, $name, $avt, $price, $discount, $unit)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : $avt;

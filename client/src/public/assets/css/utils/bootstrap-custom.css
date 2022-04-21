@@ -6,9 +6,12 @@ a {
 	text-decoration: none;
 }
 
+.btn {
+	box-shadow: none !important;
+}
+
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
 	background-color: var(--mm-light-primary);
-	box-shadow: none;
 }
