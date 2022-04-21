@@ -4,6 +4,7 @@
 	"description": "MetaMarket Client",
 	"require": {
 		"vlucas/phpdotenv": "^5.4",
-		"firebase/php-jwt": "^6.1"
+		"firebase/php-jwt": "^6.1",
+		"google/apiclient": "^2.12"
 	}
 }

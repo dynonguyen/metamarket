@@ -114,15 +114,63 @@ class Account extends Controller
         $userId = !empty($user) ? $user->_get('userId') : '';
 
         // set cookie
-        $jwt = JwtUtil::encode(['accountId' => $accountId, 'userId' => $userId], JWT_EXP);
-        setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
-        self::redirect('/', 301);
+        $this->onLoginSuccess($accountId, $userId);
     }
 
     public function logout()
     {
         setcookie(COOKIE_LOGIN_KEY, "", time() - COOKIE_LOGIN_EXP, "/");
         self::redirect('/');
+    }
+
+    public function loginGoogle()
+    {
+        $client = $this->getGoogleAPIClient();
+
+        if (isset($_GET['code'])) {
+            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $client->setAccessToken($token['access_token']);
+
+            // Get profile
+            $googleOAuth = new Google\Service\Oauth2($client);
+            $accountInfo = $googleOAuth->userinfo->get();
+            $email = $accountInfo->email;
+            $name = $accountInfo->name;
+            $googleId = $accountInfo->id;
+
+            // Check account in database
+            $isExist = AccountModel::isExistByEmail($email);
+            if ($isExist) {
+                $account = AccountModel::findAccountByEmail($email);
+                $accountId = $account->_get('accountId');
+                $user = UserModel::findUserByAccountId($accountId);
+                $userId = $user->_get('userId');
+
+                $this->onLoginSuccess($accountId, $userId);
+            } else {
+                // Create account & user
+                $conn = MySQLConnection::getConnect();
+
+                $sql = "INSERT INTO	accounts (email, googleId, createdAt, updatedAt) VALUES (?,?,?,?)";
+                $now = date_create('now')->format('Y-m-d H:i:s');
+                $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $googleId, $now, $now]);
+
+                if ((int)$isCreateAccountSuccess === 1) {
+                    $accountId = $conn->lastInsertId();
+                    $sql = "INSERT INTO	users (accountId, fullname, createdAt, updatedAt) VALUES (?,?,?,?)";
+                    $isUserSuccess = $conn->prepare($sql)->execute([$accountId, $name, $now, $now]);
+
+                    if ((int)$isUserSuccess === 1) {
+                        $userId = $conn->lastInsertId();
+                        $this->onLoginSuccess($accountId, $userId);
+                    } else {
+                        throw new Exception("Đăng nhập thất bại");
+                    }
+                } else {
+                    throw new Exception("Đăng nhập thất bại");
+                }
+            }
+        }
     }
 
     // Private methods
@@ -137,10 +185,32 @@ class Account extends Controller
 
     private function renderLoginPage()
     {
+
+        $googleClient = $this->getGoogleAPIClient();
+
+        $this->setViewContent('googleLoginLink', $googleClient->createAuthUrl());
         $this->setContentViewPath('account/login');
         $this->appendCssLink(['account.css']);
         $this->appendJSLink(['account/login.js']);
         $this->setPageTitle('Đăng nhập');
         $this->render('layouts/general', $this->data);
+    }
+
+    private function getGoogleAPIClient()
+    {
+        $client = new Google\Client();
+        $client->setClientId(GOOGLE_API_ID);
+        $client->setClientSecret(GOOGLE_API_SECRET);
+        $client->setRedirectUri(GOOGLE_API_CALLBACK_URL);
+        $client->addScope("email");
+        $client->addScope("profile");
+        return $client;
+    }
+
+    private function onLoginSuccess($accountId, $userId)
+    {
+        $jwt = JwtUtil::encode(['accountId' => $accountId, 'userId' => $userId], JWT_EXP);
+        setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
+        self::redirect('/', 301);
     }
 }

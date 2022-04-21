@@ -30,3 +30,8 @@ define('JWT_EXP', 3 * 86400); // 3 days
 // Cookie
 define('COOKIE_LOGIN_KEY', 'atk');
 define('COOKIE_LOGIN_EXP', time() + 3 * 86400); // 3 days
+
+// Google API
+define('GOOGLE_API_ID', $_ENV['GOOGLE_API_ID'] ?? '');
+define('GOOGLE_API_SECRET', $_ENV['GOOGLE_API_SECRET'] ?? '');
+define('GOOGLE_API_CALLBACK_URL', $_ENV['GOOGLE_API_CALLBACK_URL'] ?? '');

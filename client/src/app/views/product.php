@@ -268,7 +268,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                 ?>
             </ul>
         <?php } else { ?>
-            <p class='updating'>Chưa có đánh giá nào</p>
+            <p class='updating mb-4'>Chưa có đánh giá nào</p>
         <?php } ?>
 
         <h2 class='title'>Bình luận</h2>
@@ -277,7 +277,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
 
             <?php
             global $user;
-            if (!empty($user->fullname)) {
+            if (empty($user->_get('fullname'))) {
                 echo "<div class='d-flex mt-3'>
                     <input type='text' placeholder='Họ tên (bắt buộc)' class='form-control form-control-lg me-2'>
                     <input type='text' placeholder='Email (bắt buộc)' class='form-control form-control-lg'>

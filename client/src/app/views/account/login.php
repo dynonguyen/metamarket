@@ -21,10 +21,10 @@
 
         <button type='submit' id='submitBtn' class='btn btn-primary'>Đăng nhập</button>
 
-        <div class='login-gg-btn flex-center mt-3'>
-            <i class='bi bi-google me-3'></i>
-            <span>Đăng nhập với Google</span>
-        </div>
+        <?php echo "<a href='$googleLoginLink' class='login-gg-btn flex-center mt-3'>"; ?>
+        <i class='bi bi-google me-3'></i>
+        <span>Đăng nhập với Google</span>
+        </a>
 
         <div class='other-options mt-5 pt-3'>
             <a href='/' class='orange-color'>Quên mật khẩu ?</a>
