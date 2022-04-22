@@ -27,7 +27,7 @@ module.exports = {
 		},
 	},
 
-	getCatalogIdByLink: {
+	getCatalogByLink: {
 		cache: {
 			ttl: 86400,
 			keys: ['catalogLink'],
@@ -43,10 +43,8 @@ module.exports = {
 			const { catalogLink } = ctx.params;
 
 			try {
-				const catalogId = await Catalog.findOne({ link: catalogLink }).select(
-					'_id',
-				);
-				return catalogId._id;
+				const catalog = await Catalog.findOne({ link: catalogLink });
+				return catalog;
 			} catch (error) {
 				throw new MoleculerError(error.toString(), 500);
 			}

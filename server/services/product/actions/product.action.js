@@ -64,6 +64,74 @@ module.exports = {
 		},
 	},
 
+	getProductWithCategory: {
+		cache: {
+			ttl: 5 * 60,
+			keys: ['catalogId', 'categoryId', 'page', 'pageSize', 'select', 'sort'],
+		},
+
+		params: {
+			catalogId: [
+				{
+					type: 'string',
+					length: 24,
+				},
+				{
+					type: 'objectID',
+					ObjectID,
+				},
+			],
+			categoryId: [
+				{
+					type: 'string',
+					numeric: true,
+				},
+				{
+					type: 'number',
+				},
+			],
+			page: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: '1',
+			},
+			pageSize: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: DEFAULT.PAGE_SIZE.toString(),
+			},
+			select: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+			sort: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+		},
+
+		async handler(ctx) {
+			let { catalogId, categoryId, page, pageSize, select, sort } = ctx.params;
+			[page, pageSize] = [page, pageSize].map(Number);
+
+			try {
+				const productDocs = await mongoosePaginate(
+					Product,
+					{ catalogId, categoryId },
+					{ pageSize, page },
+					{ select, sort },
+				);
+				return productDocs;
+			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	getBasicProductInfoById: {
 		cache: false,
 		params: {

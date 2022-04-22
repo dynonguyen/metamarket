@@ -13,8 +13,9 @@ const USER_SVC = SVC_NAME.USER;
 
 const productAliases = {
 	'GET products/catalogs': `${PRODUCT_SVC}.getAllCatalogs`,
-	'GET products/catalog/id/:catalogLink': `${PRODUCT_SVC}.getCatalogIdByLink`,
+	'GET products/catalog/:catalogLink': `${PRODUCT_SVC}.getCatalogByLink`,
 	'GET products/list/catalog/:catalogId': `${PRODUCT_SVC}.getProductWithCatalog`,
+	'GET products/list/category/:catalogId/:categoryId': `${PRODUCT_SVC}.getProductWithCategory`,
 };
 
 const aggregateAliases = {

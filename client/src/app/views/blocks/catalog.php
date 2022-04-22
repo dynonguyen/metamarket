@@ -35,7 +35,7 @@ if ($statusCode == 200) {
                     $categoryLink = $category->link;
 
                     $categoryMenuXml .= "<li class='category-item'>";
-                    $categoryMenuXml .= "<a href='/category/$categoryLink'>$categoryName</a></li>";
+                    $categoryMenuXml .= "<a href='/category/$catalogLink/$categoryLink'>$categoryName</a></li>";
                 }
 
                 echo ("<li class='catalog-item'>
