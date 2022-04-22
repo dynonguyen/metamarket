@@ -63,7 +63,7 @@
 if (!empty($passedVariables)) {
     echo "<script>";
     foreach ($passedVariables as $key => $value) {
-        echo "const $key = '$value'";
+        echo "const $key = '$value';";
     }
     echo "</script>";
 }

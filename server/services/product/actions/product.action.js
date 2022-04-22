@@ -8,7 +8,7 @@ module.exports = {
 	getProductWithCatalog: {
 		cache: {
 			ttl: 5 * 60,
-			keys: ['catalogId', 'page', 'pageSize', 'select'],
+			keys: ['catalogId', 'page', 'pageSize', 'select', 'sort'],
 		},
 
 		params: {
@@ -39,10 +39,15 @@ module.exports = {
 				optional: true,
 				default: '',
 			},
+			sort: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
 		},
 
 		async handler(ctx) {
-			let { catalogId, page, pageSize, select } = ctx.params;
+			let { catalogId, page, pageSize, select, sort } = ctx.params;
 			[page, pageSize] = [page, pageSize].map(Number);
 
 			try {
@@ -50,7 +55,7 @@ module.exports = {
 					Product,
 					{ catalogId },
 					{ pageSize, page },
-					{ select },
+					{ select, sort },
 				);
 				return productDocs;
 			} catch (error) {

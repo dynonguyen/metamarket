@@ -1,6 +1,20 @@
 jQuery(function () {
-	// Load more
-	$('.catalog-more').on('click', async function () {
+	$('#sort').on('change', function () {
+		const sortValue = $(this).val();
+		let url = '';
+
+		if (sortValue) {
+			url = `${location.origin + location.pathname}?s=${sortValue}`;
+		} else {
+			url = `${location.origin + location.pathname}`;
+		}
+
+		if (url !== location.href) {
+			window.location.href = url;
+		}
+	});
+
+	$('#loadMore').on('click', async function () {
 		$(this).addClass('disabled');
 		$(this).find('.spinner-border').removeClass('d-none');
 
@@ -12,14 +26,14 @@ jQuery(function () {
 
 		try {
 			const apiResStr = await fetch(
-				`${PRODUCT_SERVICE_API_URL}/list/catalog/${catalogId}?page=${nextPage}&pageSize=${pageSize}&select=${select}`,
+				`${PRODUCT_SERVICE_API_URL}/list/catalog/${catalogId}?page=${nextPage}&pageSize=${pageSize}&select=${select}&sort=${sort}`,
 			);
 			if (apiResStr.status === 200) {
 				const productDocs = await apiResStr.json();
 				const { docs, total } = productDocs;
 				const productXml = renderProductList(docs);
 
-				$(this).siblings('.product-list').append(productXml);
+				$('#productList').append(productXml);
 				$(this)
 					.find('.rest')
 					.html(total - (page * pageSize + docs.length));

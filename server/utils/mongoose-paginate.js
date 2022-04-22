@@ -7,11 +7,13 @@ const mongoosePaginate = async (
 	{ pageSize = DEFAULT.PAGE_SIZE, page = 1 },
 	options = {
 		select: '',
+		sort: '',
 	},
 ) => {
 	// check if object is mongoose model
 	if (Model && Model.prototype instanceof mongoose.Model) {
 		[page, pageSize] = [page, pageSize].map(Number);
+		const { sort = '', select = '' } = options;
 		const promises = [];
 		let result = { total: 0, page, pageSize, docs: [] };
 
@@ -27,6 +29,7 @@ const mongoosePaginate = async (
 				.skip((page - 1) * pageSize)
 				.limit(pageSize)
 				.select(options.select)
+				.sort(sort)
 				.then((data) => (result.docs = data)),
 		);
 
