@@ -70,6 +70,7 @@ if (!empty($passedVariables)) {
 ?>
 
 <script src="/public/assets/js/catalog.js"></script>
+<script src="/public/assets/js/utils/cart.js"></script>
 
 <?php
 // Add JS link

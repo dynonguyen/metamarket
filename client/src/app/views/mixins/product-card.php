@@ -26,7 +26,7 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit)
                 </div>
             </div>
             <div class='product-bottom'>
-                <button class='btn btn-outline-primary-accent'>Thêm giỏ hàng</button>
+                <button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price'>Thêm giỏ hàng</button>
             </div>
         </div>";
 }

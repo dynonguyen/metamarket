@@ -20,7 +20,7 @@
             </a>
             <a href="/gio-hang" class="vertical-center cart-group ms-5">
                 <i class="bi bi-cart-fill me-2"></i>
-                <span>Giỏ hàng <span id="quantity"></span></span>
+                <span>Giỏ hàng <span id="cartQuantityMobile"></span></span>
             </a>
         </div>
 
@@ -56,7 +56,10 @@
                 </a>
                 <a href="/gio-hang" class="vertical-center cart-group ms-5">
                     <i class="bi bi-cart-fill me-2"></i>
-                    <span>Giỏ hàng <span id="quantity"></span></span>
+                    <div class='d-flex flex-column'>
+                        <span>Giỏ hàng <span id="cartQuantity"></span></span>
+                        <span id="cartMoney"></span>
+                    </div>
                 </a>
             </div>
         </div>
