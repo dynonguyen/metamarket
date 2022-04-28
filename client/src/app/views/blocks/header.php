@@ -33,8 +33,8 @@
             </a>
 
             <div class="d-flex search-bar flex-grow-1 ms-5 mx-sm-5">
-                <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm ...">
-                <i class="bi bi-search"></i>
+                <input type="text" class="form-control" id="keywordInput" placeholder="Nhập sản phẩm cần tìm ...">
+                <i class="bi bi-search" id="search"></i>
             </div>
 
             <div class="d-flex right-side">

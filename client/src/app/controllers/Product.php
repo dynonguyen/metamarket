@@ -35,4 +35,32 @@ class Product extends Controller
             self::renderErrorPage('404');
         }
     }
+
+    public function search()
+    {
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        if (empty($keyword)) {
+            self::redirect('/');
+        }
+
+        $sort = empty($_GET['s']) ? '' : $_GET['s'];
+
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/search?keyword=' . str_replace(' ', '%20', $keyword) . '&sort=' . $sort);
+
+        $productDocs = null;
+        if ($apiRes['statusCode'] === 200) {
+            $productDocs = $apiRes['data'];
+        }
+        $this->setPassedVariables(['sort' => $sort, 'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL, 'keyword' => $keyword]);
+
+        $this->setViewContent('productDocs', $productDocs);
+        $this->setViewContent('sort', $sort);
+
+        $this->setContentViewPath('search-result');
+        $this->appendCssLink(['product-card.css']);
+        $this->appendJSLink(['utils/format.js', 'utils/product-mixin.js', 'utils/toast.js', 'search-result.js']);
+
+        $this->setPageTitle("Tìm kiếm '$keyword'");
+        $this->render('layouts/general', $this->data);
+    }
 }
