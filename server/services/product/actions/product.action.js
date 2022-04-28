@@ -203,4 +203,60 @@ module.exports = {
 			}
 		},
 	},
+
+	searchProduct: {
+		// cache: {
+		// 	ttl: 120,
+		// 	keys: ['keyword'],
+		// },
+		params: {
+			keyword: {
+				type: 'string',
+			},
+			page: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: '1',
+			},
+			pageSize: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: DEFAULT.PAGE_SIZE.toString(),
+			},
+			sort: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+			select: {
+				type: 'string',
+				optional: true,
+				default: '_id name price unit stock code avt discount',
+			},
+		},
+		async handler(ctx) {
+			let { keyword, page, pageSize, select, sort } = ctx.params;
+			[page, pageSize] = [page, pageSize].map(Number);
+			keyword = decodeURIComponent(escape(keyword));
+
+			try {
+				const productDocs = await mongoosePaginate(
+					Product,
+					{
+						$or: [
+							{ name: { $regex: keyword, $options: 'i' } },
+							{ code: { $regex: keyword, $options: 'i' } },
+						],
+					},
+					{ page, pageSize },
+					{ select, sort },
+				);
+				return productDocs;
+			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };
