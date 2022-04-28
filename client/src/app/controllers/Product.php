@@ -27,7 +27,7 @@ class Product extends Controller
             ]);
             $this->setContentViewPath('product');
             $this->appendCssLink(['product.css', 'product-card.css']);
-            $this->appendJSLink(['product.js']);
+            $this->appendJSLink(['utils/toast.js', 'product.js']);
             $this->setPageTitle($productName);
             $this->render('layouts/general', $this->data);
         } else {

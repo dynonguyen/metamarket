@@ -1,5 +1,9 @@
 <div class='pt-4'></div>
 <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
+<?php
+require_once _DIR_ROOT . '/app/views/mixins/toast.php';
+renderToast('Đã thêm vào giỏ hàng');
+?>
 
 <?php
 $productName = $product->name;
@@ -10,8 +14,8 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
 ?>
 
 <div class='product-wrapper mb-4'>
+    <!-- Product's basic info -->
     <div class='container p-4'>
-        <!-- Product's basic info -->
         <div class='product'>
             <div class='row gx-3 gy-4'>
                 <!-- Photo -->
@@ -85,20 +89,15 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <?php if ($product->stock > 0) { ?>
                         <div class='vertical-center mt-5'>
                             <label>Số lượng</label>
-                            <div class='input-group cart-action'>
-                                <button type='button' class='btn btn-outline-primary'>-</button>
-                                <?php echo "<input value='1' type='text' min='1' max='$product->stock' class='form-control'>"; ?>
-                                <button type='button' class='btn btn-outline-primary'>+</button>
-                            </div>
                             <span class='product-stock'>
                                 <strong><?php echo $product->stock; ?></strong> sản phẩm có sẵn
                             </span>
                         </div>
 
                         <div class='action-btn'>
-                            <button class='btn btn-outline-accent me-3' id='addCartBtn'>
-                                <i class='bi bi-cart-plus-fill me-3'></i>
-                                <span>Thêm giỏ hàng</span>
+                            <?php echo "<button class='btn btn-outline-accent me-3 add-cart' data-id='$product->_id' data-stock='$product->stock' data-price='$product->price' id='addCartBtn'>"; ?>
+                            <i class='bi bi-cart-plus-fill me-3'></i>
+                            <span>Thêm giỏ hàng</span>
                             </button>
                             <button class='btn btn-primary' id='buyBtn'>Mua ngay</button>
                         </div>
