@@ -133,7 +133,9 @@ module.exports = {
 	},
 
 	getBasicProductInfoById: {
-		cache: false,
+		cache: {
+			ttl: 300,
+		},
 		params: {
 			productId: {
 				type: 'string',

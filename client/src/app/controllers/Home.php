@@ -13,7 +13,7 @@ class Home extends Controller
         $this->setContentViewPath('home/index');
         $this->setPageTitle('Trang chủ');
         $this->appendCssLink(['home.css', 'product-card.css']);
-        $this->appendJSLink(['utils/format.js', 'utils/product-mixin.js', 'home.js', 'scroll-top.js']);
+        $this->appendJSLink(['utils/format.js', 'utils/product-mixin.js', 'utils/toast.js', 'home.js', 'scroll-top.js']);
         $this->setPassedVariables(['PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL]);
 
         $this->render('layouts/general', $this->data);

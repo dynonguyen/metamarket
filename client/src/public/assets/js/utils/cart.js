@@ -1,5 +1,12 @@
 const LS_CART_KEY = 'mm-cart';
 
+function currencyFormat(price = 0) {
+	return new Intl.NumberFormat('vi-VN', {
+		style: 'currency',
+		currency: 'VND',
+	}).format(price);
+}
+
 function getCart() {
 	const cartStr = localStorage.getItem(LS_CART_KEY);
 	if (!cartStr) {
@@ -32,17 +39,52 @@ function loadCartSummary() {
 		);
 		$('span[id^="cartQuantity"]').text(`(${cartTotal})`);
 		$('#cartMoney').text(currencyFormat(cartTotalMoney));
+	} else {
+		$('span[id^="cartQuantity"]').text('');
+		$('#cartMoney').text('');
 	}
+}
+
+function removeAllCart() {
+	localStorage.setItem(LS_CART_KEY, []);
+}
+
+function removeCartItem(id) {
+	const cart = getCart();
+	const newCart = cart.filter((p) => p.productId !== id);
+	localStorage.setItem(LS_CART_KEY, JSON.stringify(newCart));
+}
+
+function updateQuantityCart(productId, quantity) {
+	const cart = getCart();
+	const newCart = cart.map((p) =>
+		p.productId === productId ? { ...p, quantity } : p,
+	);
+	localStorage.setItem(LS_CART_KEY, JSON.stringify(newCart));
 }
 
 jQuery(function () {
 	loadCartSummary();
+
 	$('.add-cart').on('click', function () {
 		const productId = $(this).attr('data-id');
 		const productPrice = $(this).attr('data-price');
+		const productStock = Number($(this).attr('data-stock'));
+
 		if (productId) {
 			addToCart({ productId, quantity: 1, price: Number(productPrice) });
+			$(this).attr('data-stock', productStock - 1);
+			if (productStock - 1 <= 0) {
+				$(this)
+					.parent('.product-bottom')
+					.html(
+						'<button class="btn btn-accent disabled">Tạm hết hàng</button>',
+					);
+			}
 			loadCartSummary();
+			if (showToast) {
+				showToast();
+			}
 		}
 	});
 });

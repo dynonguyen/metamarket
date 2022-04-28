@@ -1,12 +1,15 @@
 <?php
 // Required product-card.css
-function renderProductCard($_id, $name, $avt, $price, $discount, $unit)
+function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $stock = 1)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : $avt;
     $discountRateXML = !empty($discount) ? "<label class='discount-rate'>-$discount%</label>" : "";
     $discountPrice = number_format(((100 + $discount) * $price) / 100, 0, ',', '.') . ' ₫';
     $discountPriceXML = !empty($discount) ? "<div class='discount'>$discountPrice</div>" :  "";
     $formattedPrice = number_format($price, 0, ',', '.') . ' ₫';
+    $actionBtn = $stock >= 1 ?
+        "<button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price' data-stock='$stock'>Thêm giỏ hàng</button>"
+        : "<button class='btn btn-accent disabled'>Tạm hết hàng</button>";
 
     echo "<div class='product-card'>
             <a href='/san-pham/$_id' class='product-top'>
@@ -25,8 +28,6 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit)
                     $discountPriceXML
                 </div>
             </div>
-            <div class='product-bottom'>
-                <button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price'>Thêm giỏ hàng</button>
-            </div>
+            <div class='product-bottom'>$actionBtn</div>
         </div>";
 }

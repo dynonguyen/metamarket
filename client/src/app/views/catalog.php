@@ -2,6 +2,10 @@
 
 <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
 <?php require_once _DIR_ROOT . '/app/views/mixins/product-card.php'; ?>
+<?php
+require_once _DIR_ROOT . '/app/views/mixins/toast.php';
+renderToast('Đã thêm vào giỏ hàng');
+?>
 
 <style>
     .catalog-more {
@@ -48,7 +52,7 @@ function renderOption($value, $label, $selectedValue)
 
         foreach ($products as $p) {
             echo "<div class='col'>";
-            renderProductCard($p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit);
+            renderProductCard($p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit, $p->stock);
             echo "</div>";
         }
         echo  "</div>";

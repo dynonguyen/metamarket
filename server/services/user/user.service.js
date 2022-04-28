@@ -13,13 +13,5 @@ const {
 module.exports = {
 	name: SVC_NAME.USER,
 
-	actions: {
-		demo: {
-			cache: false,
-
-			async handler(ctx) {
-				return 'Hi user';
-			},
-		},
-	},
+	actions: {},
 };

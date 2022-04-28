@@ -38,6 +38,18 @@
 	display: none;
 }
 
+.btn-accent {
+	background-color: var(--bs-orange);
+	color: #fff !important;
+	outline: none;
+	box-shadow: none;
+}
+
+.btn-accent:hover {
+	-webkit-filter: brightness(1.2);
+	filter: brightness(1.2);
+}
+
 .btn-outline-accent {
 	border-color: var(--bs-orange) !important;
 	color: var(--bs-orange) !important;

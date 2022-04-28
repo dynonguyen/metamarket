@@ -6,14 +6,6 @@ module.exports = {
 	name: SVC_NAME.PRODUCT,
 
 	actions: {
-		demo: {
-			cache: false,
-
-			async handler(ctx) {
-				return 'Hello product';
-			},
-		},
-
 		...catalogActions,
 		...productAction,
 	},

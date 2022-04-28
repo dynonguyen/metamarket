@@ -2,7 +2,10 @@
 <?php require_once _DIR_ROOT . '/app/views/blocks/discount-banner.php'; ?>
 
 <!-- show products -->
-<?php require_once _DIR_ROOT . '/app/views/mixins/product-card.php'; ?>
+<?php
+require_once _DIR_ROOT . '/app/views/mixins/product-card.php';
+require_once _DIR_ROOT . '/app/views/mixins/toast.php';
+?>
 
 <?php
 if (!empty($productData)) {
@@ -28,7 +31,7 @@ if (!empty($productData)) {
                         <div class='product-list row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5 gx-4 gy-3'>";
         foreach ($products as $product) {
             echo "<div class='col'>";
-            renderProductCard($product->_id, $product->name, $product->avt, $product->price, $product->discount, $product->unit);
+            renderProductCard($product->_id, $product->name, $product->avt, $product->price, $product->discount, $product->unit, $product->stock);
             echo '</div>';
         }
 
@@ -41,6 +44,8 @@ if (!empty($productData)) {
         echo "</div></div>";
     }
 }
+
+renderToast("Đã thêm vào giỏ hàng");
 
 ?>
 

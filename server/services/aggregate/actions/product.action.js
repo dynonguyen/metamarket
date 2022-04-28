@@ -23,7 +23,7 @@ module.exports = {
 								catalogId: catalog._id,
 								page: '1',
 								pageSize: DEFAULT.PAGE_SIZE.toString(),
-								select: '_id name price discount avt unit',
+								select: '_id name price discount avt unit stock',
 							})
 							.then((products) => {
 								result.push({
