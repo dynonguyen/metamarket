@@ -8,6 +8,7 @@ class AccountModel
     private $password;
     private $googleId;
     private $status;
+    private $role;
     private $createdAt;
     private $updatedAt;
 

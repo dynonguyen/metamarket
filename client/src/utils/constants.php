@@ -35,3 +35,10 @@ define('COOKIE_LOGIN_EXP', time() + 3 * 86400); // 3 days
 define('GOOGLE_API_ID', $_ENV['GOOGLE_API_ID'] ?? '');
 define('GOOGLE_API_SECRET', $_ENV['GOOGLE_API_SECRET'] ?? '');
 define('GOOGLE_API_CALLBACK_URL', $_ENV['GOOGLE_API_CALLBACK_URL'] ?? '');
+
+// Role
+define('USER_ROLE', 1);
+define('SHOP_ROLE', 2);
+define('SHIPPER_ROLE', 3);
+define('ADMIN_ROLE', 4);
+define('GUEST_ROLE', 0);

@@ -1,5 +1,5 @@
 const { DataTypes } = require('../../configs/sequelize');
-const { ACCOUNT_STATUS } = require('../../utils/constants');
+const { ACCOUNT_STATUS, ACCOUNT_TYPE } = require('../../utils/constants');
 
 const AccountSchema = [
 	'Account',
@@ -13,6 +13,11 @@ const AccountSchema = [
 			type: DataTypes.STRING(150),
 			allowNull: false,
 			unique: true,
+		},
+		type: {
+			type: DataTypes.SMALLINT,
+			allowNull: false,
+			default: ACCOUNT_TYPE.CUSTOMER,
 		},
 		password: {
 			type: DataTypes.STRING(72),

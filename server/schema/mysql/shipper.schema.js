@@ -11,7 +11,6 @@ const ShipperSchema = [
 		},
 		username: {
 			type: DataTypes.STRING(20),
-			unique: true,
 			allowNull: false,
 		},
 		password: {

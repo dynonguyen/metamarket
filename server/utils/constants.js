@@ -125,4 +125,11 @@ module.exports = {
 	},
 
 	CORS_URL: process.env.CORS_URL || '*',
+
+	ACCOUNT_TYPE: {
+		CUSTOMER: 1,
+		SHOP: 2,
+		SHIPPER: 3,
+		ADMIN: 4,
+	},
 };

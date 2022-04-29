@@ -236,7 +236,7 @@ h2.title {
 	font-size: 1.5rem;
 }
 
-.shop-actions a:hover {
+.shop-actions:hover a {
 	color: #fff !important;
 }
 

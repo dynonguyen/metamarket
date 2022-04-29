@@ -71,6 +71,15 @@ class App
             $this->controller = ucfirst($this->controller);
         }
 
+        // Check user & role
+        $role = $this->getUser();
+
+        // protect page
+        $this->controller = Route::protectPage($this->controller, $role);
+        if (!$this->controller) {
+            $this->handleError('404');
+        }
+
         // Trường hợp trang chủ thì urlCheck = ''
         if (empty($urlCheck)) {
             $urlCheck = $this->controller;
@@ -98,9 +107,9 @@ class App
 
         // Detect params & Pass params to Controller
         $this->params = array_values($urlSplits);
+
         // check the existence of action method
         if (method_exists($this->controller, $this->action)) {
-            $this->getUser();
             call_user_func_array([$this->controller, $this->action], $this->params);
         } else {
             $this->handleError('404');
@@ -114,19 +123,31 @@ class App
 
     private function getUser()
     {
-        global $user;
+        global $user, $isAuth;
+
         if (isset($_COOKIE[COOKIE_LOGIN_KEY])) {
             $accessToken = $_COOKIE[COOKIE_LOGIN_KEY];
             $jwtDecoded = JwtUtil::decode($accessToken);
 
             if (!empty($jwtDecoded)) {
                 $userId = $jwtDecoded['sub']->userId;
-                $checkUser = UserModel::findUserById($userId);
+                $role = $jwtDecoded['sub']->role;
 
-                if (!empty($checkUser)) {
-                    $user = $checkUser;
+                if ($role === USER_ROLE) {
+                    $checkUser = UserModel::findUserById($userId);
+
+                    if (!empty($checkUser)) {
+                        $user = $checkUser;
+                        $isAuth = true;
+                    }
+                } else if ($role === SHOP_ROLE) {
+                    $isAuth = true;
                 }
+
+                return $role;
             }
         }
+
+        return GUEST_ROLE;
     }
 }

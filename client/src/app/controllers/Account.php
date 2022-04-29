@@ -43,9 +43,9 @@ class Account extends Controller
 
             // create an account
             $conn = MySQLConnection::getConnect();
-            $sql = "INSERT INTO	accounts (email, password, createdAt, updatedAt) VALUES (?,?,?,?)";
+            $sql = "INSERT INTO	accounts (email, password, type, createdAt, updatedAt) VALUES (?,?,?,?,?)";
             $now = date_create('now')->format('Y-m-d H:i:s');
-            $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $hashPwd, $now, $now]);
+            $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $hashPwd, USER_ROLE, $now, $now]);
 
             if ((int)$isCreateAccountSuccess === 1) {
                 $accountId = $conn->lastInsertId();
@@ -71,8 +71,8 @@ class Account extends Controller
 
     public function login()
     {
-        global $user;
-        if ($user->_get('userId')) {
+        global $isAuth;
+        if ($isAuth) {
             self::redirect('/');
         } else {
             $this->renderLoginPage();
@@ -114,7 +114,7 @@ class Account extends Controller
         $userId = !empty($user) ? $user->_get('userId') : '';
 
         // set cookie
-        $this->onLoginSuccess($accountId, $userId);
+        $this->onLoginSuccess($accountId, $userId, $account->_get('type'));
     }
 
     public function logout()
@@ -146,14 +146,14 @@ class Account extends Controller
                 $user = UserModel::findUserByAccountId($accountId);
                 $userId = $user->_get('userId');
 
-                $this->onLoginSuccess($accountId, $userId);
+                $this->onLoginSuccess($accountId, $userId, USER_ROLE);
             } else {
                 // Create account & user
                 $conn = MySQLConnection::getConnect();
 
-                $sql = "INSERT INTO	accounts (email, googleId, createdAt, updatedAt) VALUES (?,?,?,?)";
+                $sql = "INSERT INTO	accounts (email, googleId, type, createdAt, updatedAt) VALUES (?,?,?,?,?)";
                 $now = date_create('now')->format('Y-m-d H:i:s');
-                $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $googleId, $now, $now]);
+                $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $googleId, USER_ROLE, $now, $now]);
 
                 if ((int)$isCreateAccountSuccess === 1) {
                     $accountId = $conn->lastInsertId();
@@ -162,7 +162,7 @@ class Account extends Controller
 
                     if ((int)$isUserSuccess === 1) {
                         $userId = $conn->lastInsertId();
-                        $this->onLoginSuccess($accountId, $userId);
+                        $this->onLoginSuccess($accountId, $userId, USER_ROLE);
                     } else {
                         throw new Exception("Đăng nhập thất bại");
                     }
@@ -207,9 +207,12 @@ class Account extends Controller
         return $client;
     }
 
-    private function onLoginSuccess($accountId, $userId)
+    private function onLoginSuccess($accountId, $userId, $role = USER_ROLE)
     {
-        $jwt = JwtUtil::encode(['accountId' => $accountId, 'userId' => $userId], JWT_EXP);
+        global $isAuth;
+        $isAuth = true;
+
+        $jwt = JwtUtil::encode(['accountId' => $accountId, 'userId' => $userId, 'role' => $role], JWT_EXP);
         setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
         self::redirect('/', 301);
     }

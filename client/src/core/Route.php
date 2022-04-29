@@ -17,4 +17,22 @@ class Route
 
         return $handleUrl;
     }
+
+    public static function protectPage($controller, $role = USER_ROLE)
+    {
+        $commonControllers = [];
+        $c = strtolower($controller);
+
+        if (in_array($c, $commonControllers)) return $controller;
+
+        if ($role === SHOP_ROLE) return 'Shop';
+        if ($role === ADMIN_ROLE) return 'Admin';
+        if ($role === SHIPPER_ROLE) return 'Shipper';
+
+        // guest & user role
+        if ($c === 'shop' || $c === 'admin' || $c === 'shipper') {
+            return false;
+        }
+        return $controller;
+    }
 }
