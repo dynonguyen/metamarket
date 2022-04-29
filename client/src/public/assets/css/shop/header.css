@@ -1,0 +1,45 @@
+header {
+	height: 6.4rem;
+	background-color: #fff;
+	border-bottom: solid 1px #ddd;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.distance-top {
+	margin-top: 6.4rem;
+}
+
+header .logo-group {
+	height: 5.2rem;
+}
+
+.logo-group strong {
+	font-size: 1.8rem;
+}
+
+.sub-logo {
+	font-size: 1.8rem;
+	color: var(--mm-dark-gray);
+	text-transform: capitalize;
+}
+
+.btn-logout {
+	border: solid 1px var(--mm-light-gray);
+	font-size: 1.5rem;
+	padding: 0.5rem 1.2rem;
+	border-radius: 50px;
+}
+
+.toggle-navbar-icon {
+	font-size: 2rem;
+	color: var(--mm-dark-gray);
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 480px) {
+	.logo-group strong {
+		display: none;
+	}
+}

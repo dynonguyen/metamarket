@@ -20,7 +20,7 @@ class Route
 
     public static function protectPage($controller, $role = USER_ROLE)
     {
-        $commonControllers = [];
+        $commonControllers = ['account'];
         $c = strtolower($controller);
 
         if (in_array($c, $commonControllers)) return $controller;

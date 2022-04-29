@@ -1,0 +1,43 @@
+nav {
+	--header-height: 6.4rem;
+	--navbar-width: 25rem;
+
+	width: var(--navbar-width);
+	height: calc(100vh - var(--header-height));
+
+	background-color: #fff;
+	padding: 1.8rem 1.2rem;
+	border-right: solid 1px var(--mm-light-gray);
+
+	position: fixed;
+	top: var(--header-height);
+}
+
+.distance-left {
+	margin-left: 26rem;
+}
+
+.navbar-group ul {
+	padding: 8px 0px 8px 1.6rem;
+}
+
+.navbar-label {
+	font-weight: 500;
+	font-size: 1.6rem;
+	text-transform: capitalize;
+	color: var(--mm-gray);
+}
+
+.navbar-item {
+	font-size: 1.6rem;
+	margin-bottom: 1.2rem;
+}
+
+.navbar-item a {
+	color: var(--mm-dark-gray);
+	transition: all 0.25s;
+}
+
+.navbar-item a:hover {
+	letter-spacing: 1px;
+}

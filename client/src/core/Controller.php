@@ -16,6 +16,9 @@ class Controller
     public function render(string $view = '', array $data = [])
     {
         // Transform array keys to variables
+        if (empty($data) || sizeof($data) === 0) {
+            $data = $this->data;
+        }
         extract($data);
 
         $viewFilePath = _DIR_ROOT . '/app/views/' . $view . '.php';
