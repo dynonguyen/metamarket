@@ -7,6 +7,8 @@ class Controller
     {
         $this->data['cssLinks'] = [];
         $this->data['jsLinks'] = [];
+        $this->data['cssCDN'] = [];
+        $this->data['jsCDN'] = [];
         $this->data['pageTitle'] = 'MetaMarket';
         $this->data['passedVariables'] = [];
         $this->data['viewPath'] = '';
@@ -42,6 +44,24 @@ class Controller
             $this->data['jsLinks'] = array_merge($this->data['jsLinks'], $jsFileName);
         } else {
             array_push($this->data['jsLinks'], $jsFileName);
+        }
+    }
+
+    public function appendJsCDN(string | array $cdn)
+    {
+        if (is_array($cdn)) {
+            $this->data['jsCDN'] = array_merge($this->data['jsCDN'], $cdn);
+        } else {
+            array_push($this->data['jsCDN'], $cdn);
+        }
+    }
+
+    public function appendCssCDN(string | array $cdn)
+    {
+        if (is_array($cdn)) {
+            $this->data['cssCDN'] = array_merge($this->data['cssCDN'], $cdn);
+        } else {
+            array_push($this->data['cssCDN'], $cdn);
         }
     }
 

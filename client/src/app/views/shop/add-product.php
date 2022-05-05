@@ -1,0 +1,94 @@
+<div class='container pt-4 mb-4'>
+    <div class='bg-white p-4'>
+        <h1 class='shop-title'>Thêm sản phẩm</h1>
+
+        <form action='/kenh-ban-hang/san-pham/them/post' id='addProductForm' method='POST'>
+            <h2 class='sub-title'>Thông tin cơ bản</h2>
+            <div class='row g-4'>
+                <!-- Name -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='name' class='form-label'>Tên <span class='required'>(*)</span></label>
+                    <input type='text' name='name' class='form-control' id='name' autofocus value='Cá khô siêu ngon'>
+                </div>
+                <!-- Catalog, category -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='catalog' class='form-label'>Danh mục <span class='required'>(*)</span></label>
+                    <select class='form-select' name='catalog'>
+                        <option disabled>Chọn danh mục</option>
+                        <option value='1' selected> Bánh kẹo - Đồ ăn vặt > Bánh kẹo</option>
+                    </select>
+                </div>
+                <!-- Price -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='price' class='form-label'>Giá <span class='required'>(*)</span></label>
+                    <input type='number' name='price' min='0' class='form-control' id='price' value='1000'>
+                </div>
+                <!-- Stock -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='stock' class='form-label'>SL tồn kho <span class='required'>(*)</span></label>
+                    <input type='number' name='stock' min='0' class='form-control' id='stock' value='10'>
+                </div>
+                <!-- Discount -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='discount' class='form-label'>Khuyến mại (%)</label>
+                    <input type='number' name='discount' min='0' max='100' value='0' class='form-control' id='discount'>
+                </div>
+                <!-- Unit -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='unit' class='form-label'>Đơn vị <span class='required'>(*)</span></label>
+                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='Sản phẩm'>
+                </div>
+                <!-- MFG -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
+                    <input type='date' name='mfg' class='form-control' id='mfg' value='2022-01-01'>
+                </div>
+                <!-- EXP -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='exp' class='form-label'>Ngày hết hạn <span class='required'>(*)</span></label>
+                    <input type='date' name='exp' class='form-control' id='exp' value='2022-05-05'>
+                </div>
+                <!-- Avt -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='avt' class='form-label'>Ảnh đại diện <span class='required'>(*)</span></label>
+                    <input name='avt' class='form-control' type='file' id='avt' accept='image/*'>
+                </div>
+            </div>
+
+            <h2 class='sub-title mt-5'>Thông tin chi tiết</h2>
+            <div class='row g-4'>
+                <!-- Origin -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='origin' class='form-label'>Xuất xứ <span class='required'>(*)</span></label>
+                    <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam' value='Việt Nam'>
+                </div>
+
+                <!-- Branch -->
+                <div class='col col-12 col-md-4 col-lg-3'>
+                    <label for='brand' class='form-label'>Thương hiệu <span class='required'>(*)</span></label>
+                    <input type='text' name='brand' class='form-control' id='brand' value='Dyno'>
+                </div>
+
+                <!-- Infos -->
+                <div class='col col-12 col-md-4 col-lg-3 d-flex align-items-end' id='addInfoWrap'>
+                    <button id='addInfoInputBtn' class='btn btn-outline-accent w-100' type='button' style='border-style: dashed;'>
+                        Thêm thông tin <i class='bi bi-plus'></i>
+                    </button>
+                </div>
+            </div>
+
+            <h2 class='sub-title mt-5'>Hình ảnh sản phẩm</h2>
+            <input name='photos' class='form-control' multiple type='file' id='photos' accept='image/*'>
+
+            <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
+            <textarea class='validate-ignore' cols='20' id='desc'></textarea>
+
+            <!-- submit button -->
+            <div class='text-end mt-4'>
+                <button class='btn btn-primary btn-lg' type='submit' type='button' id='submitBtn'>
+                    Thêm sản phẩm
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

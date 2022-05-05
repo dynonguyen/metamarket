@@ -1,0 +1,59 @@
+h2.sub-title {
+	font-size: 2rem;
+	color: var(--mm-dark-gray);
+	text-transform: capitalize;
+	margin-bottom: 1rem;
+}
+
+.form-label {
+	font-size: 1.6rem;
+	color: var(--mm-gray);
+}
+
+.form-control,
+.form-select,
+.btn {
+	font-size: 1.6rem;
+}
+
+.required {
+	color: var(--bs-danger);
+}
+
+textarea {
+	width: 100%;
+}
+
+.nicEdit-main {
+	width: calc(100% - 6px) !important;
+	border: none !important;
+	min-height: 10rem !important;
+	padding: 4px;
+	font-size: 15px;
+}
+
+.nicEdit-selected {
+	border: 2px solid #0000ff !important;
+}
+
+.nicEdit-panel {
+	zoom: 1.25 !important;
+}
+
+input.field-error,
+select.field-error {
+	border: solid 2px var(--bs-danger) !important;
+}
+input.field-valid,
+select.field-valid {
+	border: solid 2px var(--bs-success) !important;
+}
+p.field-error {
+	color: var(--bs-danger);
+	max-width: 100%;
+	margin-top: 4px;
+	font-size: 1.5rem;
+}
+.input-group p.field-error {
+	display: none !important;
+}

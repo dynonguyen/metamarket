@@ -37,6 +37,12 @@
     ?>
 
     <?php
+    // Add CSS CDN
+    if (!empty($cssCDN)) {
+        foreach ($cssCDN as $cdn) {
+            echo "<link rel='stylesheet' href='$cdn'>";
+        }
+    }
     // Add css link
     if (!empty($cssLinks)) {
         foreach ($cssLinks as $filename) {
@@ -74,6 +80,12 @@ if (!empty($passedVariables)) {
 <script src="/public/assets/js/search.js"></script>
 
 <?php
+// Add JS CDN
+if (!empty($jsCDN)) {
+    foreach ($jsCDN as $cdn) {
+        echo "<script src='$cdn'></script>";
+    }
+}
 // Add JS link
 if (!empty($jsLinks)) {
     foreach ($jsLinks as $filename) {

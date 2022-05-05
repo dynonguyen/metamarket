@@ -13,7 +13,7 @@ const ProductDetailSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	branch: {
+	brand: {
 		type: String,
 		required: true,
 	},

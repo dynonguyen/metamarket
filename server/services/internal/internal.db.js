@@ -14,6 +14,6 @@ const internalDb = sequelizeConnect({
 const Shipper = internalDb.define(...ShipperSchema);
 const AdminAccount = internalDb.define(...AdminAccountSchema);
 
-internalDb.sync({ alter: true });
+internalDb.sync();
 
 module.exports = { Shipper, AdminAccount };
