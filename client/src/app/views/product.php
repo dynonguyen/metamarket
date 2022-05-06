@@ -1,5 +1,6 @@
 <div class='pt-4'></div>
 <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
+<?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
 renderToast('Đã thêm vào giỏ hàng');
@@ -21,7 +22,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                 <!-- Photo -->
                 <div class='col col-12 col-md-6 col-lg-5 product-photo'>
                     <div class='avt p-4'>
-                        <?php echo "<img id='photoAvt' src='$productAvt' alt='$productName'>"; ?>
+                        <?php echo "<img id='photoAvt' src='/public/$productAvt' alt='$productName'>"; ?>
                     </div>
 
                     <?php if (!empty($productDetail)) {
@@ -29,12 +30,15 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     ?>
                         <div class='photos'>
                             <?php
+                            $avtThumb = ImageUtil::toThumbnail("/public/$productAvt");
                             echo "<div class='photo-item active'>
-                                <img src='$productAvt'>
+                                <img src='$avtThumb'>
                             </div>";
+
                             foreach ($photos as $photoSrc) {
+                                $photoThumb = ImageUtil::toThumbnail("/public/$photoSrc");
                                 echo "<div class='photo-item'>
-                                    <img src='$photoSrc'>
+                                    <img src='$photoThumb'>
                                 </div>";
                             }
 

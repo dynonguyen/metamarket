@@ -13,7 +13,7 @@ define('SUPPORT_SERVICE_API_URL', $_ENV['SUPPORT_SERVICE_API'] ?? '');
 define('USER_SERVICE_API_URL', $_ENV['USER_SERVICE_API'] ?? '');
 
 define('DEFAULT_PRODUCT_AVT', 'https://res.cloudinary.com/dynonary/image/upload/v1650187901/metamarket/product-not-found.png');
-define('DEFAULT_SHOP_AVT', 'https://res.cloudinary.com/dynonary/image/upload/v1650187901/metamarket/product-not-found.png');
+define('DEFAULT_SHOP_AVT', 'https://res.cloudinary.com/dynonary/image/upload/v1651848045/metamarket/shop-not-found.png');
 
 // min max
 define('MAX_LEN_EMAIL', 150);

@@ -47,4 +47,11 @@ class ImageUtil
         imagedestroy($sourceImage);
         imagedestroy($destImage);
     }
+
+    public static function toThumbnail($srcPath = '')
+    {
+        $arr = explode('.', $srcPath);
+        $fileExt = end($arr);
+        return str_replace(".$fileExt", "_thumb.$fileExt", $srcPath);
+    }
 }
