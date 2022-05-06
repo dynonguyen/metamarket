@@ -18,6 +18,8 @@ const productAliases = {
 	'GET products/list/catalog/:catalogId': `${PRODUCT_SVC}.getProductWithCatalog`,
 	'GET products/list/category/:catalogId/:categoryId': `${PRODUCT_SVC}.getProductWithCategory`,
 	'GET products/search': `${PRODUCT_SVC}.searchProduct`,
+
+	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
 };
 
 const aggregateAliases = {

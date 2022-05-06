@@ -205,10 +205,10 @@ module.exports = {
 	},
 
 	searchProduct: {
-		// cache: {
-		// 	ttl: 120,
-		// 	keys: ['keyword'],
-		// },
+		cache: {
+			ttl: 120,
+			keys: ['keyword'],
+		},
 		params: {
 			keyword: {
 				type: 'string',
@@ -255,6 +255,99 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	postAddProduct: {
+		cache: false,
+		params: {
+			catalogId: 'string',
+			categoryId: [
+				{ type: 'number', min: 0 },
+				{ type: 'string', numeric: true },
+			],
+			shopId: [
+				{ type: 'number', min: 0 },
+				{ type: 'string', numeric: true },
+			],
+			name: 'string',
+			price: { type: 'number', min: 0 },
+			code: 'string',
+			stock: { type: 'number', min: 0 },
+			discount: { type: 'number', min: 0, max: 100 },
+			unit: 'string',
+			avt: 'string',
+			mfg: [{ type: 'string' }, { type: 'date' }],
+			exp: [{ type: 'string' }, { type: 'date' }],
+
+			origin: 'string',
+			brand: 'string',
+			desc: { type: 'string', optional: true, default: '' },
+			photos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+		},
+		async handler(ctx) {
+			try {
+				const {
+					catalogId,
+					categoryId,
+					shopId,
+					name,
+					price,
+					code,
+					stock,
+					discount,
+					unit,
+					avt,
+					mfg,
+					exp,
+					origin,
+					brand,
+					desc = '',
+					infos = [],
+					photos = [],
+				} = ctx.params;
+
+				const product = await Product.create({
+					catalogId,
+					categoryId,
+					shopId,
+					name,
+					price,
+					code,
+					stock,
+					discount,
+					unit,
+					avt,
+					mfg: new Date(mfg),
+					exp: new Date(exp),
+				});
+
+				if (product) {
+					const productDetail = await ProductDetail.create({
+						productId: product._id,
+						origin,
+						brand,
+						desc,
+						infos,
+						photos,
+					});
+
+					if (productDetail) {
+						return true;
+					} else {
+						Product.deleteOne({ _id: product._id });
+					}
+				}
+
+				return false;
+			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

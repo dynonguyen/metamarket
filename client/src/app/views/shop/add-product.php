@@ -8,7 +8,7 @@
                 <!-- Name -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='name' class='form-label'>Tên <span class='required'>(*)</span></label>
-                    <input type='text' name='name' class='form-control' id='name' autofocus value='Cá saba nguyên con túi 500g - 600g (1-2 con)'>
+                    <input type='text' name='name' class='form-control' id='name' autofocus>
                 </div>
                 <!-- Catalog, category -->
                 <div class='col col-12 col-md-4 col-lg-3'>
@@ -35,32 +35,32 @@
                 <!-- Price -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='price' class='form-label'>Giá <span class='required'>(*)</span></label>
-                    <input type='number' name='price' min='0' class='form-control' id='price' value='40000'>
+                    <input type='number' name='price' min='0' class='form-control' id='price'>
                 </div>
                 <!-- Stock -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='stock' class='form-label'>SL tồn kho <span class='required'>(*)</span></label>
-                    <input type='number' name='stock' min='0' class='form-control' id='stock' value='10'>
+                    <input type='number' name='stock' min='0' class='form-control' id='stock'>
                 </div>
                 <!-- Discount -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='discount' class='form-label'>Khuyến mại (%)</label>
-                    <input type='number' name='discount' min='0' max='100' value='0' class='form-control' id='discount'>
+                    <input type='number' name='discount' min='0' max='100' class='form-control' id='discount'>
                 </div>
                 <!-- Unit -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='unit' class='form-label'>Đơn vị <span class='required'>(*)</span></label>
-                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='Túi'>
+                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái'>
                 </div>
                 <!-- MFG -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
-                    <input type='date' name='mfg' class='form-control' id='mfg' value='2022-01-01'>
+                    <input type='date' name='mfg' class='form-control' id='mfg'>
                 </div>
                 <!-- EXP -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='exp' class='form-label'>Ngày hết hạn <span class='required'>(*)</span></label>
-                    <input type='date' name='exp' class='form-control' id='exp' value='2022-05-05'>
+                    <input type='date' name='exp' class='form-control' id='exp'>
                 </div>
                 <!-- Avt -->
                 <div class='col col-12 col-md-4 col-lg-3'>
@@ -74,13 +74,13 @@
                 <!-- Origin -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='origin' class='form-label'>Xuất xứ <span class='required'>(*)</span></label>
-                    <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam' value='Việt Nam'>
+                    <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam'>
                 </div>
 
                 <!-- Branch -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='brand' class='form-label'>Thương hiệu <span class='required'>(*)</span></label>
-                    <input type='text' name='brand' class='form-control' id='brand' value='Dyno'>
+                    <input type='text' name='brand' class='form-control' id='brand'>
                 </div>
 
                 <!-- Infos -->

@@ -30,11 +30,11 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                         <div class='photos'>
                             <?php
                             echo "<div class='photo-item active'>
-                                <img src='$productAvt' alt='$productName'>
+                                <img src='$productAvt'>
                             </div>";
                             foreach ($photos as $photoSrc) {
                                 echo "<div class='photo-item'>
-                                    <img src='$photoSrc' alt='$productName'>
+                                    <img src='$photoSrc'>
                                 </div>";
                             }
 
@@ -145,7 +145,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                             foreach ($infos as $info) {
                                 echo "<li>";
                                 echo "<label>$info->label</label>";
-                                echo "<span>$info->value</span>";
+                                echo "<span>$info->detail</span>";
                                 echo "</li>";
                             }
                         } else {

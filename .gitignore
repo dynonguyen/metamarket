@@ -18,3 +18,5 @@ jspm_packages/
 script.sh
 client/src/vendor
 composer.lock
+**/public/upload/*
+!**/public/upload/.gitkeep

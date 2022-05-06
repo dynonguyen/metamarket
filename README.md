@@ -85,6 +85,11 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
   - curl
   - mysqli
   - pdo_mysql
+  - gd
+  - openssl
+
+  - Thay đổi giá trị sau:
+    - upload_max_filesize = 25M
 
 - Cài php [Composer](https://getcomposer.org/download/)
 
