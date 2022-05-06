@@ -1,5 +1,6 @@
 let cartTotal = 0;
 let products = [];
+
 function renderEmptyCart() {
 	const xml = `<div class="flex-column flex-center p-5">
     <img src="/public/assets/images/empty.png" style="width: 150px" />
@@ -65,10 +66,11 @@ function renderCartSummary() {
 
 function renderProductCart(product) {
 	const { _id, avt, price, stock, unit, name, quantity } = product;
+	const thumbAvt = toThumbnail(`/public/${avt}`);
 
 	const xml = `<div class='cart-item row g-2' data-id='${_id}'>
 						<div class="col col-12 col-lg-7 vertical-center">
-								<img src='${avt}' alt='${name}'>
+								<img src='${thumbAvt}' alt='${name}'>
 								<div class='d-flex flex-column mx-4'>
 										<a href='/san-pham/${_id}' class='name'>${name}</a>
 										<span class="unit">ĐVT: ${unit} (có sẵn: ${stock})</span>

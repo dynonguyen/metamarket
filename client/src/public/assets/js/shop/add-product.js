@@ -154,7 +154,7 @@ jQuery(function () {
 				minlength: 2,
 				maxlength: 255,
 			},
-			photos: {
+			'photos[]': {
 				required: true,
 				checkPhotos: true,
 			},
@@ -208,7 +208,7 @@ jQuery(function () {
 				minlength: 'Tối thiểu 2 ký tự',
 				maxlength: 'Tối đa 100 ký tự',
 			},
-			photos: {
+			'photos[]': {
 				required: 'Tối thiểu 1 hình ảnh',
 			},
 		},

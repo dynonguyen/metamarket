@@ -84,8 +84,11 @@ $navbarMenu = [
             echo "<ul>";
             foreach ($list as $item) {
                 ['to' => $to, 'label' => $itemLabel] = $item;
-                echo "<li class='navbar-item'>
-                        <a href='/kenh-ban-hang/$root/$to'>$itemLabel</a>
+                $link = "/kenh-ban-hang/$root/$to";
+                $activeClass = $link === $_SERVER['REQUEST_URI'] ? 'active' : '';
+
+                echo "<li class='navbar-item $activeClass'>
+                        <a href='$link'>$itemLabel</a>
                     </li>";
             }
             echo "</ul>";

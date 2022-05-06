@@ -33,6 +33,12 @@ nav {
 	margin-bottom: 1.2rem;
 }
 
+.navbar-item.active a {
+	color: var(--bs-orange);
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
 .navbar-item a {
 	color: var(--mm-dark-gray);
 	transition: all 0.25s;
