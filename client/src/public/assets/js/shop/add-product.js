@@ -241,4 +241,12 @@ jQuery(function () {
 	});
 
 	$('#addInfoInputBtn').on('click', renderOtherInfoInput);
+
+	$('#resetBtn').on('click', function () {
+		$('#addProductForm input[type="number"]').val(0);
+		$('#addProductForm input[type!="number"], #addProductForm select').val(
+			null,
+		);
+		nicEditors.findEditor('desc').setContent('');
+	});
 });

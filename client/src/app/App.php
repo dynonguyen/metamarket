@@ -123,7 +123,7 @@ class App
 
     private function getUser()
     {
-        global $user, $isAuth;
+        global $user, $shop, $isAuth;
 
         if (isset($_COOKIE[COOKIE_LOGIN_KEY])) {
             $accessToken = $_COOKIE[COOKIE_LOGIN_KEY];
@@ -141,7 +141,11 @@ class App
                         $isAuth = true;
                     }
                 } else if ($role === SHOP_ROLE) {
-                    $isAuth = true;
+                    $checkShop = ShopModel::findShopById($userId);
+                    if (!empty($checkShop)) {
+                        $shop = $checkShop;
+                        $isAuth = true;
+                    }
                 }
 
                 return $role;

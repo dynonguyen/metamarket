@@ -2,26 +2,40 @@
     <div class='bg-white p-4'>
         <h1 class='shop-title'>Thêm sản phẩm</h1>
 
-        <form action='/kenh-ban-hang/san-pham/them/post' id='addProductForm' method='POST'>
+        <form action='/kenh-ban-hang/san-pham/them/post' id='addProductForm' method='POST' enctype='multipart/form-data'>
             <h2 class='sub-title'>Thông tin cơ bản</h2>
             <div class='row g-4'>
                 <!-- Name -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='name' class='form-label'>Tên <span class='required'>(*)</span></label>
-                    <input type='text' name='name' class='form-control' id='name' autofocus value='Cá khô siêu ngon'>
+                    <input type='text' name='name' class='form-control' id='name' autofocus value='Cá saba nguyên con túi 500g - 600g (1-2 con)'>
                 </div>
                 <!-- Catalog, category -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='catalog' class='form-label'>Danh mục <span class='required'>(*)</span></label>
                     <select class='form-select' name='catalog'>
-                        <option disabled>Chọn danh mục</option>
-                        <option value='1' selected> Bánh kẹo - Đồ ăn vặt > Bánh kẹo</option>
+                        <option disabled selected>Chọn danh mục</option>
+                        <?php
+                        foreach ($catalogs as $catalog) {
+                            $categories = $catalog->categories;
+                            $catalogId = $catalog->_id;
+                            $catalogName = $catalog->name;
+
+                            echo "<optgroup label='$catalogName'>";
+                            foreach ($categories as $cate) {
+                                $cateId = $cate->id;
+                                $cateName = $cate->name;
+                                echo "<option value='$catalogId/$cateId'>$cateName</option>";
+                            }
+                            echo "</optgroup>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <!-- Price -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='price' class='form-label'>Giá <span class='required'>(*)</span></label>
-                    <input type='number' name='price' min='0' class='form-control' id='price' value='1000'>
+                    <input type='number' name='price' min='0' class='form-control' id='price' value='40000'>
                 </div>
                 <!-- Stock -->
                 <div class='col col-12 col-md-4 col-lg-3'>
@@ -36,7 +50,7 @@
                 <!-- Unit -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='unit' class='form-label'>Đơn vị <span class='required'>(*)</span></label>
-                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='Sản phẩm'>
+                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='Túi'>
                 </div>
                 <!-- MFG -->
                 <div class='col col-12 col-md-4 col-lg-3'>
@@ -78,13 +92,16 @@
             </div>
 
             <h2 class='sub-title mt-5'>Hình ảnh sản phẩm</h2>
-            <input name='photos' class='form-control' multiple type='file' id='photos' accept='image/*'>
+            <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
 
             <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
             <textarea class='validate-ignore' cols='20' id='desc'></textarea>
 
             <!-- submit button -->
             <div class='text-end mt-4'>
+                <button class='btn btn-danger btn-lg me-3' type='button' type='button' id='resetBtn'>
+                    Nhập lại
+                </button>
                 <button class='btn btn-primary btn-lg' type='submit' type='button' id='submitBtn'>
                     Thêm sản phẩm
                 </button>
@@ -92,3 +109,16 @@
         </form>
     </div>
 </div>
+
+<?php
+if (isset($isError)) {
+    require_once _DIR_ROOT . '/app/views/mixins/toast.php';
+    if ($isError) {
+        renderToast('Thêm sản phẩm thất bại', true, true, true);
+    } else {
+        renderToast('Thêm sản phẩm thành công', true, true, false);
+    }
+
+    echo "<script>setTimeout(() => { window.location.href = '/kenh-ban-hang/san-pham/them' }, 2000)</script>";
+}
+?>

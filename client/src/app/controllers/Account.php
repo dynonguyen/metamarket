@@ -2,6 +2,7 @@
 require_once _DIR_ROOT . '/utils/Jwt.php';
 require_once _DIR_ROOT . '/app/models/Account.php';
 require_once _DIR_ROOT . '/app/models/User.php';
+require_once _DIR_ROOT . '/app/models/Shop.php';
 
 class Account extends Controller
 {
@@ -110,8 +111,8 @@ class Account extends Controller
         }
 
         // get user
-        $user = UserModel::findUserByAccountId($accountId);
-        $userId = !empty($user) ? $user->_get('userId') : '';
+        $user = $account->_get('type') == USER_ROLE ? UserModel::findUserByAccountId($accountId) : ShopModel::findShopByAccountId($accountId);
+        $userId =  $account->_get('type') == USER_ROLE ? $user->_get('userId') : $user->_get('shopId');
 
         // set cookie
         $this->onLoginSuccess($accountId, $userId, $account->_get('type'));
