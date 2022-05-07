@@ -1,5 +1,6 @@
 <?php
 require_once _DIR_ROOT . '/utils/Jwt.php';
+require_once _DIR_ROOT . '/utils/Mail.php';
 require_once _DIR_ROOT . '/app/models/Account.php';
 require_once _DIR_ROOT . '/app/models/User.php';
 require_once _DIR_ROOT . '/app/models/Shop.php';
@@ -171,6 +172,35 @@ class Account extends Controller
                     throw new Exception("Đăng nhập thất bại");
                 }
             }
+        }
+    }
+
+    public function forgotPassword()
+    {
+        if (isset($_GET['email'])) {
+            $email = $_GET['email'];
+            $isAccountExist = AccountModel::isExistByEmail($email);
+
+            if (!$isAccountExist) {
+                $this->setViewContent('error', 'Tài khoản không tồn tại !');
+            } else {
+                $isSendSuccess = MailUtil::sendForgetPassword($email);
+                if ($isSendSuccess) {
+                    $this->setViewContent('isSuccess', true);
+                }
+            }
+        }
+        $this->setPageTitle('Quên mật khẩu');
+        $this->setContentViewPath('account/forgot-password');
+        $this->render('layouts/general', $this->data);
+    }
+
+    public function changePassword()
+    {
+        if (!empty($_GET['code'])) {
+            echo $_GET['code'];
+        } else {
+            echo "Hi";
         }
     }
 

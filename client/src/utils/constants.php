@@ -45,3 +45,9 @@ define('SHOP_ROLE', 2);
 define('SHIPPER_ROLE', 3);
 define('ADMIN_ROLE', 4);
 define('GUEST_ROLE', 0);
+
+# Mailer
+define('MAIL_EXP', 10); // 10 minutes
+define('MAIL_HOST', $_ENV['MAIL_HOST'] ?? 'stmp.gmail.com');
+define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
+define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
