@@ -1,10 +1,12 @@
 <div class='pt-4'></div>
+
 <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
 <?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
 renderToast('Đã thêm vào giỏ hàng');
 ?>
+<?php $staticUrl = STATIC_FILE_URL; ?>
 
 <?php
 $productName = $product->name;
@@ -22,7 +24,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                 <!-- Photo -->
                 <div class='col col-12 col-md-6 col-lg-5 product-photo'>
                     <div class='avt p-4'>
-                        <?php echo "<img id='photoAvt' src='/public/$productAvt' alt='$productName'>"; ?>
+                        <?php echo "<img id='photoAvt' src='$staticUrl/$productAvt' alt='$productName'>"; ?>
                     </div>
 
                     <?php if (!empty($productDetail)) {
@@ -30,13 +32,13 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     ?>
                         <div class='photos'>
                             <?php
-                            $avtThumb = ImageUtil::toThumbnail("/public/$productAvt");
+                            $avtThumb = ImageUtil::toThumbnail("$staticUrl/$productAvt");
                             echo "<div class='photo-item active'>
                                 <img src='$avtThumb'>
                             </div>";
 
                             foreach ($photos as $photoSrc) {
-                                $photoThumb = ImageUtil::toThumbnail("/public/$photoSrc");
+                                $photoThumb = ImageUtil::toThumbnail("$staticUrl/$photoSrc");
                                 echo "<div class='photo-item'>
                                     <img src='$photoThumb'>
                                 </div>";
@@ -115,7 +117,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <?php } ?>
 
                     <div class='commitment vertical-center'>
-                        <img class="me-2" src='/public/assets/images/logo.svg' alt='MM Logo'>
+                        <?php echo "<img class='me-2' src='$staticUrl/assets/images/logo.svg' alt='MM Logo'>"; ?>
                         <span>MetaMarket Cam Kết</span>
                         <p class="ms-5 text-gray">Sản phẩm an toàn, hỗ trợ nhiệt tình</p>
                     </div>

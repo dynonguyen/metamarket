@@ -31,6 +31,10 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 # Công nghệ phát triển
 
+> **Static File Server**
+
+- Nginx
+
 > **Client Side**
 
 - HTML, CSS, JS
@@ -70,13 +74,24 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 ### **Microservices Architecture**
 
-![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1650014745/metamarket/Microservice_Architecture.png)
+![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1651894922/metamarket/Microservice_Architecture.jpg)
 
 ### **Database Diagram**
 
 ![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1650093397/metamarket/db-diagram.png)
 
 # Hướng dẫn chạy
+
+> **Static file server (Nginx)**
+
+- Không bắt buộc, nhưng có thể dùng Nginx để serve static file server để giảm tải cho client
+- _public_host_path_ là đường dẫn đến thư mục _public_ chứa resource của client
+- Thay đổi .env bên client **STATIC_FILE_URL="http://localhost:4000"**
+
+```sh
+  docker pull nginx:latest
+  docker run --name nginx -d -p 4000:80 -v {public_host_path}:/usr/share/nginx/html:ro nginx:latest
+```
 
 > **Client**
 
@@ -87,7 +102,6 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
   - pdo_mysql
   - gd
   - openssl
-
   - Thay đổi giá trị sau:
     - upload_max_filesize = 25M
 
@@ -107,6 +121,7 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 > **Server**
 
 - B1: Cài đặt các cơ sở dữ liệu (có thể cài bên ngoài máy host thay vì dùng docker)
+- **{host_path}** Nơi lưu trữ DB bền vững ngoài host.
 
 ```sh
   # Mongodb (Thay {host_path} thành nơi lưu dữ liệu cho MongoDB)

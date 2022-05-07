@@ -1,9 +1,11 @@
 let cartTotal = 0;
 let products = [];
+const staticUrl =
+	typeof STATIC_FILE_URL !== 'undefined' ? STATIC_FILE_URL : '/public';
 
 function renderEmptyCart() {
 	const xml = `<div class="flex-column flex-center p-5">
-    <img src="/public/assets/images/empty.png" style="width: 150px" />
+    <img src="${staticUrl}/assets/images/empty.png" style="width: 150px" />
     <h4 class="my-5">Giỏ hàng chưa có sản phẩm</h4>
     <button class="btn btn-primary">
       <a href="/" class="text-light">Tiếp tục mua sắm</a>
@@ -66,7 +68,7 @@ function renderCartSummary() {
 
 function renderProductCart(product) {
 	const { _id, avt, price, stock, unit, name, quantity } = product;
-	const thumbAvt = toThumbnail(`/public/${avt}`);
+	const thumbAvt = toThumbnail(`${staticUrl}/${avt}`);
 
 	const xml = `<div class='cart-item row g-2' data-id='${_id}'>
 						<div class="col col-12 col-lg-7 vertical-center">

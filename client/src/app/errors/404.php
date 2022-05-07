@@ -1,6 +1,12 @@
+<?php
+$staticUrl = STATIC_FILE_URL;
+?>
+
 <head>
-    <link rel="icon" type="image/x-icon" href="/public/assets/images/favicon.png">
-    <link rel="stylesheet" href="/public/assets/css/404.css" />
+    <?php
+    echo "<link rel='icon' type='image/x-icon' href='$staticUrl/assets/images/favicon.png'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/404.css' />";
+    ?>
     <title>Không tìm thấy trang | MetaMarket</title>
 </head>
 

@@ -1,9 +1,10 @@
+<?php $staticUrl = STATIC_FILE_URL; ?>
 <footer id="footer" class="bg-secondary pt-4 w-100">
     <div class="container pb-4">
         <div class="row gx-5 gy-3 gy-md-0">
             <div class="col col-12 col-sm-6 col-md-3">
                 <div class="mb-3">
-                    <img class="logo" src="/public/assets/images/logo.svg" alt="MM Logo">
+                    <?php echo "<img class='logo' src='$staticUrl/assets/images/logo.svg' alt='MM Logo'>"; ?>
                     <strong class="logo-name">
                         Meta<span class="orange-color">Market</span>
                     </strong>
@@ -11,7 +12,7 @@
                 <p>Công Ty Cổ Phần Dịch Vụ Thương Mại <b>MetaMarket</b></p>
                 <p>Mã số doanh nghiệp: 0204518412 Đăng ký lần đầu ngày 30 tháng 02 năm 2021, đăng ký thay đổi lần thứ 24, ngày 31 tháng 02 năm 2022</p>
                 <a href="http://online.gov.vn/" target="_blank">
-                    <img src="/public/assets/images/bo-cong-thuong.png" alt="Check" class="check">
+                    <?php echo "<img src='$staticUrl/assets/images/bo-cong-thuong.png' alt='Check' class='check'>"; ?>
                 </a>
             </div>
             <div class="col col-12 col-sm-6 col-md-3 pt-4">

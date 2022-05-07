@@ -4,7 +4,7 @@ require_once _DIR_ROOT . '/utils/Image.php';
 // Required product-card.css
 function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $stock = 1)
 {
-    $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail("/public/$avt");
+    $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
     $discountRateXML = !empty($discount) ? "<label class='discount-rate'>-$discount%</label>" : "";
     $discountPrice = number_format(((100 + $discount) * $price) / 100, 0, ',', '.') . ' ₫';
     $discountPriceXML = !empty($discount) ? "<div class='discount'>$discountPrice</div>" :  "";

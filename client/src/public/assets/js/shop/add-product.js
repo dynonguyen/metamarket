@@ -2,10 +2,13 @@ const IMG_MAX_SIZE = 2 * 1024 * 1024; // 2 MB
 const MAX_PHOTOS_LEN = 10;
 let infosLen = 0;
 
+const staticUrl =
+	typeof STATIC_FILE_URL !== 'undefined' ? STATIC_FILE_URL : '/public';
+
 function loadNicEditor() {
 	bkLib.onDomLoaded(function () {
 		new nicEditor({
-			iconsPath: '/public/vendors/nicEdit/nicEditorIcons.gif',
+			iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
 		}).panelInstance('desc');
 		$('.nicEdit-main').parent('div').css({ width: '100%', padding: '8px' });
 		$('.nicEdit-panelContain').parent('div').css({ width: '100%' });

@@ -1,7 +1,9 @@
 <div class='container py-5'>
     <form id='form' method='POST' action='/account/postSignup'>
         <div class='text-center'>
-            <img class='form-logo' src='/public/assets/images/logo.svg' alt='Logo'>
+            <?php $staticUrl = STATIC_FILE_URL;
+            echo "<img class='form-logo' src='$staticUrl/assets/images/logo.svg' alt='Logo'>";
+            ?>
         </div>
         <h1 class='text-center my-4 form-title'>Tạo tài khoản</h1>
 

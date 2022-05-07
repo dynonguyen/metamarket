@@ -91,6 +91,7 @@ class Shop extends Controller
         }
 
         $this->setViewContent('catalogs', $catalogs);
+        $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
         $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
         $this->setContentViewPath('shop/add-product');
         $this->appendCssLink(['shop/add-product.css']);

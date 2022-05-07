@@ -9,6 +9,7 @@
     viewContent: array [data for viewPath file]
     **
 */
+$staticUrl = STATIC_FILE_URL;
 ?>
 
 <!DOCTYPE html>
@@ -22,14 +23,16 @@
         <?php echo !empty($pageTitle) ? $pageTitle : "Trang Chủ" ?>
     </title>
 
-    <link rel="icon" type="image/x-icon" href="/public/assets/images/favicon.png">
-    <link rel="stylesheet" href="/public/vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/assets/css/utils/common.css">
-    <link rel="stylesheet" href="/public/assets/css/utils/atomic.css">
-    <link rel="stylesheet" href="/public/assets/css/utils/bootstrap-custom.css">
-    <link rel="stylesheet" href="/public/assets/css/header.css">
-    <link rel="stylesheet" href="/public/assets/css/catalog.css">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
+    <?php
+    echo "<link rel='icon' type='image/x-icon' href='$staticUrl/assets/images/favicon.png'>";
+    echo "<link rel='stylesheet' href='$staticUrl/vendors/bootstrap/bootstrap.min.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/utils/common.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/utils/atomic.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/utils/bootstrap-custom.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/header.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/catalog.css'>";
+    echo "<link rel='stylesheet' href='$staticUrl/assets/css/footer.css'>";
+    ?>
 
     <?php
     // Bootstrap icon
@@ -46,7 +49,7 @@
     // Add css link
     if (!empty($cssLinks)) {
         foreach ($cssLinks as $filename) {
-            echo "<link rel='stylesheet' href='/public/assets/css/$filename'>";
+            echo "<link rel='stylesheet' href='$staticUrl/assets/css/$filename'>";
         }
     }
     ?>
@@ -61,9 +64,13 @@
     <?php require_once _DIR_ROOT . '/app/views/blocks/footer.php'; ?>
 </body>
 
-<script src="/public/vendors/jquery/jquery.min.js"></script>
-<?php require_once _DIR_ROOT . '/app/views/blocks/cdn/popper.php' ?>
-<script src="/public/vendors/bootstrap/bootstrap.min.js"></script>
+<!-- Common script -->
+<?php
+echo "<script src='$staticUrl/vendors/jquery/jquery.min.js'></script>";
+require_once _DIR_ROOT . '/app/views/blocks/cdn/popper.php';
+echo "<script src='$staticUrl/vendors/bootstrap/bootstrap.min.js'></script>";
+?>
+
 <?php
 // passed variable
 if (!empty($passedVariables)) {
@@ -75,9 +82,11 @@ if (!empty($passedVariables)) {
 }
 ?>
 
-<script src="/public/assets/js/catalog.js"></script>
-<script src="/public/assets/js/utils/cart.js"></script>
-<script src="/public/assets/js/search.js"></script>
+<?php
+echo "<script src='$staticUrl/assets/js/catalog.js'></script>";
+echo "<script src='$staticUrl/assets/js/utils/cart.js'></script>";
+echo "<script src='$staticUrl/assets/js/search.js'></script>";
+?>
 
 <?php
 // Add JS CDN
@@ -89,7 +98,7 @@ if (!empty($jsCDN)) {
 // Add JS link
 if (!empty($jsLinks)) {
     foreach ($jsLinks as $filename) {
-        echo "<script src='/public/assets/js/$filename'></script>";
+        echo "<script src='$staticUrl/assets/js/$filename'></script>";
     }
 }
 ?>
