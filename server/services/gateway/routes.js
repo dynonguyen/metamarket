@@ -27,6 +27,10 @@ const aggregateAliases = {
 	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
 };
 
+const internalAliases = {
+	'GET internal/admin/by-username/:username': `${INTERNAL_SVC}.getAccountByUsername`,
+};
+
 module.exports = [
 	{
 		path: '/api/v1',
@@ -45,6 +49,7 @@ module.exports = [
 			...aggregateAliases,
 
 			// Internal service
+			...internalAliases,
 
 			// Order service
 
