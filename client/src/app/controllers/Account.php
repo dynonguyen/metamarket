@@ -122,6 +122,8 @@ class Account extends Controller
     public function logout()
     {
         setcookie(COOKIE_LOGIN_KEY, "", time() - COOKIE_LOGIN_EXP, "/");
+        $_SESSION['isAuth'] = false;
+        unset($_SESSION['account']);
         self::redirect('/');
     }
 
@@ -244,6 +246,12 @@ class Account extends Controller
         $isAuth = true;
 
         $jwt = JwtUtil::encode(['accountId' => $accountId, 'userId' => $userId, 'role' => $role], JWT_EXP);
+
+        // Set session
+        $_SESSION['isAuth'] = true;
+        $_SESSION['account'] = ['accountId' => $accountId, 'userId' => $userId, 'role' => $role];
+
+        // Set cookie
         setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
         self::redirect('/', 301);
     }

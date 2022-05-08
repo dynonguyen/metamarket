@@ -123,7 +123,11 @@ class App
 
     private function getUser()
     {
-        global $user, $shop, $isAuth;
+        if (!empty($_SESSION['isAuth'])) {
+            $account = $_SESSION['account'];
+            $this->getGlobalUserWithRole($account['role'], $account['userId']);
+            return $account['role'];
+        }
 
         if (isset($_COOKIE[COOKIE_LOGIN_KEY])) {
             $accessToken = $_COOKIE[COOKIE_LOGIN_KEY];
@@ -132,26 +136,28 @@ class App
             if (!empty($jwtDecoded)) {
                 $userId = $jwtDecoded['sub']->userId;
                 $role = $jwtDecoded['sub']->role;
-
-                if ($role === USER_ROLE) {
-                    $checkUser = UserModel::findUserById($userId);
-
-                    if (!empty($checkUser)) {
-                        $user = $checkUser;
-                        $isAuth = true;
-                    }
-                } else if ($role === SHOP_ROLE) {
-                    $checkShop = ShopModel::findShopById($userId);
-                    if (!empty($checkShop)) {
-                        $shop = $checkShop;
-                        $isAuth = true;
-                    }
-                }
-
+                $this->getGlobalUserWithRole($role, $userId);
                 return $role;
             }
         }
 
         return GUEST_ROLE;
+    }
+
+    private function getGlobalUserWithRole($role, $userId)
+    {
+        global $user, $shop, $isAuth;
+
+        if ($role === USER_ROLE) {
+            $user = UserModel::findUserById($userId);
+            if ($user->_get('userId')) {
+                $isAuth = true;
+            }
+        } else if ($role === SHOP_ROLE) {
+            $shop = ShopModel::findShopById($userId);
+            if ($shop->_get('shopId')) {
+                $isAuth = true;
+            }
+        }
     }
 }
