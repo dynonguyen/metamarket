@@ -32,3 +32,5 @@ $routes['chinh-sach-giao-hang'] = 'AboutMe/shippingPolicy';
 $routes['chinh-sach-thanh-toan'] = 'AboutMe/paymentPolicy';
 $routes['chinh-sach-doi-tra'] = 'AboutMe/refundPolicy';
 $routes['chinh-sach-uu-dai'] = 'AboutMe/discountPolicy';
+
+$routes['danh-gia-san-pham'] = 'review/postReviewProduct';
