@@ -27,6 +27,10 @@ const aggregateAliases = {
 	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
 };
 
+const reviewAliases = {
+	'POST reviews/add-product-comment': `${REVIEW_SVC}.postAddProductComment`,
+};
+
 module.exports = [
 	{
 		path: '/api/v1',
@@ -54,6 +58,7 @@ module.exports = [
 			...productAliases,
 
 			// Review service
+			...reviewAliases,
 
 			// Shipping service
 

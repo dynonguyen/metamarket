@@ -135,6 +135,7 @@ module.exports = {
 	getBasicProductInfoById: {
 		cache: {
 			ttl: 300,
+			keys: ['productId'],
 		},
 		params: {
 			productId: {
@@ -158,7 +159,10 @@ module.exports = {
 	},
 
 	getProductDetailById: {
-		cache: false,
+		cache: {
+			ttl: 300,
+			keys: ['productId'],
+		},
 		params: {
 			productId: {
 				type: 'string',
@@ -348,6 +352,45 @@ module.exports = {
 				return false;
 			} catch (error) {
 				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getReviewSummaryById: {
+		cache: false,
+		params: {
+			productId: 'string',
+		},
+		async handler(ctx) {
+			try {
+				const product = Product.findById(ctx.params.productId).select(
+					'reviewTotal rateAvg',
+				);
+				return product;
+			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putUpdateProductById: {
+		cache: false,
+		params: {
+			productId: 'string',
+			updateFields: 'any',
+		},
+		async handler(ctx) {
+			try {
+				const updateRes = await Product.updateOne(
+					{ _id: ctx.params.productId },
+					{ ...ctx.params.updateFields },
+				);
+				if (updateRes) {
+					return true;
+				}
+				return false;
+			} catch (error) {
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

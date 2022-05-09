@@ -1,16 +1,15 @@
 const { SVC_NAME } = require('../../utils/constants');
-const productAction = require('./actions/product.action');
+const productActions = require('./actions/product.action');
+const aggregateEvents = require('./aggregate.event');
 
 module.exports = {
 	name: SVC_NAME.AGGREGATE,
 
 	actions: {
-		...productAction,
+		...productActions,
 	},
 
 	events: {
-		'user.call'(ctx) {
-			console.log('HOOOOOOOOOOOOOOOOOOOOOOOOOOO');
-		},
+		...aggregateEvents,
 	},
 };
