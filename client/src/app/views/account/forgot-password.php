@@ -1,5 +1,5 @@
 <div class='container py-5'>
-    <form action='quen-mat-khau' method='GET' class='bg-white p-5' style='max-width: 375px; margin: 0 auto; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;'>
+    <form action='/quen-mat-khau' method='GET' class='bg-white p-5' style='max-width: 375px; margin: 0 auto; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;'>
         <div class='text-center'>
             <h1 class='text-primary text-uppercase' style='font-size: 2.6rem;'>Quên mật khẩu</h1>
             <p class='text-gray my-2' style='font-size: 1.6rem;'>Nhập địa chỉ Email của bạn</p>

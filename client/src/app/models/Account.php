@@ -39,4 +39,23 @@ class AccountModel
             return false;
         }
     }
+
+    public static function updatePasswordByEmail(string $email, string $newPassword)
+    {
+        try {
+            $conn = MySQLConnection::getConnect();
+            $st = $conn->prepare('UPDATE accounts SET password = :password WHERE email = :email');
+            $st->execute([':email' => $email, 'password' => $newPassword]);
+            $affectedRows = $st->rowCount();
+
+            if ($affectedRows > 0) {
+                return true;
+            }
+
+            return false;
+        } catch (Exception $ex) {
+            error_log($ex);
+            return false;
+        }
+    }
 }

@@ -77,6 +77,9 @@ class Account extends Controller
         if ($isAuth) {
             self::redirect('/');
         } else {
+            if ($_SESSION['message']) {
+                $this->showSessionMessage();
+            }
             $this->renderLoginPage();
         }
     }
@@ -179,6 +182,10 @@ class Account extends Controller
 
     public function forgotPassword()
     {
+        if (!empty($_SESSION['message'])) {
+            self::showSessionMessage();
+        }
+
         if (isset($_GET['email'])) {
             $email = $_GET['email'];
             $isAccountExist = AccountModel::isExistByEmail($email);
@@ -200,10 +207,49 @@ class Account extends Controller
     public function changePassword()
     {
         if (!empty($_GET['code'])) {
-            echo $_GET['code'];
-        } else {
-            echo "Hi";
+            $code = $_GET['code'];
+            $jwt = JwtUtil::decode($code);
+            if ($jwt) {
+                $email = $jwt['sub']->email;
+
+                $this->setPageTitle('Thay đổi mật khẩu');
+                $this->appendJSLink('account/change-password.js');
+                $this->setViewContent('email', $email);
+                $this->setViewContent('code', $code);
+                $this->setContentViewPath('account/change-password');
+                $this->render('layouts/general', $this->data);
+                return;
+            }
         }
+
+        self::setSessionMessage('Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng thử lại !', true);
+        self::redirect('/quen-mat-khau');
+    }
+
+    public function postChangePassword()
+    {
+        if (!empty($_POST['code']) && !empty($_POST['password'])) {
+            $code = $_POST['code'];
+            $password = $_POST['password'];
+            $jwt = JwtUtil::decode($code);
+
+            if ($jwt) {
+                $email = $jwt['sub']->email;
+                $hashPwd = password_hash($password, PASSWORD_BCRYPT, ['cost' => BCRYPT_SALT]);
+                $isSuccess = AccountModel::updatePasswordByEmail($email, $hashPwd);
+                if ($isSuccess) {
+                    self::setSessionMessage('Thay đổi mật khẩu thành công', false);
+                    self::redirect('/tai-khoan/dang-nhap');
+                }
+            } else {
+                self::setSessionMessage('Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng thử lại !', true);
+                self::redirect('/quen-mat-khau');
+            }
+
+            return;
+        }
+        self::setSessionMessage('Thay đổi mật khẩu không thành công ! Thử lại', true);
+        self::redirect('/quen-mat-khau');
     }
 
     // Private methods
