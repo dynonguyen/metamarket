@@ -47,7 +47,7 @@ if (!empty($productData)) {
     }
 }
 
-renderToast("Đã thêm vào giỏ hàng");
+renderToast("Thêm vào giỏ hàng thành công");
 
 ?>
 

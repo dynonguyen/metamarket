@@ -23,3 +23,12 @@ $routes['gio-hang'] = 'cart/index';
 
 $routes['kenh-ban-hang/san-pham/them'] = 'shop/addProduct';
 $routes['kenh-ban-hang/san-pham/them/post'] = 'shop/postAddProduct';
+
+$routes['gioi-thieu'] = 'AboutMe/index';
+$routes['chinh-sach-bao-mat'] = 'AboutMe/securityPolicy';
+$routes['dieu-khoan-dich-vu'] = 'AboutMe/service';
+$routes['ho-tro-khach-hang'] = 'AboutMe/customerSupport';
+$routes['chinh-sach-giao-hang'] = 'AboutMe/shippingPolicy';
+$routes['chinh-sach-thanh-toan'] = 'AboutMe/paymentPolicy';
+$routes['chinh-sach-doi-tra'] = 'AboutMe/refundPolicy';
+$routes['chinh-sach-uu-dai'] = 'AboutMe/discountPolicy';

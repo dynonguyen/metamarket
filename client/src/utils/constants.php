@@ -51,3 +51,5 @@ define('MAIL_EXP', 10); // 10 minutes
 define('MAIL_HOST', $_ENV['MAIL_HOST'] ?? 'stmp.gmail.com');
 define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
 define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
+
+define('CONTACT_PHONE', $_ENV['CONTACT_PHONE'] ?? '');

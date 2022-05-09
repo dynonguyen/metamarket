@@ -4,7 +4,7 @@
 <?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
-renderToast('Đã thêm vào giỏ hàng');
+renderToast('Thêm vào giỏ hàng thành công');
 ?>
 <?php $staticUrl = STATIC_FILE_URL; ?>
 
