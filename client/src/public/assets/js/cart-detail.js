@@ -60,7 +60,9 @@ function renderCartSummary() {
 						<div class='text-end text-gray'>
 								<i>(Giá đã bao gồm VAT)</i>
 						</div>
-						<button class='btn btn-accent w-100 mt-5'>Đặt hàng</button>
+						<a href='/thong-tin-giao-hang'>
+							<button class='btn btn-accent w-100 mt-5'>Đặt hàng</button>
+						</a>
 				</div>`;
 
 	$('#cartSummary').html(xml);

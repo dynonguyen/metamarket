@@ -9,7 +9,7 @@ class Product extends Controller
 
         $apiRes = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $productId);
         if ($apiRes['statusCode'] === 200) {
-            if ($_SESSION['message']) {
+            if (!empty($_SESSION['message'])) {
                 $this->showSessionMessage();
             }
             $data = $apiRes['data'];

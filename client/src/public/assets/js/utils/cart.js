@@ -16,12 +16,12 @@ function getCart() {
 	return Array.isArray(cart) ? cart : [];
 }
 
-function addToCart({ productId, quantity, price = 0 }) {
+function addToCart({ productId, quantity, price = 0, discount = 0 }) {
 	const cart = getCart();
 
 	const productIndex = cart.findIndex((p) => p.productId === productId);
 	if (productIndex === -1) {
-		cart.push({ productId, quantity, price });
+		cart.push({ productId, quantity, price, discount });
 	} else {
 		cart[productIndex].quantity += quantity;
 	}
@@ -70,9 +70,15 @@ jQuery(function () {
 		const productId = $(this).attr('data-id');
 		const productPrice = $(this).attr('data-price');
 		const productStock = Number($(this).attr('data-stock'));
+		const productDiscount = Number($(this).attr('data-discount'));
 
 		if (productId) {
-			addToCart({ productId, quantity: 1, price: Number(productPrice) });
+			addToCart({
+				productId,
+				quantity: 1,
+				price: Number(productPrice),
+				discount: productDiscount,
+			});
 			$(this).attr('data-stock', productStock - 1);
 			if (productStock - 1 <= 0) {
 				$(this)

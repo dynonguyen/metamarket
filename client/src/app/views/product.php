@@ -102,11 +102,11 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                         </div>
 
                         <div class='action-btn'>
-                            <?php echo "<button class='btn btn-outline-accent me-3 add-cart' data-id='$product->_id' data-stock='$product->stock' data-price='$product->price' id='addCartBtn'>"; ?>
+                            <?php echo "<button class='btn btn-outline-accent me-3 add-cart' data-id='$product->_id' data-stock='$product->stock' data-price='$product->price' data-discount='$product->discount' id='addCartBtn'>"; ?>
                             <i class='bi bi-cart-plus-fill me-3'></i>
                             <span>Thêm giỏ hàng</span>
                             </button>
-                            <button class='btn btn-primary' id='buyBtn'>Mua ngay</button>
+                            <?php echo "<button class='btn btn-primary' data-id='$product->_id' data-price='$product->price' id='buyBtn'>Mua ngay</button>"; ?>
                         </div>
                     <?php } else { ?>
                         <div class='action-btn text-center'>

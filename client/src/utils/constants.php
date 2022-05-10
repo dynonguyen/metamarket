@@ -53,3 +53,11 @@ define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
 define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
 
 define('CONTACT_PHONE', $_ENV['CONTACT_PHONE'] ?? '');
+define('SHIPPING_FEE', 25000);
+
+define('MOMO_PARTNER_CODE', $_ENV['MOMO_PARTNER_CODE'] ?? '');
+define('MOMO_ACCESS_KEY', $_ENV['MOMO_ACCESS_KEY'] ?? '');
+define('MOMO_SECRET_KEY', $_ENV['MOMO_SECRET_KEY'] ?? '');
+define('MOMO_ENDPOINT', $_ENV['MOMO_ENDPOINT'] ?? '');
+
+define('PAYMENT_METHOD', ['COD' => 0, 'MOMO' => 1]);

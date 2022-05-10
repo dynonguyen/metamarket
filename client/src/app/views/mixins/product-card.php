@@ -10,7 +10,7 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $stock =
     $discountPriceXML = !empty($discount) ? "<div class='discount'>$discountPrice</div>" :  "";
     $formattedPrice = number_format($price, 0, ',', '.') . ' ₫';
     $actionBtn = $stock >= 1 ?
-        "<button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price' data-stock='$stock'>Thêm giỏ hàng</button>"
+        "<button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price' data-stock='$stock' data-discount='$discount'>Thêm giỏ hàng</button>"
         : "<button class='btn btn-accent disabled'>Tạm hết hàng</button>";
 
     echo "<div class='product-card'>

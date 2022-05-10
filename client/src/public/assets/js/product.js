@@ -48,4 +48,11 @@ jQuery(function () {
 
 		this.submit();
 	});
+
+	$('#buyBtn').on('click', function () {
+		const productId = $(this).attr('data-id');
+		const productPrice = $(this).attr('data-price');
+		addToCart({ productId, quantity: 1, price: Number(productPrice) });
+		location.href = '/thong-tin-giao-hang';
+	});
 });
