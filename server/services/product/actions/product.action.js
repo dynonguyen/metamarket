@@ -1,4 +1,4 @@
-const { DEFAULT } = require('../../../utils/constants');
+const { DEFAULT, SVC_NAME } = require('../../../utils/constants');
 const { mongoosePaginate } = require('../../../utils/mongoose-paginate');
 const { Product, ProductDetail } = require('../product.db');
 const { MoleculerError } = require('moleculer').Errors;
@@ -390,6 +390,50 @@ module.exports = {
 					return true;
 				}
 				return false;
+			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getShopByProductId: {
+		cache: {
+			ttl: 600,
+			keys: ['productId'],
+		},
+		params: {
+			productId: 'string',
+		},
+		async handler(ctx) {
+			try {
+				const product = await Product.findById(ctx.params.productId);
+				if (product) {
+					return product.shopId;
+				}
+				return -1;
+			} catch (error) {
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putDecreaseProductStockById: {
+		params: {
+			productId: 'string',
+			quantity: 'number',
+		},
+		async handler(ctx) {
+			try {
+				await Product.findOneAndUpdate(
+					{ _id: ctx.params.productId },
+					{ $inc: { stock: -1 * Number(ctx.params.quantity) } },
+				);
+				if (this.broker) {
+					this.broker.cacher.clean([
+						`${SVC_NAME.PRODUCT}.getBasicProductInfoById:${ctx.params.productId}`,
+					]);
+				}
+				return true;
 			} catch (error) {
 				throw new MoleculerError(error.toString(), 500);
 			}

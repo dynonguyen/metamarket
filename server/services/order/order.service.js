@@ -1,7 +1,9 @@
 const { SVC_NAME } = require('../../utils/constants');
-const { Order } = require('./order.db');
+const orderActions = require('./order.action');
 
 module.exports = {
 	name: SVC_NAME.ORDER,
-	actions: {},
+	actions: {
+		...orderActions,
+	},
 };

@@ -14,6 +14,6 @@ const paymentDb = sequelizeConnect({
 const UserPayment = paymentDb.define(...UserPaymentSchema);
 const ShopPayment = paymentDb.define(...ShopPaymentSchema);
 
-paymentDb.sync();
+paymentDb.sync({ alter: true });
 
 module.exports = { UserPayment, ShopPayment };
