@@ -3,16 +3,21 @@ class Order extends Controller
 {
     public function info()
     {
-        $this->setPageTitle('Thông tin giao hàng');
-        $this->setPassedVariables([
-            'USER_SERVICE_API_URL' => USER_SERVICE_API_URL,
-            'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL,
-            'SHIPPING_FEE' => SHIPPING_FEE
-        ]);
-        $this->appendCssLink(['order/info.css']);
-        $this->appendJSLink(['utils/address-select.js', 'utils/format.js', 'order/info.js']);
-        $this->setContentViewPath('order/info');
-        $this->render('layouts/general', $this->data);
+        global $user;
+        if (!empty($user->_get('userId'))) {
+            $this->setPageTitle('Thông tin giao hàng');
+            $this->setPassedVariables([
+                'USER_SERVICE_API_URL' => USER_SERVICE_API_URL,
+                'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL,
+                'SHIPPING_FEE' => SHIPPING_FEE
+            ]);
+            $this->appendCssLink(['order/info.css']);
+            $this->appendJSLink(['utils/address-select.js', 'utils/format.js', 'order/info.js']);
+            $this->setContentViewPath('order/info');
+            $this->render('layouts/general', $this->data);
+        } else {
+            self::redirect('/tai-khoan/dang-nhap');
+        }
     }
 
     public function momoPaymentResult()
