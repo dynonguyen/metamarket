@@ -44,6 +44,12 @@ function renderOtherInfoInput() {
 	infosLen++;
 }
 
+function autoTrimInputOnChange() {
+	$('input[type="text"]').on('change', function () {
+		$(this).val($(this).val().trim());
+	});
+}
+
 $.validator.addMethod(
 	'expCheck',
 	function (value, element) {
@@ -95,6 +101,7 @@ $.validator.addMethod(
 
 jQuery(function () {
 	loadNicEditor();
+	autoTrimInputOnChange();
 
 	$('#addProductForm').validate({
 		validClass: 'field-valid',
@@ -107,6 +114,7 @@ jQuery(function () {
 				required: true,
 				minlength: 8,
 				maxlength: 150,
+				nowhitespace: true,
 			},
 			catalog: {
 				required: true,

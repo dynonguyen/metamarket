@@ -3,7 +3,7 @@
 <div class='py-4'>
     <div class='container bg-white px-4 py-5'>
         <h1 class='text-center text-uppercase fs-1 text-primary mb-4'>Đăng ký bán hàng</h1>
-        <form action='/account/postShopRegister' id="shopRegisterForm" method='POST'>
+        <form action='/account/postShopRegister' id="shopRegisterForm" method='POST' enctype='multipart/form-data'>
             <h2 class="sub-title">Thông tin cửa hàng</h2>
             <div class='row g-4 mt-2 mb-4'>
                 <div class='col col-12 col-md-6 col-lg-3'>
@@ -39,11 +39,11 @@
 
             <h2 class="sub-title">Thông tin tài khoản</h2>
             <div class='row g-4 mt-2 mb-4'>
-                <div class='col col-12 col-md-6 col-lg-3'>
+                <div class='col col-12 col-md-6'>
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="email" placeholder="example@gmail.com">
                 </div>
-                <div class='col col-12 col-md-6 col-lg-3'>
+                <div class='col col-12 col-md-6'>
                     <label for="password" class="form-label">Mật khẩu</label>
                     <div class='password-field'>
                         <input id='password' name='password' type='password' class='form-control'>
