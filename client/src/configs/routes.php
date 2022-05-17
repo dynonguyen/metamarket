@@ -17,6 +17,7 @@ $routes['tai-khoan/dang-nhap'] = 'account/login';
 $routes['quen-mat-khau'] = 'account/forgotPassword';
 $routes['thay-doi-mat-khau'] = 'account/changePassword';
 $routes['thuc-hien-thay-doi-mat-khau'] = 'account/postChangePassword';
+$routes['dang-ky-ban-hang'] = 'account/shopRegister';
 
 // Product
 $routes['san-pham/(.+)'] = 'product/index/$1';

@@ -1,0 +1,67 @@
+.sub-title {
+	text-transform: uppercase;
+	font-size: 1.9rem;
+}
+
+.form-control,
+.form-select {
+	font-size: 1.6rem;
+}
+
+form label {
+	color: var(--mm-gray);
+	font-size: 1.6rem;
+}
+
+#submitBtn {
+	padding: 0.75rem;
+	font-size: 1.7rem;
+}
+
+.password-field {
+	position: relative;
+}
+
+.password-field i {
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.4rem;
+	color: var(--mm-gray);
+	cursor: pointer;
+}
+
+.form-checkbox {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-checkbox > div {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+}
+
+.form-checkbox input {
+	height: 2rem;
+	width: 2rem;
+}
+
+input.field-error,
+select.field-error {
+	border: solid 2px var(--bs-danger) !important;
+}
+input.field-valid,
+select.field-valid {
+	border: solid 2px var(--bs-success) !important;
+}
+p.field-error {
+	color: var(--bs-danger);
+	max-width: 100%;
+	margin-top: 4px;
+	font-size: 1.5rem;
+}
+.input-group p.field-error {
+	display: none !important;
+}

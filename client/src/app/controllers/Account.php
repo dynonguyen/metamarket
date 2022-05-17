@@ -252,6 +252,16 @@ class Account extends Controller
         self::redirect('/quen-mat-khau');
     }
 
+    public function shopRegister()
+    {
+        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js']);
+        $this->setPageTitle("Đăng ký bán hàng");
+        $this->appendCssLink("shop-register.css");
+        $this->appendJSLink(['account/shop-register.js']);
+        $this->setContentViewPath('account/shop-register');
+        $this->render('layouts/general', $this->data);
+    }
+
     // Private methods
     private function renderSignupPage()
     {
