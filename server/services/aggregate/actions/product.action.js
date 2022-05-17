@@ -39,6 +39,7 @@ module.exports = {
 
 				return result;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

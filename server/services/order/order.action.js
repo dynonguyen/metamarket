@@ -71,6 +71,7 @@ module.exports = {
 
 				throw new Error('Create Failed');
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -88,6 +89,7 @@ module.exports = {
 				}
 				return false;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

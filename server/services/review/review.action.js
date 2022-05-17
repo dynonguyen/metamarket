@@ -23,6 +23,7 @@ module.exports = {
 				);
 				return comments;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -114,6 +115,7 @@ module.exports = {
 
 				throw new Error('Created Failed');
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

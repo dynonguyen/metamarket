@@ -59,6 +59,7 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -127,6 +128,7 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -153,6 +155,7 @@ module.exports = {
 				});
 				return product;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -175,6 +178,7 @@ module.exports = {
 				const productDetail = await ProductDetail.findOne({ productId });
 				return productDetail;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -203,6 +207,7 @@ module.exports = {
 
 				return products;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -259,6 +264,7 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -369,6 +375,7 @@ module.exports = {
 				);
 				return product;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -391,6 +398,7 @@ module.exports = {
 				}
 				return false;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -412,6 +420,7 @@ module.exports = {
 				}
 				return -1;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -435,6 +444,7 @@ module.exports = {
 				}
 				return true;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

@@ -22,6 +22,7 @@ module.exports = {
 				const catalogs = await Catalog.find({}).select(select);
 				return catalogs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -46,6 +47,7 @@ module.exports = {
 				const catalog = await Catalog.findOne({ link: catalogLink });
 				return catalog;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

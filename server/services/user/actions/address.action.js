@@ -12,6 +12,7 @@ module.exports = {
 				const provinces = await Province.findAll({ raw: true });
 				return provinces;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -34,6 +35,7 @@ module.exports = {
 				});
 				return districts;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -56,6 +58,7 @@ module.exports = {
 				});
 				return wards;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -99,6 +102,7 @@ module.exports = {
 
 				return '';
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
