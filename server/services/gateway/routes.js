@@ -46,6 +46,8 @@ const userAliases = {
 	'GET users/address/province/all': `${USER_SVC}.getAllProvinces`,
 	'GET users/address/district/by-province/:provinceId': `${USER_SVC}.getDistrictsByProvinceId`,
 	'GET users/address/ward/by-district/:districtId': `${USER_SVC}.getWardsByDistrictId`,
+
+	'POST users/account/create-shop': `${USER_SVC}.postCreateShop`,
 };
 
 module.exports = [

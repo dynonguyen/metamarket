@@ -58,4 +58,14 @@ class AccountModel
             return false;
         }
     }
+
+    public static function updateShopPhoto(string $shopId, string $logoUrl, string $businessLicense, string $foodSafetyCertificate)
+    {
+        $conn = MySQLConnection::getConnect();
+        $st = $conn->prepare("UPDATE contracts SET businessLicense = '$businessLicense', foodSafetyCertificate = '$foodSafetyCertificate' WHERE shopId = $shopId");
+        $st->execute();
+
+        $st = $conn->prepare("UPDATE shops SET logoUrl = '$logoUrl' WHERE shopId = $shopId");
+        $st->execute();
+    }
 }

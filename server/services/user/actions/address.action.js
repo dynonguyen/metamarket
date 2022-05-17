@@ -1,15 +1,6 @@
 const { MoleculerError } = require('moleculer').Errors;
 const { Sequelize } = require('sequelize');
-const {
-	Province,
-	User,
-	Account,
-	Contract,
-	District,
-	Shop,
-	UserAddress,
-	Ward,
-} = require('../user.db');
+const { Province, District, Ward } = require('../user.db');
 
 module.exports = {
 	getAllProvinces: {

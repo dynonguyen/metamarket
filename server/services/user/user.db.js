@@ -110,4 +110,5 @@ module.exports = {
 	User,
 	UserAddress,
 	Ward,
+	userDb,
 };

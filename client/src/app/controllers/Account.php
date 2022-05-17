@@ -45,9 +45,9 @@ class Account extends Controller
 
             // create an account
             $conn = MySQLConnection::getConnect();
-            $sql = "INSERT INTO	accounts (email, password, type, createdAt, updatedAt) VALUES (?,?,?,?,?)";
+            $sql = "INSERT INTO	accounts (email, password, type, createdAt, updatedAt, status) VALUES (?,?,?,?,?,?)";
             $now = date_create('now')->format('Y-m-d H:i:s');
-            $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $hashPwd, USER_ROLE, $now, $now]);
+            $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $hashPwd, USER_ROLE, $now, $now, ACCOUNT_STATUS['ACTIVE']]);
 
             if ((int)$isCreateAccountSuccess === 1) {
                 $accountId = $conn->lastInsertId();
@@ -106,10 +106,22 @@ class Account extends Controller
         $account = AccountModel::findAccountByEmail($email);
         $accountPwd = $account->_get('password');
         $accountId = $account->_get('accountId');
+        $status = $account->_get('status');
 
         $isCorrectPwd = password_verify($password, $accountPwd);
         if (!$isCorrectPwd) {
             $this->setViewContent('formError', 'Mật khẩu không chính xác !');
+            $this->renderLoginPage();
+            return;
+        }
+
+        if ($status == ACCOUNT_STATUS['WAITING_APPROVAL']) {
+            $this->setViewContent('formError', 'Tài khoản của bạn đang chờ được xét duyệt, vui lòng thử lại sau !');
+            $this->renderLoginPage();
+            return;
+        }
+        if ($status == ACCOUNT_STATUS['LOCKED']) {
+            $this->setViewContent('formError', 'Tài khoản của bạn đã bị khoá, vui lòng liên hệ chúng tôi để biết thêm thông tin');
             $this->renderLoginPage();
             return;
         }
@@ -158,9 +170,9 @@ class Account extends Controller
                 // Create account & user
                 $conn = MySQLConnection::getConnect();
 
-                $sql = "INSERT INTO	accounts (email, googleId, type, createdAt, updatedAt) VALUES (?,?,?,?,?)";
+                $sql = "INSERT INTO	accounts (email, googleId, type, createdAt, updatedAt, status) VALUES (?,?,?,?,?,?)";
                 $now = date_create('now')->format('Y-m-d H:i:s');
-                $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $googleId, USER_ROLE, $now, $now]);
+                $isCreateAccountSuccess = $conn->prepare($sql)->execute([$email, $googleId, USER_ROLE, $now, $now, ACCOUNT_STATUS['ACTIVE']]);
 
                 if ((int)$isCreateAccountSuccess === 1) {
                     $accountId = $conn->lastInsertId();
@@ -254,12 +266,51 @@ class Account extends Controller
 
     public function shopRegister()
     {
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=_id%20name');
+        $catalogs = $apiRes['statusCode'] === 200 ? $apiRes['data'] : [];
+
+        $this->showSessionMessage();
+        $this->setViewContent('catalogs', $catalogs);
         $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js']);
         $this->setPageTitle("Đăng ký bán hàng");
         $this->appendCssLink("shop-register.css");
         $this->appendJSLink(['account/shop-register.js']);
         $this->setContentViewPath('account/shop-register');
         $this->render('layouts/general', $this->data);
+    }
+
+    public function postShopRegister()
+    {
+        if (empty($_POST) || empty($_FILES)) {
+            $this->setSessionMessage('Đăng ký thất bại', true);
+            self::redirect('/dang-ky-ban-hang');
+        }
+
+        try {
+            $isAccountExist = AccountModel::isExistByEmail($_POST['email']);
+            if ($isAccountExist) {
+                $this->setSessionMessage('Email đã dược sử dụng', true);
+                self::redirect('/dang-ky-ban-hang');
+            }
+
+            $data = $_POST;
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => BCRYPT_SALT]);
+
+            $apiRes = ApiCaller::post(USER_SERVICE_API_URL . '/account/create-shop', $data);
+            if ($apiRes['statusCode'] === 200) {
+                $shop = json_decode($apiRes['data']);
+                $this->uploadShopPhoto($shop->shopId);
+
+                $this->setSessionMessage('Đăng ký tài khoản thành công. Chúng tôi đang xét duyệt tài khoản của bạn');
+                self::redirect('/dang-ky-ban-hang');
+            }
+
+            throw new Exception();
+        } catch (Exception $ex) {
+            error_log($ex);
+            $this->setSessionMessage('Đăng ký thất bại', true);
+            self::redirect('/dang-ky-ban-hang');
+        }
     }
 
     // Private methods
@@ -310,5 +361,34 @@ class Account extends Controller
         // Set cookie
         setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
         self::redirect('/', 301);
+    }
+
+    private function uploadShopPhoto($shopId)
+    {
+        ['logoUrl' => $logoUrl, 'businessLicense' => $businessLicense,  'foodSafetyCertificate' => $foodSafetyCertificate] = $_FILES;
+        $uploadDir = _DIR_ROOT . "/public/upload/shop-$shopId";
+        mkdir($uploadDir);
+
+        $logoUrlDir = '';
+        $businessLicenseDir = '';
+        $foodSafetyCertificateDir = '';
+
+        if (!empty($logoUrl['tmp_name'])) {
+            $type = str_replace('image/', '', $logoUrl['type']);
+            move_uploaded_file($logoUrl['tmp_name'], "$uploadDir/logo.$type");
+            $logoUrlDir = "/public/upload/shop-$shopId/logo.$type";
+        }
+        if (!empty($businessLicense['tmp_name'])) {
+            $type = str_replace('image/', '', $businessLicense['type']);
+            $businessLicenseDir = "/public/upload/shop-$shopId/businessLicense.$type";
+            move_uploaded_file($businessLicense['tmp_name'], "$uploadDir/businessLicense.$type");
+        }
+        if (!empty($foodSafetyCertificate['tmp_name'])) {
+            $type = str_replace('image/', '', $foodSafetyCertificate['type']);
+            $foodSafetyCertificateDir = "/public/upload/shop-$shopId/foodSafetyCertificate.$type";
+            move_uploaded_file($foodSafetyCertificate['tmp_name'], "$uploadDir/foodSafetyCertificate.$type");
+        }
+
+        AccountModel::updateShopPhoto($shopId, $logoUrlDir, $businessLicenseDir, $foodSafetyCertificateDir);
     }
 }

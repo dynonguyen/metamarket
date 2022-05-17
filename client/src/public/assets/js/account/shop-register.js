@@ -33,7 +33,7 @@ $.validator.addMethod(
 	'regex',
 	function (value, element, regexp) {
 		const regex = new RegExp(regexp, 'i');
-		return this.optional(element) || regex.test(value);
+		return regex.test(value);
 	},
 	'Please check your input.',
 );
@@ -80,7 +80,7 @@ jQuery(function () {
 			},
 			phone: {
 				required: true,
-				regex: '^0[1-9]d{8}$',
+				regex: /^0[1-9]\d{8}$/,
 			},
 			supporterName: {
 				required: true,
@@ -96,7 +96,6 @@ jQuery(function () {
 			},
 			catalogId: {
 				required: true,
-				number: true,
 			},
 			email: {
 				required: true,
@@ -177,9 +176,7 @@ jQuery(function () {
 		},
 
 		submitHandler: function (form, e) {
-			e.preventDefault();
-
-			// form.submit();
+			form.submit();
 		},
 	});
 });

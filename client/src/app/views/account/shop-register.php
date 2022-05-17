@@ -1,5 +1,3 @@
-<?php $staticUrl = STATIC_FILE_URL; ?>
-
 <div class='py-4'>
     <div class='container bg-white px-4 py-5'>
         <h1 class='text-center text-uppercase fs-1 text-primary mb-4'>Đăng ký bán hàng</h1>
@@ -23,12 +21,20 @@
                     <input type="text" name="openHours" class="form-control" id="openHours" placeholder="7AM - 8PM">
                 </div>
                 <div class='col col-12 col-md-6 col-lg-3'>
-                    <label for="foundingDate" class="form-label">Ngày thành lập</label>
+                    <label for=" foundingDate" class="form-label">Ngày thành lập</label>
                     <input type="date" name="foundingDate" class="form-control" id="foundingDate">
                 </div>
                 <div class='col col-12 col-md-6 col-lg-3'>
-                    <label for="catalogId" class="form-label">Danh mục hàng bán</label>
+                    <label for="catalogId" class="form-label">Danh mục hàng hoá</label>
                     <select name='catalogId' id='catalogId' class='form-select'>
+                        <option value="" selected disabled>Chọn danh mục</option>
+                        <?php
+                        if (!empty($catalogs)) {
+                            foreach ($catalogs as $catalog) {
+                                echo "<option value='$catalog->_id'>$catalog->name</option>";
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class='col col-12 col-md-6 col-lg-3'>
@@ -46,7 +52,7 @@
                 <div class='col col-12 col-md-6'>
                     <label for="password" class="form-label">Mật khẩu</label>
                     <div class='password-field'>
-                        <input id='password' name='password' type='password' class='form-control'>
+                        <input id='password' name='password' type='password' class='form-control' placeholder="Ít nhất 8 ký tự">
                         <i class='bi bi-eye-slash-fill password-icon'></i>
                     </div>
                 </div>

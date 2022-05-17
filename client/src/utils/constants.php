@@ -61,3 +61,9 @@ define('MOMO_SECRET_KEY', $_ENV['MOMO_SECRET_KEY'] ?? '');
 define('MOMO_ENDPOINT', $_ENV['MOMO_ENDPOINT'] ?? '');
 
 define('PAYMENT_METHOD', ['COD' => 0, 'MOMO' => 1]);
+
+define('ACCOUNT_STATUS', [
+    'LOCKED' => -1,
+    'WAITING_APPROVAL' => 0,
+    'ACTIVE' => 1
+]);
