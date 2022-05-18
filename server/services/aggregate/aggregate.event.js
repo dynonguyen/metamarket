@@ -8,4 +8,9 @@ module.exports = {
 			]);
 		}
 	},
+	[`${SVC_NAME.PRODUCT}.createProduct`](ctx) {
+		if (this.broker) {
+			this.broker.cacher.clean([`${SVC_NAME.AGGREGATE}.getHomepageProducts`]);
+		}
+	},
 };

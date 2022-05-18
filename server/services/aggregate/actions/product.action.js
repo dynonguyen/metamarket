@@ -4,7 +4,7 @@ const { MoleculerError } = require('moleculer').Errors;
 module.exports = {
 	getHomepageProducts: {
 		cache: {
-			ttl: 5 * 60,
+			ttl: 3 * 60,
 		},
 
 		async handler(ctx) {
@@ -46,10 +46,10 @@ module.exports = {
 	},
 
 	getProductDetailPage: {
-		// cache: {
-		// 	ttl: 5 * 60,
-		// 	keys: ['productId'],
-		// },
+		cache: {
+			ttl: 3 * 60,
+			keys: ['productId'],
+		},
 		cache: {
 			ttl: 300,
 			keys: ['productId'],

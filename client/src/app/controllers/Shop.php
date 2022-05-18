@@ -108,6 +108,9 @@ class Shop extends Controller
 
         if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId");
+        }
+
+        if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId/products")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId/products");
         }
 

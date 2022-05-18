@@ -86,7 +86,7 @@ module.exports = {
 						},
 						{ $group: { _id: null, sum: { $sum: '$rate' } } },
 					]).exec();
-					const sumRate = avgComment[0].sum;
+					const sumRate = avgComment[0]?.sum || 0;
 					await ctx.call(`${SVC_NAME.PRODUCT}.putUpdateProductById`, {
 						productId,
 						updateFields: {

@@ -135,7 +135,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <h2 class="title">Mô tả sản phẩm</h2>
                     <div class='product-desc'>
                         <?php
-                        if (!empty($productDetail)) {
+                        if (!empty($productDetail->desc)) {
                             echo $productDetail->desc;
                         } else {
                             echo "<p class='updating'>Đang cập nhật ...</p>";

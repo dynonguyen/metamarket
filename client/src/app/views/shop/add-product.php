@@ -96,6 +96,7 @@
 
             <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
             <textarea class='validate-ignore' cols='20' id='desc'></textarea>
+            <input name="desc" id='descInput' type="text" class='d-none' />
 
             <!-- submit button -->
             <div class='text-end mt-4'>

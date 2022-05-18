@@ -7,7 +7,7 @@ const ObjectID = require('mongoose').Types.ObjectId;
 module.exports = {
 	getProductWithCatalog: {
 		cache: {
-			ttl: 5 * 60,
+			ttl: 3 * 60,
 			keys: ['catalogId', 'page', 'pageSize', 'select', 'sort'],
 		},
 
@@ -67,7 +67,7 @@ module.exports = {
 
 	getProductWithCategory: {
 		cache: {
-			ttl: 5 * 60,
+			ttl: 3 * 60,
 			keys: ['catalogId', 'categoryId', 'page', 'pageSize', 'select', 'sort'],
 		},
 
@@ -349,6 +349,7 @@ module.exports = {
 					});
 
 					if (productDetail) {
+						ctx.emit(`${SVC_NAME.PRODUCT}.createProduct`);
 						return true;
 					} else {
 						Product.deleteOne({ _id: product._id });

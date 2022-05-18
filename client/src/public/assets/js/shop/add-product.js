@@ -114,7 +114,6 @@ jQuery(function () {
 				required: true,
 				minlength: 8,
 				maxlength: 150,
-				nowhitespace: true,
 			},
 			catalog: {
 				required: true,
@@ -246,7 +245,7 @@ jQuery(function () {
 				}
 			}
 
-			$(form).append(`<input name="desc" type="hidden" value="${desc}" />`);
+			$('#descInput').val(desc);
 			form.submit();
 		},
 	});
