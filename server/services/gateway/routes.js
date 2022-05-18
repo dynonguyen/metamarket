@@ -50,6 +50,10 @@ const userAliases = {
 	'POST users/account/create-shop': `${USER_SVC}.postCreateShop`,
 };
 
+const supportAliases = {
+	'GET support/chat-shop-user/:shopId/:userId': `${SUPPORT_SVC}.getShopChatHistory`,
+};
+
 module.exports = [
 	{
 		path: '/api/v1',
@@ -86,6 +90,7 @@ module.exports = [
 			// Shop service
 
 			// Support service
+			...supportAliases,
 
 			// User service
 			...userAliases,

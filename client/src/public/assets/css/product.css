@@ -340,4 +340,5 @@ h2.title {
 .shop-products .product-card {
 	flex-shrink: 0;
 	scroll-snap-align: start;
+	height: unset;
 }

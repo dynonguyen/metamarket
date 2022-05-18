@@ -1,12 +1,14 @@
-<div class='pt-4'></div>
+<div class='pt-4'>
+    <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
+</div>
 
-<?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
 <?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
 renderToast('Thêm vào giỏ hàng thành công');
 ?>
 <?php $staticUrl = STATIC_FILE_URL; ?>
+<?php require_once _DIR_ROOT . '/app/views/mixins/chat-box.php'; ?>
 
 <?php
 $productId = $product->_id;
@@ -171,13 +173,13 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
             <div class='row'>
                 <div class='shop-info d-flex col col-12 col-md-4'>
                     <?php
-                    $shopLogo = $shop->logoUrl ?? DEFAULT_SHOP_AVT;
+                    $shopLogo =  STATIC_FILE_URL . "/" . $shop->logoUrl ?? DEFAULT_SHOP_AVT;
                     echo "<img class='logo' src='$shopLogo' alt='$shop->name'>";
                     ?>
                     <div class='d-flex flex-column justify-content-center ms-4'>
                         <h3 class='shop-name mb-3'><?php echo $shop->name; ?></h3>
                         <div class='shop-actions'>
-                            <button class='btn btn-outline-accent me-2'>
+                            <button class='btn btn-outline-accent me-2 mb-3 mb-lg-0'>
                                 <i class='bi bi-chat-square-dots-fill'></i>
                                 <span>Chat ngay</span>
                             </button>

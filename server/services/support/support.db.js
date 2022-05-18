@@ -1,6 +1,4 @@
 const { default: mongoose } = require('mongoose');
-const AnonymousShopChatSchema = require('../../schema/mongoose/anonymous-shop-chat.schema');
-const AnonymousSysChatSchema = require('../../schema/mongoose/anonymous-sys-chat.schema');
 const ShopChatSchema = require('../../schema/mongoose/shop-chat.schema');
 const SystemChatSchema = require('../../schema/mongoose/system-chat.schema');
 const { MONGOOSE_MODEL_NAME, DB_CONFIG } = require('../../utils/constants');
@@ -19,21 +17,7 @@ const SystemChat = supportSvcConn.model(
 	'systemChat',
 );
 
-const AnonymousShopChat = supportSvcConn.model(
-	MONGOOSE_MODEL_NAME.ANO_SHOP_CHAT,
-	AnonymousShopChatSchema,
-	'anonymousShopChat',
-);
-
-const AnonymousSysChat = supportSvcConn.model(
-	MONGOOSE_MODEL_NAME.ANO_SYSTEM_CHAT,
-	AnonymousSysChatSchema,
-	'anonymousSysChat',
-);
-
 module.exports = {
-	AnonymousShopChat,
-	AnonymousSysChat,
 	ShopChat,
 	SystemChat,
 };

@@ -3,6 +3,8 @@ class Product extends Controller
 {
     public function index($productId)
     {
+        global $user;
+
         if (empty($productId) || strlen($productId) !== 24) {
             self::renderErrorPage('404');
         }
@@ -22,15 +24,22 @@ class Product extends Controller
             $this->setViewContent('shop', $data->shop);
             $this->setViewContent('reviews', $data->reviews);
             $this->setViewContent('otherProducts', $data->otherProducts);
-
             $this->setViewContent('breadcrumbs', [
                 ['link' => '/', 'name' => 'Trang chủ'],
                 ['link' => "/catalog/$catalogLink", 'name' => $catalog],
                 ['link' => '#', 'name' => $productName],
             ]);
+
+            $this->setPassedVariables([
+                'SHOP_INFO' => json_encode($data->shop), 'USER_ID' => json_encode($user->_get('userId')),
+                'DEFAULT_SHOP_AVT' => DEFAULT_SHOP_AVT, 'STATIC_URL' => STATIC_FILE_URL,
+                'SUPPORT_SERVICE_API_URL' => SUPPORT_SERVICE_API_URL,
+                'CHAT_SOCKET_SERVER' => CHAT_SOCKET_SERVER
+            ]);
             $this->setContentViewPath('product');
-            $this->appendCssLink(['product.css', 'product-card.css']);
-            $this->appendJSLink(['utils/toast.js', 'product.js']);
+            $this->appendCssLink(['product.css', 'product-card.css', 'chat-box.css']);
+            $this->appendJSLink(['utils/toast.js', 'product.js', 'chat-box.js', 'utils/format.js', 'chat-with-shop.js']);
+            $this->appendJsCDN([STATIC_FILE_URL . '/vendors/socket.io.min.js']);
             $this->setPageTitle($productName);
             $this->render('layouts/general', $this->data);
         } else {

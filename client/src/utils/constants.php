@@ -67,3 +67,5 @@ define('ACCOUNT_STATUS', [
     'WAITING_APPROVAL' => 0,
     'ACTIVE' => 1
 ]);
+
+define('CHAT_SOCKET_SERVER', $_ENV['CHAT_SOCKET_SERVER'] ?? 'http://localhost:4444');

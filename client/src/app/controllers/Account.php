@@ -376,7 +376,7 @@ class Account extends Controller
         if (!empty($logoUrl['tmp_name'])) {
             $type = str_replace('image/', '', $logoUrl['type']);
             move_uploaded_file($logoUrl['tmp_name'], "$uploadDir/logo.$type");
-            $logoUrlDir = "/public/upload/shop-$shopId/logo.$type";
+            $logoUrlDir = "upload/shop-$shopId/logo.$type";
         }
         if (!empty($businessLicense['tmp_name'])) {
             $type = str_replace('image/', '', $businessLicense['type']);
