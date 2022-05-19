@@ -20,3 +20,4 @@ client/src/vendor
 composer.lock
 **/public/upload/*
 !**/public/upload/.gitkeep
+api-test.http

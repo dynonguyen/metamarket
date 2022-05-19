@@ -29,7 +29,7 @@
         </a>
 
         <div class='other-options mt-5 pt-3'>
-            <a href='/' class='orange-color'>Quên mật khẩu ?</a>
+            <a href='/quen-mat-khau' class='orange-color'>Quên mật khẩu ?</a>
             <a href='/tai-khoan/dang-ky'>Đăng ký</a>
         </div>
     </form>

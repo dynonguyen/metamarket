@@ -9,6 +9,7 @@ class Shop extends Controller
         $this->render('layouts/shop');
     }
 
+    // Product
     public function addProduct()
     {
         $this->renderAddProductPage();
@@ -80,6 +81,21 @@ class Shop extends Controller
         $this->renderAddProductPage();
     }
 
+    // Chat, Support
+    public function chat()
+    {
+        $this->appendJSLink('shop/chat.js');
+        $this->appendCssLink('chat-box.css');
+        $this->appendJsCDN([STATIC_FILE_URL . '/vendors/socket.io.min.js']);
+        $this->setPassedVariables([
+            'DEFAULT_SHOP_AVT' => DEFAULT_SHOP_AVT, 'STATIC_URL' => STATIC_FILE_URL,
+            'SUPPORT_SERVICE_API_URL' => SUPPORT_SERVICE_API_URL,
+            'CHAT_SOCKET_SERVER' => CHAT_SOCKET_SERVER
+        ]);
+        $this->setContentViewPath('shop/chat');
+        $this->render('layouts/shop', $this->data);
+    }
+
     // private method
     private function renderAddProductPage()
     {
@@ -108,6 +124,9 @@ class Shop extends Controller
 
         if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId");
+        }
+
+        if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId/products")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId/products");
         }
 

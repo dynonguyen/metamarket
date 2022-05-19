@@ -3,10 +3,7 @@ const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	getAllCatalogs: {
-		cache: {
-			keys: ['select'],
-			ttl: 86400, // 1 days
-		},
+		cache: false,
 
 		params: {
 			select: {
@@ -22,16 +19,14 @@ module.exports = {
 				const catalogs = await Catalog.find({}).select(select);
 				return catalogs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
 
 	getCatalogByLink: {
-		cache: {
-			ttl: 86400,
-			keys: ['catalogLink'],
-		},
+		cache: false,
 
 		params: {
 			catalogLink: {
@@ -46,6 +41,7 @@ module.exports = {
 				const catalog = await Catalog.findOne({ link: catalogLink });
 				return catalog;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},

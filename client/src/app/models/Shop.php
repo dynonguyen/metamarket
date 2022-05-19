@@ -12,6 +12,7 @@ class ShopModel
     private $catalogId;
     private $openHours;
     private $logoUrl;
+    private $isOnline;
 
     public static function findShopByAccountId($accountId)
     {

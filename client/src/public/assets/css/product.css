@@ -304,10 +304,6 @@ h2.title {
 	margin-top: 6px;
 }
 
-.comment-box {
-	max-width: 800px;
-}
-
 .comment-box .form-control,
 .comment-box .btn {
 	font-size: 1.6rem;
@@ -318,6 +314,14 @@ h2.title {
 	font-size: 2rem;
 	margin-right: 4px;
 	cursor: pointer;
+}
+
+.form-check * {
+	font-size: 1.6rem;
+}
+
+.form-check-input {
+	transform: translateY(-3px);
 }
 
 /* Shop's other products */
@@ -336,4 +340,5 @@ h2.title {
 .shop-products .product-card {
 	flex-shrink: 0;
 	scroll-snap-align: start;
+	height: unset;
 }

@@ -20,11 +20,6 @@ const UserPaymentSchema = [
 			type: DataTypes.SMALLINT,
 			allowNull: false,
 		},
-		cardInfo: {
-			type: DataTypes.STRING(20),
-			allowNull: true,
-			defaultValue: '',
-		},
 		transactionCode: {
 			type: DataTypes.STRING(20),
 			allowNull: true,

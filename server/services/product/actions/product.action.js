@@ -1,4 +1,4 @@
-const { DEFAULT } = require('../../../utils/constants');
+const { DEFAULT, SVC_NAME } = require('../../../utils/constants');
 const { mongoosePaginate } = require('../../../utils/mongoose-paginate');
 const { Product, ProductDetail } = require('../product.db');
 const { MoleculerError } = require('moleculer').Errors;
@@ -6,10 +6,7 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports = {
 	getProductWithCatalog: {
-		cache: {
-			ttl: 5 * 60,
-			keys: ['catalogId', 'page', 'pageSize', 'select', 'sort'],
-		},
+		cache: false,
 
 		params: {
 			catalogId: [
@@ -59,16 +56,14 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
 
 	getProductWithCategory: {
-		cache: {
-			ttl: 5 * 60,
-			keys: ['catalogId', 'categoryId', 'page', 'pageSize', 'select', 'sort'],
-		},
+		cache: false,
 
 		params: {
 			catalogId: [
@@ -127,15 +122,14 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
 
 	getBasicProductInfoById: {
-		cache: {
-			ttl: 300,
-		},
+		cache: false,
 		params: {
 			productId: {
 				type: 'string',
@@ -152,6 +146,7 @@ module.exports = {
 				});
 				return product;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -171,6 +166,7 @@ module.exports = {
 				const productDetail = await ProductDetail.findOne({ productId });
 				return productDetail;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -199,16 +195,14 @@ module.exports = {
 
 				return products;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
 
 	searchProduct: {
-		cache: {
-			ttl: 120,
-			keys: ['keyword'],
-		},
+		cache: false,
 		params: {
 			keyword: {
 				type: 'string',
@@ -255,6 +249,7 @@ module.exports = {
 				);
 				return productDocs;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
@@ -339,6 +334,7 @@ module.exports = {
 					});
 
 					if (productDetail) {
+						ctx.emit(`${SVC_NAME.PRODUCT}.createProduct`);
 						return true;
 					} else {
 						Product.deleteOne({ _id: product._id });
@@ -346,6 +342,85 @@ module.exports = {
 				}
 
 				return false;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getReviewSummaryById: {
+		cache: false,
+		params: {
+			productId: 'string',
+		},
+		async handler(ctx) {
+			try {
+				const product = Product.findById(ctx.params.productId).select(
+					'reviewTotal rateAvg',
+				);
+				return product;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putUpdateProductById: {
+		cache: false,
+		params: {
+			productId: 'string',
+			updateFields: 'any',
+		},
+		async handler(ctx) {
+			try {
+				const updateRes = await Product.updateOne(
+					{ _id: ctx.params.productId },
+					{ ...ctx.params.updateFields },
+				);
+				if (updateRes) {
+					return true;
+				}
+				return false;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getShopByProductId: {
+		cache: false,
+		params: {
+			productId: 'string',
+		},
+		async handler(ctx) {
+			try {
+				const product = await Product.findById(ctx.params.productId);
+				if (product) {
+					return product.shopId;
+				}
+				return -1;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putDecreaseProductStockById: {
+		params: {
+			productId: 'string',
+			quantity: 'number',
+		},
+		async handler(ctx) {
+			try {
+				await Product.findOneAndUpdate(
+					{ _id: ctx.params.productId },
+					{ $inc: { stock: -1 * Number(ctx.params.quantity) } },
+				);
+				return true;
 			} catch (error) {
 				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);

@@ -3,7 +3,7 @@ const { DataTypes } = require('../../configs/sequelize');
 const DistrictSchema = [
 	'District',
 	{
-		id: {
+		districtId: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 		},

@@ -70,15 +70,15 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 ### **Use Case Diagram**
 
-![UC-Diagram](https://res.cloudinary.com/dynonary/image/upload/v1649652591/metamarket/UC-Diagram.png)
+![UC-Diagram](https://res.cloudinary.com/dynonary/image/upload/v1652197093/metamarket/UC-Diagram.png)
 
 ### **Microservices Architecture**
 
-![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1651894922/metamarket/Microservice_Architecture.jpg)
+![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1652197017/metamarket/Microservice_Architecture.jpg)
 
 ### **Database Diagram**
 
-![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1650093397/metamarket/db-diagram.png)
+![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1652197204/metamarket/DB-Diagram.jpg)
 
 # Hướng dẫn chạy
 
@@ -154,3 +154,8 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
   npm run dev
   # yarn dev
 ```
+
+> **Thông tin dùng kiểm thử**
+
+- Test thanh toán bằng MoMo ATM, [xem tại đây](https://developers.momo.vn/v3/vi/docs/payment/onboarding/test-instructions/)
+  ![Momo Test](https://res.cloudinary.com/dynonary/image/upload/v1652176343/metamarket/momo-test.jpg)

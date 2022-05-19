@@ -3,9 +3,7 @@ const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	getHomepageProducts: {
-		cache: {
-			ttl: 5 * 60,
-		},
+		cache: false,
 
 		async handler(ctx) {
 			const result = [];
@@ -39,20 +37,14 @@ module.exports = {
 
 				return result;
 			} catch (error) {
+				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);
 			}
 		},
 	},
 
 	getProductDetailPage: {
-		// cache: {
-		// 	ttl: 5 * 60,
-		// 	keys: ['productId'],
-		// },
-		cache: {
-			ttl: 300,
-			keys: ['productId'],
-		},
+		cache: false,
 		params: {
 			productId: {
 				type: 'string',

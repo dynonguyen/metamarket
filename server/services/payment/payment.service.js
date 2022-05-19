@@ -1,8 +1,10 @@
 const { SVC_NAME } = require('../../utils/constants');
-const { UserPayment, ShopPayment } = require('./payment.db');
+const paymentActions = require('./payment.action');
 
 module.exports = {
 	name: SVC_NAME.PAYMENT,
 
-	actions: {},
+	actions: {
+		...paymentActions,
+	},
 };

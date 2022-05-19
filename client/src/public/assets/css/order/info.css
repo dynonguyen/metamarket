@@ -1,0 +1,50 @@
+.info-wrap .container {
+	max-width: 772px;
+}
+
+.form-control,
+.form-select,
+.info-wrap .btn {
+	padding: 0.75rem 1.2rem;
+	font-size: 1.6rem;
+}
+
+.info-wrap .btn.momo {
+	background-color: #a50064 !important;
+	border-color: #a50064;
+	box-shadow: none;
+}
+
+.break {
+	background-color: var(--mm-light-gray);
+	height: 1px;
+	width: 30rem;
+	margin-left: auto;
+}
+
+.cart-summary * {
+	font-size: 1.6rem;
+	line-height: 2;
+}
+
+.cart-summary .label {
+	color: var(--mm-gray);
+}
+
+.cart-summary .value {
+	display: inline-block;
+	width: 15rem;
+	letter-spacing: 0.75px;
+}
+
+@media only screen and (max-width: 772px) {
+	.info-wrap .container {
+		max-width: 95%;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.info-wrap .btn {
+		width: 100%;
+	}
+}

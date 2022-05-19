@@ -18,8 +18,10 @@ const productAliases = {
 	'GET products/list/catalog/:catalogId': `${PRODUCT_SVC}.getProductWithCatalog`,
 	'GET products/list/category/:catalogId/:categoryId': `${PRODUCT_SVC}.getProductWithCategory`,
 	'GET products/search': `${PRODUCT_SVC}.searchProduct`,
+	'GET products/get-shop/:productId': `${PRODUCT_SVC}.getShopByProductId`,
 
 	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
+	'PUT products/desc-stock': `${PRODUCT_SVC}.putDecreaseProductStockById`,
 };
 
 const aggregateAliases = {
@@ -30,6 +32,31 @@ const aggregateAliases = {
 const internalAliases = {
 	'GET internal/admin/by-username/:username': `${INTERNAL_SVC}.getAccountByUsername`,
 	'GET internal/shipper/by-username/:username': `${INTERNAL_SVC}.getShipperByUsername`,
+};
+
+const orderAliases = {
+	'POST orders/create': `${ORDER_SVC}.postCreateOrder`,
+	'GET orders/exist/by-order-code/:orderCode': `${ORDER_SVC}.getCheckExistByOrderCode`,
+};
+
+const paymentAliases = {
+	'POST payments/user/create': `${PAYMENT_SVC}.postCreateUserPayment`,
+};
+
+const reviewAliases = {
+	'POST reviews/add-product-comment': `${REVIEW_SVC}.postAddProductComment`,
+};
+
+const userAliases = {
+	'GET users/address/province/all': `${USER_SVC}.getAllProvinces`,
+	'GET users/address/district/by-province/:provinceId': `${USER_SVC}.getDistrictsByProvinceId`,
+	'GET users/address/ward/by-district/:districtId': `${USER_SVC}.getWardsByDistrictId`,
+
+	'POST users/account/create-shop': `${USER_SVC}.postCreateShop`,
+};
+
+const supportAliases = {
+	'GET support/chat-shop-user/:shopId/:userId': `${SUPPORT_SVC}.getShopChatHistory`,
 };
 
 module.exports = [
@@ -53,21 +80,26 @@ module.exports = [
 			...internalAliases,
 
 			// Order service
+			...orderAliases,
 
 			// Payment service
+			...paymentAliases,
 
 			// Product service
 			...productAliases,
 
 			// Review service
+			...reviewAliases,
 
 			// Shipping service
 
 			// Shop service
 
 			// Support service
+			...supportAliases,
 
 			// User service
+			...userAliases,
 		},
 	},
 ];

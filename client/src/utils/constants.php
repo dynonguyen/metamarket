@@ -45,3 +45,27 @@ define('SHOP_ROLE', 2);
 define('SHIPPER_ROLE', 3);
 define('ADMIN_ROLE', 4);
 define('GUEST_ROLE', 0);
+
+# Mailer
+define('MAIL_EXP', 10); // 10 minutes
+define('MAIL_HOST', $_ENV['MAIL_HOST'] ?? 'stmp.gmail.com');
+define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
+define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
+
+define('CONTACT_PHONE', $_ENV['CONTACT_PHONE'] ?? '');
+define('SHIPPING_FEE', 25000);
+
+define('MOMO_PARTNER_CODE', $_ENV['MOMO_PARTNER_CODE'] ?? '');
+define('MOMO_ACCESS_KEY', $_ENV['MOMO_ACCESS_KEY'] ?? '');
+define('MOMO_SECRET_KEY', $_ENV['MOMO_SECRET_KEY'] ?? '');
+define('MOMO_ENDPOINT', $_ENV['MOMO_ENDPOINT'] ?? '');
+
+define('PAYMENT_METHOD', ['COD' => 0, 'MOMO' => 1]);
+
+define('ACCOUNT_STATUS', [
+    'LOCKED' => -1,
+    'WAITING_APPROVAL' => 0,
+    'ACTIVE' => 1
+]);
+
+define('CHAT_SOCKET_SERVER', $_ENV['CHAT_SOCKET_SERVER'] ?? 'http://localhost:4444');

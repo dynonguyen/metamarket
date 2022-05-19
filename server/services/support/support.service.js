@@ -1,13 +1,11 @@
+require('./socker-server');
 const { SVC_NAME } = require('../../utils/constants');
-const {
-	ShopChat,
-	SystemChat,
-	AnonymousShopChat,
-	AnonymousSysChat,
-} = require('./support.db');
+const supportActions = require('./support.action');
 
 module.exports = {
 	name: SVC_NAME.SUPPORT,
 
-	actions: {},
+	actions: {
+		...supportActions,
+	},
 };

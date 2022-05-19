@@ -14,3 +14,10 @@ function toThumbnail(src = '') {
 	}
 	return src;
 }
+
+function dateFormat(d) {
+	const date = new Date(d);
+	return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${
+		date.getMonth() + 1
+	}-${date.getFullYear()}`;
+}

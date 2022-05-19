@@ -39,4 +39,33 @@ class AccountModel
             return false;
         }
     }
+
+    public static function updatePasswordByEmail(string $email, string $newPassword)
+    {
+        try {
+            $conn = MySQLConnection::getConnect();
+            $st = $conn->prepare('UPDATE accounts SET password = :password WHERE email = :email');
+            $st->execute([':email' => $email, 'password' => $newPassword]);
+            $affectedRows = $st->rowCount();
+
+            if ($affectedRows > 0) {
+                return true;
+            }
+
+            return false;
+        } catch (Exception $ex) {
+            error_log($ex);
+            return false;
+        }
+    }
+
+    public static function updateShopPhoto(string $shopId, string $logoUrl, string $businessLicense, string $foodSafetyCertificate)
+    {
+        $conn = MySQLConnection::getConnect();
+        $st = $conn->prepare("UPDATE contracts SET businessLicense = '$businessLicense', foodSafetyCertificate = '$foodSafetyCertificate' WHERE shopId = $shopId");
+        $st->execute();
+
+        $st = $conn->prepare("UPDATE shops SET logoUrl = '$logoUrl' WHERE shopId = $shopId");
+        $st->execute();
+    }
 }
