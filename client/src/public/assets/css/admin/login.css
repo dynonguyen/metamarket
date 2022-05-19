@@ -1,0 +1,104 @@
+#form {
+	padding: 2.8rem 2.4rem;
+	background-color: #fff;
+	max-width: 42rem;
+	margin: 0 auto;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.form-logo {
+	width: 10rem;
+	height: 10rem;
+}
+
+.form-title {
+	text-transform: uppercase;
+	font-size: 2rem;
+}
+
+.form-error {
+	color: var(--bs-danger);
+	font-size: 1.6rem;
+}
+
+#form .form-control {
+	margin-bottom: 1.2rem;
+	padding: 0.75rem 1rem;
+	font-size: 1.5rem;
+}
+
+#form .form-control::-webkit-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::-moz-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control:-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::-ms-input-placeholder {
+	color: var(--mm-gray);
+}
+
+#form .form-control::placeholder {
+	color: var(--mm-gray);
+}
+
+#submitBtn {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	font-size: 1.5rem;
+	border-radius: 6px;
+	text-transform: capitalize;
+}
+
+.other-options {
+	display: flex;
+	justify-content: space-between;
+	border-top: solid 1px var(--mm-light-gray);
+}
+
+.other-options a {
+	font-size: 1.6rem;
+}
+
+.password-field {
+	position: relative;
+}
+
+.password-field input {
+	padding: 0.75rem 3rem 0.75rem 1rem !important;
+}
+
+.password-field i {
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(calc(-50% + 0.2rem));
+	font-size: 1.6rem;
+	color: var(--mm-gray);
+	cursor: pointer;
+}
+
+.password-field i.bi-eye-fill {
+	color: var(--bs-info);
+}
+
+.login-gg-btn {
+	padding: 0.75rem 1rem;
+	border-radius: 6px;
+	border: solid 1px var(--mm-light-gray);
+	cursor: pointer;
+}
+
+.login-gg-btn i {
+	font-size: 1.8rem;
+}
+
+.login-gg-btn span {
+	font-size: 1.5rem;
+	text-transform: capitalize;
+}

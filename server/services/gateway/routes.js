@@ -29,6 +29,11 @@ const aggregateAliases = {
 	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
 };
 
+const internalAliases = {
+	'GET internal/admin/by-username/:username': `${INTERNAL_SVC}.getAccountByUsername`,
+	'GET internal/shipper/by-username/:username': `${INTERNAL_SVC}.getShipperByUsername`,
+};
+
 const orderAliases = {
 	'POST orders/create': `${ORDER_SVC}.postCreateOrder`,
 	'GET orders/exist/by-order-code/:orderCode': `${ORDER_SVC}.getCheckExistByOrderCode`,
@@ -72,6 +77,7 @@ module.exports = [
 			...aggregateAliases,
 
 			// Internal service
+			...internalAliases,
 
 			// Order service
 			...orderAliases,
