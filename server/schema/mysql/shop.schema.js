@@ -32,6 +32,11 @@ const ShopSchema = [
 			type: DataTypes.STRING(255),
 			allowNull: true,
 		},
+		isOnline: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			default: false,
+		},
 	},
 	{ tableName: 'shops', timestamps: true, initialAutoIncrement: 1 },
 ];

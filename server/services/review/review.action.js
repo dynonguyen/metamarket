@@ -5,10 +5,7 @@ const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	getCommentByProductId: {
-		cache: {
-			ttl: 300,
-			keys: ['productId'],
-		},
+		cache: false,
 		params: {
 			productId: {
 				type: 'string',

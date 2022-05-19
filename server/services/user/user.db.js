@@ -99,7 +99,7 @@ Shop.hasOne(Contract, {
 Contract.belongsTo(Shop, { foreignKey: 'shopId' });
 
 // ------ Sync database
-userDb.sync();
+userDb.sync({ alter: true });
 
 module.exports = {
 	Account,

@@ -3,10 +3,7 @@ const { MoleculerError } = require('moleculer').Errors;
 
 module.exports = {
 	getAllCatalogs: {
-		cache: {
-			keys: ['select'],
-			ttl: 86400, // 1 days
-		},
+		cache: false,
 
 		params: {
 			select: {
@@ -29,10 +26,7 @@ module.exports = {
 	},
 
 	getCatalogByLink: {
-		cache: {
-			ttl: 86400,
-			keys: ['catalogLink'],
-		},
+		cache: false,
 
 		params: {
 			catalogLink: {

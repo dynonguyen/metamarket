@@ -10,6 +10,6 @@ const io = new SocketServer(PORT, {
 	},
 });
 
-io.on('connection', (socket) => {
-	console.log('SOCKET Connected ' + socket.id);
-});
+const shopIO = io.of('/shop');
+
+shopIO.on('connection', function (socket) {});

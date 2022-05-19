@@ -1,4 +1,4 @@
-require('./socket-server');
+require('./socker-server');
 const { SVC_NAME } = require('../../utils/constants');
 const supportActions = require('./support.action');
 

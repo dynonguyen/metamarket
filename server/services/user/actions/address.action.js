@@ -66,7 +66,7 @@ module.exports = {
 
 	getFullAddressByWardId: {
 		cache: {
-			ttl: 300,
+			ttl: 86400,
 			keys: ['wardId'],
 		},
 		params: {

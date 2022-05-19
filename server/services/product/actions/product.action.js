@@ -6,10 +6,7 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports = {
 	getProductWithCatalog: {
-		cache: {
-			ttl: 3 * 60,
-			keys: ['catalogId', 'page', 'pageSize', 'select', 'sort'],
-		},
+		cache: false,
 
 		params: {
 			catalogId: [
@@ -66,10 +63,7 @@ module.exports = {
 	},
 
 	getProductWithCategory: {
-		cache: {
-			ttl: 3 * 60,
-			keys: ['catalogId', 'categoryId', 'page', 'pageSize', 'select', 'sort'],
-		},
+		cache: false,
 
 		params: {
 			catalogId: [
@@ -135,10 +129,7 @@ module.exports = {
 	},
 
 	getBasicProductInfoById: {
-		cache: {
-			ttl: 300,
-			keys: ['productId'],
-		},
+		cache: false,
 		params: {
 			productId: {
 				type: 'string',
@@ -162,10 +153,7 @@ module.exports = {
 	},
 
 	getProductDetailById: {
-		cache: {
-			ttl: 300,
-			keys: ['productId'],
-		},
+		cache: false,
 		params: {
 			productId: {
 				type: 'string',
@@ -214,10 +202,7 @@ module.exports = {
 	},
 
 	searchProduct: {
-		cache: {
-			ttl: 120,
-			keys: ['keyword'],
-		},
+		cache: false,
 		params: {
 			keyword: {
 				type: 'string',
@@ -406,10 +391,7 @@ module.exports = {
 	},
 
 	getShopByProductId: {
-		cache: {
-			ttl: 600,
-			keys: ['productId'],
-		},
+		cache: false,
 		params: {
 			productId: 'string',
 		},
@@ -438,11 +420,6 @@ module.exports = {
 					{ _id: ctx.params.productId },
 					{ $inc: { stock: -1 * Number(ctx.params.quantity) } },
 				);
-				if (this.broker) {
-					this.broker.cacher.clean([
-						`${SVC_NAME.PRODUCT}.getBasicProductInfoById:${ctx.params.productId}`,
-					]);
-				}
 				return true;
 			} catch (error) {
 				this.logger.error(error);
