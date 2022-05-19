@@ -72,6 +72,7 @@ module.exports = {
 						catalogId,
 						openHours,
 						logoUrl,
+						isOnline: false,
 					},
 					{ transaction: tx },
 				);
