@@ -29,6 +29,7 @@ const aggregateAliases = {
 
 const internalAliases = {
 	'GET internal/admin/by-username/:username': `${INTERNAL_SVC}.getAccountByUsername`,
+	'GET internal/shipper/by-username/:username': `${INTERNAL_SVC}.getShipperByUsername`,
 };
 
 module.exports = [

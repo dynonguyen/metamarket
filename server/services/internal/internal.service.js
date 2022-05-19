@@ -31,5 +31,32 @@ module.exports = {
 				}
 			},
 		},
+
+		getShipperByUsername: {
+			cache: false,
+
+			params: {
+				username: 'string',
+			},
+
+			async handler(ctx) {
+				const { username } = ctx.params;
+				try {
+					const shipper = await Shipper.findOne({
+						raw: true,
+						where: {
+							username,
+						},
+					});
+					if (shipper) {
+						return shipper;
+					}
+					return null;
+				} catch (error) {
+					this.logger.error(error);
+					return null;
+				}
+			},
+		},
 	},
 };
