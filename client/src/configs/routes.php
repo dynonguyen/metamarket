@@ -29,6 +29,7 @@ $routes['gio-hang'] = 'cart/index';
 // Shop
 $routes['kenh-ban-hang/san-pham/them'] = 'shop/addProduct';
 $routes['kenh-ban-hang/san-pham/them/post'] = 'shop/postAddProduct';
+$routes['kenh-ban-hang/ho-tro/chat'] = 'shop/chat';
 
 // Introduction
 $routes['gioi-thieu'] = 'AboutMe/index';

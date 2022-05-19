@@ -14,7 +14,7 @@ renderToast('Thêm vào giỏ hàng thành công');
 $productId = $product->_id;
 $productName = $product->name;
 $productAvt = $product->avt;
-$numOfMfg = round((strtotime($product->mfg) - time()) / 86400);
+$numOfMfg = round((strtotime($product->exp) - time()) / 86400);
 $productPrice = number_format($product->price, 0, ',', '.') . ' ₫';
 $productPriceDiscount = number_format($product->price * (100 + $product->discount) / 100, 0, ',', '.') . ' ₫';
 ?>

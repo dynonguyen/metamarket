@@ -54,6 +54,21 @@ $navbarMenu = [
         ]
     ],
     [
+        'icon' => 'bi bi-chat-dots-fill',
+        'label' => 'CSKH, Đánh Giá',
+        'root' => 'ho-tro',
+        'list' => [
+            [
+                'to' => 'chat',
+                'label' => 'Chăm sóc khách hàng'
+            ],
+            [
+                'to' => 'danh-gia',
+                'label' => 'Đánh giá của KH'
+            ]
+        ]
+    ],
+    [
         'icon' => 'bi bi-gear-fill',
         'label' => 'Quản lý shop',
         'root' => 'quan-ly',
@@ -67,7 +82,8 @@ $navbarMenu = [
                 'label' => 'Thiết lập Shop'
             ]
         ]
-    ]
+    ],
+
 ];
 ?>
 

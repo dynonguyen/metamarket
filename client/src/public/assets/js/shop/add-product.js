@@ -6,13 +6,11 @@ const staticUrl =
 	typeof STATIC_FILE_URL !== 'undefined' ? STATIC_FILE_URL : '/public';
 
 function loadNicEditor() {
-	bkLib.onDomLoaded(function () {
-		new nicEditor({
-			iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
-		}).panelInstance('desc');
-		$('.nicEdit-main').parent('div').css({ width: '100%', padding: '8px' });
-		$('.nicEdit-panelContain').parent('div').css({ width: '100%' });
-	});
+	new nicEditor({
+		iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
+	}).panelInstance('desc');
+	$('.nicEdit-main').parent('div').css({ width: '100%', padding: '8px' });
+	$('.nicEdit-panelContain').parent('div').css({ width: '100%' });
 }
 
 function onRemoveOtherInfoInput() {

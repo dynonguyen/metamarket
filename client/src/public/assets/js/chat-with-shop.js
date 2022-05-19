@@ -1,11 +1,20 @@
 /// <reference path="/home/dyno/development/my-devtools-config/Vscode/typings/jquery/globals/jquery/index.d.ts" />
 // Required chat-box.js, passed variable 'SHOP_INFO', 'USER_ID', 'SUPPORT_SERVICE_API_URL', 'CHAT_SOCKET_SERVER
 
-let shop = {
-	isActive: false,
-};
+let shop;
 const userId = Number(USER_ID);
 const messageElem = $('#messages');
+let socket = null;
+
+function updateShopStatus(isOnline = false) {
+	if (isOnline) {
+		$('.chat-box__top .status span').html('Đang hoạt động');
+		$('.chat-box__top .status .dot').addClass('active');
+	} else {
+		$('.chat-box__top .status span').html('Offline');
+		$('.chat-box__top .status .dot').removeClass('active');
+	}
+}
 
 function updateChatBoxTop() {
 	const logo = shop.logoUrl
@@ -17,13 +26,7 @@ function updateChatBoxTop() {
 		.attr('href', `/cua-hang/${shop.shopId}`)
 		.text(shop.name);
 
-	if (shop.isActive) {
-		$('.chat-box__top .status span').html('Đang hoạt động');
-		$('.chat-box__top .status .dot').addClass('active');
-	} else {
-		$('.chat-box__top .status span').html('Offline');
-		$('.chat-box__top .status .dot').removeClass('active');
-	}
+	updateShopStatus(Boolean(shop.isOnline));
 }
 
 function renderMessage(msg = '', isSender = false, time) {
@@ -32,6 +35,10 @@ function renderMessage(msg = '', isSender = false, time) {
 	messageElem.append(
 		`<li class='message ${senderClass}' title='${timeStr}'>${msg}</li>`,
 	);
+}
+
+function scrollContentToBottom() {
+	$('.chat-box__content').scrollTop(messageElem.height());
 }
 
 async function loadMessageHistory() {
@@ -44,8 +51,26 @@ async function loadMessageHistory() {
 			(a, b) => new Date(a.time).getTime() - new Date(b.time).getTime(),
 		);
 		messages.forEach((msg) => renderMessage(msg.content, msg.isUser, msg.time));
-		$('.chat-box__content').scrollTop(messageElem.height());
+		scrollContentToBottom();
 	}
+}
+
+function onShopChat(message) {
+	const { time, content } = message;
+	renderMessage(content, false, time);
+	scrollContentToBottom();
+}
+
+function startSocketEventListener() {
+	socket.on('fs shop online', () => updateShopStatus(true));
+	socket.on('fs shop offline', () => updateShopStatus(false));
+	socket.on('fs shop chat', onShopChat);
+}
+
+function startSocket() {
+	socket = io(`${CHAT_SOCKET_SERVER}/shop`);
+	socket.emit('fc user connect', { shopId: shop.shopId, userId });
+	startSocketEventListener();
 }
 
 function onStartChat() {
@@ -61,8 +86,19 @@ function onStartChat() {
 		chatBoxInput.focus();
 		isStarted = true;
 
-		const socket = io(CHAT_SOCKET_SERVER);
+		startSocket();
 	});
+}
+
+function sendMessage() {
+	const message = chatBoxInput.val();
+	if (!socket || !message) return;
+
+	chatBoxInput.val('');
+	renderMessage(message, true, new Date());
+	socket.emit('fc user chat', { userId, shopId: shop.shopId, message });
+
+	scrollContentToBottom();
 }
 
 jQuery(function () {
@@ -73,4 +109,14 @@ jQuery(function () {
 		onShowChatBox(updateChatBoxTop);
 		onStartChat();
 	}
+
+	chatBoxInput.on('keypress', function (event) {
+		if (event.key === 'Enter') {
+			sendMessage();
+		}
+	});
+
+	$('#sendBtn').on('click', function () {
+		sendMessage();
+	});
 });
