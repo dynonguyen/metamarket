@@ -15,7 +15,6 @@ function loadNicEditor() {
 
 function onRemoveOtherInfoInput() {
 	$('.remove-other-info').on('click', function () {
-		console.log($(this).parent('div'));
 		$(this).parent('.form-label').parent('div').remove();
 	});
 }

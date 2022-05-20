@@ -27,7 +27,6 @@ async function updateShopChatHistory(userId, shopId, newMessage) {
 
 shopIO.on('connection', function (socket) {
 	socket.on('fc shop online', async (shopId) => {
-		console.log(`SHOP CONNECT: `, socket.id);
 		onlineShops.push({ socketId: socket.id, shopId });
 		socket.join(`shop-${shopId}`);
 		shopIO.to(`shop-${shopId}`).emit('fs shop online');

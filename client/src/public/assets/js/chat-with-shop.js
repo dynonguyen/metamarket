@@ -1,4 +1,3 @@
-/// <reference path="/home/dyno/development/my-devtools-config/Vscode/typings/jquery/globals/jquery/index.d.ts" />
 // Required chat-box.js, passed variable 'SHOP_INFO', 'USER_ID', 'SUPPORT_SERVICE_API_URL', 'CHAT_SOCKET_SERVER
 
 let shop;
@@ -73,21 +72,18 @@ function startSocket() {
 	startSocketEventListener();
 }
 
-function onStartChat() {
-	$('#startChat button').on('click', async function () {
-		if (isNaN(userId) || userId <= 0) {
-			location.href = '/tai-khoan/dang-nhap';
-			return;
-		}
+async function onStartChat() {
+	if (isNaN(userId) || userId <= 0) {
+		location.href = '/tai-khoan/dang-nhap';
+		return;
+	}
 
-		await loadMessageHistory();
-		$('#startChat').remove();
-		$('.chat-box__typing').removeClass('disabled');
-		chatBoxInput.focus();
-		isStarted = true;
+	await loadMessageHistory();
+	$('.chat-box__typing').removeClass('disabled');
+	chatBoxInput.focus();
 
-		startSocket();
-	});
+	isStarted = true;
+	startSocket();
 }
 
 function sendMessage() {
@@ -106,8 +102,10 @@ jQuery(function () {
 		shop = { ...shop, ...JSON.parse(SHOP_INFO) };
 		if (!shop || !shop.shopId) return;
 
-		onShowChatBox(updateChatBoxTop);
-		onStartChat();
+		onShowChatBox(() => {
+			onStartChat();
+			updateChatBoxTop();
+		});
 	}
 
 	chatBoxInput.on('keypress', function (event) {

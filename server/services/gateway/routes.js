@@ -51,12 +51,14 @@ const userAliases = {
 	'GET users/address/province/all': `${USER_SVC}.getAllProvinces`,
 	'GET users/address/district/by-province/:provinceId': `${USER_SVC}.getDistrictsByProvinceId`,
 	'GET users/address/ward/by-district/:districtId': `${USER_SVC}.getWardsByDistrictId`,
+	'GET users/user-by-id/:userId': `${USER_SVC}.getUserByUserId`,
 
 	'POST users/account/create-shop': `${USER_SVC}.postCreateShop`,
 };
 
 const supportAliases = {
 	'GET support/chat-shop-user/:shopId/:userId': `${SUPPORT_SVC}.getShopChatHistory`,
+	'GET support/last-chats-by-shopId/:shopId': `${SUPPORT_SVC}.getLastChatsByShopId`,
 };
 
 module.exports = [

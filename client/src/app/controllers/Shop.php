@@ -84,13 +84,24 @@ class Shop extends Controller
     // Chat, Support
     public function chat()
     {
-        $this->appendJSLink('shop/chat.js');
-        $this->appendCssLink('chat-box.css');
+        global $shop;
+        $apiRes = ApiCaller::get(SUPPORT_SERVICE_API_URL . '/last-chats-by-shopId/' . $shop->_get('shopId'));
+        $lastChats = [];
+        if ($apiRes['statusCode'] === 200) {
+            $lastChats = $apiRes['data'];
+        }
+
+        $this->setViewContent('lastChats', $lastChats);
+
+        $this->appendJSLink(['utils/format.js', 'shop/chat.js']);
+        $this->appendCssLink(['chat-box.css', 'shop/chat.css']);
         $this->appendJsCDN([STATIC_FILE_URL . '/vendors/socket.io.min.js']);
         $this->setPassedVariables([
             'DEFAULT_SHOP_AVT' => DEFAULT_SHOP_AVT, 'STATIC_URL' => STATIC_FILE_URL,
             'SUPPORT_SERVICE_API_URL' => SUPPORT_SERVICE_API_URL,
-            'CHAT_SOCKET_SERVER' => CHAT_SOCKET_SERVER
+            'USER_SERVICE_API_URL' => USER_SERVICE_API_URL,
+            'CHAT_SOCKET_SERVER' => CHAT_SOCKET_SERVER,
+            'SHOP_ID' => $shop->_get('shopId')
         ]);
         $this->setContentViewPath('shop/chat');
         $this->render('layouts/shop', $this->data);

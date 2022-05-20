@@ -21,9 +21,6 @@ $defaultLogo = DEFAULT_SHOP_AVT;
     </div>
 
     <div class='chat-box__content'>
-        <div class='flex-center w-100 h-100' id='startChat'>
-            <button class='btn btn-secondary py-3 px-4 fs-4 text-uppercase'>Bắt đầu chat</button>
-        </div>
         <ul id="messages"></ul>
         <div id='target'></div>
     </div>

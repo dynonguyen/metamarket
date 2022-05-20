@@ -99,4 +99,23 @@ module.exports = {
 			}
 		},
 	},
+
+	getUserByUserId: {
+		cache: false,
+		params: {
+			userId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			try {
+				const user = await User.findOne({
+					raw: true,
+					where: { userId: ctx.params.userId },
+				});
+				return user;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };
