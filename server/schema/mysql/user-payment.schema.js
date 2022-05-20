@@ -12,7 +12,7 @@ const UserPaymentSchema = [
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
-		orderId: {
+		orderCode: {
 			type: DataTypes.STRING(24),
 			allowNull: false,
 		},

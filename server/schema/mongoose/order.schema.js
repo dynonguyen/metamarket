@@ -7,6 +7,10 @@ const OrderSchema = new Schema({
 		type: Number,
 		required: true,
 	},
+	shopId: {
+		type: Number,
+		required: true,
+	},
 	orderCode: {
 		type: String,
 		required: true,
@@ -50,10 +54,6 @@ const OrderSchema = new Schema({
 		{
 			productId: {
 				type: Schema.Types.ObjectId,
-				required: true,
-			},
-			shopId: {
-				type: Number,
 				required: true,
 			},
 			price: Number,

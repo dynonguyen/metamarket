@@ -5,7 +5,7 @@ module.exports = {
 	postCreateUserPayment: {
 		params: {
 			userId: [{ type: 'number' }, { type: 'string', numeric: true }],
-			orderId: 'string',
+			orderCode: 'string',
 			paymentType: [{ type: 'number' }, { type: 'string', numeric: true }],
 			transactionCode: 'string',
 			totalMoney: [{ type: 'number' }, { type: 'string', numeric: true }],
@@ -14,7 +14,7 @@ module.exports = {
 		async handler(ctx) {
 			const {
 				userId,
-				orderId,
+				orderCode,
 				paymentType,
 				transactionCode,
 				totalMoney,
@@ -23,7 +23,7 @@ module.exports = {
 			try {
 				const payment = await UserPayment.create({
 					userId,
-					orderId,
+					orderCode,
 					paymentType,
 					transactionCode,
 					totalMoney,

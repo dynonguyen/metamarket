@@ -6,4 +6,12 @@ module.exports = {
 	actions: {
 		...orderActions,
 	},
+	methods: {
+		calcTotalByProducts(products = []) {
+			return products.reduce((total, product) => {
+				const { quantity, price, discount } = product;
+				return total + (quantity * price * (100 - discount)) / 100;
+			}, 0);
+		},
+	},
 };
