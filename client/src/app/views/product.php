@@ -180,7 +180,7 @@ $productPriceDiscount = number_format($product->price * (100 - $discount) / 100,
                     <div class='d-flex flex-column justify-content-center ms-4'>
                         <h3 class='shop-name mb-3'><?php echo $shop->name; ?></h3>
                         <div class='shop-actions'>
-                            <button class='btn btn-outline-accent me-2 mb-3 mb-lg-0'>
+                            <button class='btn btn-outline-accent me-2 mb-3 mb-lg-0' id='showChatBtn'>
                                 <i class='bi bi-chat-square-dots-fill'></i>
                                 <span>Chat ngay</span>
                             </button>
