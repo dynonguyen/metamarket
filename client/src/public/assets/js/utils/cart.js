@@ -34,7 +34,7 @@ function loadCartSummary() {
 	if (cart && cart.length > 0) {
 		const cartTotal = cart.reduce((sum, p) => sum + p.quantity, 0);
 		const cartTotalMoney = cart.reduce(
-			(sum, p) => sum + p.quantity * p.price,
+			(sum, p) => sum + p.quantity * ((p.price * (100 - p.discount)) / 100),
 			0,
 		);
 		$('span[id^="cartQuantity"]').text(`(${cartTotal})`);

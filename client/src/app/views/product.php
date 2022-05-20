@@ -14,9 +14,10 @@ renderToast('Thêm vào giỏ hàng thành công');
 $productId = $product->_id;
 $productName = $product->name;
 $productAvt = $product->avt;
+$discount = empty($product->discount) ? 0 : $product->discount;
 $numOfMfg = round((strtotime($product->exp) - time()) / 86400);
 $productPrice = number_format($product->price, 0, ',', '.') . ' ₫';
-$productPriceDiscount = number_format($product->price * (100 + $product->discount) / 100, 0, ',', '.') . ' ₫';
+$productPriceDiscount = number_format($product->price * (100 - $discount) / 100, 0, ',', '.') . ' ₫';
 ?>
 
 <div class='product-wrapper mb-4'>
@@ -81,10 +82,10 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <div class="product-exp">HSD còn <?php echo $numOfMfg; ?> ngày</div>
 
                     <div class='product-price vertical-center'>
-                        <span class='price'><?php echo $productPrice; ?></span>
+                        <span class='price'><?php echo $productPriceDiscount; ?></span>
                         <?php
                         if ($product->discount > 0) {
-                            echo "<strike class='discount'>$productPriceDiscount</strike>";
+                            echo "<strike class='discount'>$productPrice</strike>";
                             echo "<span class='discount-rate'>-$product->discount%</span>";
                         }
                         ?>

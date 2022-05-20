@@ -47,7 +47,10 @@ jQuery(async function () {
 	});
 	loadCartSummary();
 
-	const cartTotal = products.reduce((sum, p) => sum + p.quantity * p.price, 0);
+	const cartTotal = products.reduce(
+		(sum, p) => sum + p.quantity * ((p.price * (100 - p.discount)) / 100),
+		0,
+	);
 	$('#cartTotal').html(currencyFormat(cartTotal));
 	$('#shippingFee').html(currencyFormat(SHIPPING_FEE));
 	$('#orderTotal').html(

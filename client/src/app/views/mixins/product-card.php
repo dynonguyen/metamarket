@@ -6,9 +6,9 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $stock =
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
     $discountRateXML = !empty($discount) ? "<label class='discount-rate'>-$discount%</label>" : "";
-    $discountPrice = number_format(((100 + $discount) * $price) / 100, 0, ',', '.') . ' ₫';
-    $discountPriceXML = !empty($discount) ? "<div class='discount'>$discountPrice</div>" :  "";
     $formattedPrice = number_format($price, 0, ',', '.') . ' ₫';
+    $discountPriceXML = !empty($discount) ? "<div class='discount'>$formattedPrice</div>" :  "";
+    $discountPrice = !empty($discount) ? number_format($price * (100 - $discount) / 100, 0, ',', '.') . ' ₫' : $formattedPrice;
     $actionBtn = $stock >= 1 ?
         "<button class='btn btn-outline-primary-accent add-cart' data-id='$_id' data-price='$price' data-stock='$stock' data-discount='$discount'>Thêm giỏ hàng</button>"
         : "<button class='btn btn-accent disabled'>Tạm hết hàng</button>";
@@ -24,7 +24,7 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $stock =
                 <div class='product-unit'>ĐVT: $unit</div>
                 <div class='product-price'>
                     <div class='vertical-center'>
-                        <strong>$formattedPrice</strong>
+                        <strong>$discountPrice</strong>
                         $discountRateXML
                     </div>
                     $discountPriceXML
