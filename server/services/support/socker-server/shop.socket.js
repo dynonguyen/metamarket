@@ -16,10 +16,10 @@ async function updateShopChatHistory(userId, shopId, newMessage) {
 			{ $push: { history: newMessage } },
 		);
 	} else {
-		ShopChat.create({
+		await ShopChat.create({
 			userId,
 			shopId,
-			createdAt: new Date(),
+			createdAt: newMessage.time,
 			history: [newMessage],
 		});
 	}
@@ -39,9 +39,9 @@ shopIO.on('connection', function (socket) {
 	});
 
 	socket.on('fc user chat', async (data) => {
-		const { userId, shopId, message } = data;
+		const { userId, shopId, message, time } = data;
 
-		const newMessage = { isUser: true, content: message, time: new Date() };
+		const newMessage = { isUser: true, content: message, time };
 		const onlineShop = findOnlineShopByShopId(shopId);
 
 		if (onlineShop) {
@@ -50,14 +50,14 @@ shopIO.on('connection', function (socket) {
 				.emit('fs user chat', { userId, ...newMessage });
 		}
 
-		updateShopChatHistory(userId, shopId, newMessage);
+		await updateShopChatHistory(userId, shopId, newMessage);
 	});
 
 	socket.on('fc shop chat', async (data) => {
-		const { userId, shopId, message } = data;
-		const newMessage = { isUser: false, content: message, time: new Date() };
+		const { userId, shopId, message, time } = data;
+		const newMessage = { isUser: false, content: message, time };
 		shopIO.to(`user-${userId}`).emit('fs shop chat', newMessage);
-		updateShopChatHistory(userId, shopId, newMessage);
+		await updateShopChatHistory(userId, shopId, newMessage);
 	});
 
 	socket.on('disconnect', () => {

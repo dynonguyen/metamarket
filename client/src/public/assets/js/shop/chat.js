@@ -7,8 +7,14 @@ const messageElem = $('#messages');
 
 const onUserChat = async (message) => {
 	const { userId, content, time } = message;
+
+	if ($('#emptyUserList')) {
+		$('#emptyUserList').remove();
+	}
+
 	if (userId === currentUserId) {
 		renderMessage({ content, time, isUser: true });
+		updateLastSeen(content, time);
 		scrollContentToBottom();
 	} else {
 		const userElements = $(`.userlist-item[data-user-id='${userId}']`);
@@ -26,7 +32,7 @@ const onUserChat = async (message) => {
 
 			xml = `<li class='userlist-item new' data-user-id='${userId}' 
 									data-user-phone='${phone}' 
-									data-last-time='${dateFormat(time)}' data-user-name='$cusName'>
+									data-last-time='${dateFormat(time)}' data-user-name='${fullname}'>
 								<div class='cus-name'>${fullname}</div>
 								<div class='vertical-center'>
 										<p class='last-msg'>${content}</p>
@@ -50,11 +56,22 @@ const onStartSocket = () => {
 	socketEventListener();
 };
 
+const updateLastSeen = (newMsg, time) => {
+	$('.userlist-item.active .last-msg').text(newMsg);
+	const lastTimeStr = dateFormat(time);
+	$('.userlist-item.active .last-msg-time').text(lastTimeStr);
+	$('.chat-side__top .last-msg-time').text(`Last Seen: ${lastTimeStr}`);
+};
+
 const sendMessage = () => {
 	const message = chatBoxInput.val();
-	renderMessage({ isUser: false, content: message, time: new Date() });
-	socket.emit('fc shop chat', { userId: currentUserId, shopId, message });
+	if (!socket || !message.trim()) return;
+
+	const time = new Date();
+	renderMessage({ isUser: false, content: message, time });
+	socket.emit('fc shop chat', { userId: currentUserId, shopId, message, time });
 	chatBoxInput.val('');
+	updateLastSeen(message, time);
 	scrollContentToBottom();
 };
 
@@ -86,9 +103,12 @@ const renderMessage = ({ isUser, content, time }) => {
 const onChooseUserChat = () => {
 	$('.userlist-item').on('click', async function () {
 		const userId = Number($(this).attr('data-user-id'));
-		const userPhone = $(this).attr('data-user-phone');
+		let userPhone = $(this).attr('data-user-phone');
+		if (userPhone === 'null' || !userPhone) userPhone = '';
 		const userName = $(this).attr('data-user-name');
 		const lastTime = $(this).attr('data-last-time');
+
+		if (userId === currentUserId) return;
 
 		$(this).removeClass('new');
 
@@ -97,6 +117,7 @@ const onChooseUserChat = () => {
 		$('.chat-side__top .cus-phone').text(userPhone);
 		$('.chat-side__top .last-msg-time').text(`Last Seen: ${lastTime}`);
 
+		messageElem.html('');
 		const messages = await getUserMessages(userId);
 		messages.forEach((message) => renderMessage(message));
 		scrollContentToBottom();
@@ -123,5 +144,5 @@ jQuery(function () {
 		}
 	});
 
-	$('#sendMsgBtn').on('click', sendMessage);
+	$('#sendBtn').on('click', sendMessage);
 });

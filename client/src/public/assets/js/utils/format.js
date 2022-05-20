@@ -15,9 +15,13 @@ function toThumbnail(src = '') {
 	return src;
 }
 
-function dateFormat(d) {
-	const date = new Date(d);
-	return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${
-		date.getMonth() + 1
-	}-${date.getFullYear()}`;
+function dateFormat(time) {
+	const date = new Date(time);
+	const h = `0${date.getHours()}`.slice(-2);
+	const m = `0${date.getMinutes()}`.slice(-2);
+	const d = `0${date.getDate()}`.slice(-2);
+	const month = `0${date.getMonth() + 1}`.slice(-2);
+	const y = date.getFullYear();
+
+	return `${h}:${m} ${d}-${month}-${y}`;
 }

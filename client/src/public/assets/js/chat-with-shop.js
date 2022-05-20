@@ -1,9 +1,10 @@
 // Required chat-box.js, passed variable 'SHOP_INFO', 'USER_ID', 'SUPPORT_SERVICE_API_URL', 'CHAT_SOCKET_SERVER
 
-let shop;
+let shop = JSON.parse(SHOP_INFO);
 const userId = Number(USER_ID);
 const messageElem = $('#messages');
 let socket = null;
+const SHOP_INTRO_MSG = `${shop.name} xin chào quý khách! Chúng tôi có thể hỗ trợ gì cho bạn không ạ 😊`;
 
 function updateShopStatus(isOnline = false) {
 	if (isOnline) {
@@ -79,6 +80,9 @@ async function onStartChat() {
 	}
 
 	await loadMessageHistory();
+	renderMessage(SHOP_INTRO_MSG, false, new Date());
+	scrollContentToBottom();
+
 	$('.chat-box__typing').removeClass('disabled');
 	chatBoxInput.focus();
 
@@ -88,33 +92,34 @@ async function onStartChat() {
 
 function sendMessage() {
 	const message = chatBoxInput.val();
-	if (!socket || !message) return;
+	if (!socket || !message || !message.trim()) return;
 
 	chatBoxInput.val('');
-	renderMessage(message, true, new Date());
-	socket.emit('fc user chat', { userId, shopId: shop.shopId, message });
+	const time = new Date();
+	renderMessage(message, true, time);
+	socket.emit('fc user chat', { userId, shopId: shop.shopId, message, time });
 
 	scrollContentToBottom();
 }
 
 jQuery(function () {
 	if (SHOP_INFO) {
-		shop = { ...shop, ...JSON.parse(SHOP_INFO) };
+		shop = JSON.parse(SHOP_INFO);
 		if (!shop || !shop.shopId) return;
 
 		onShowChatBox(() => {
 			onStartChat();
 			updateChatBoxTop();
 		});
-	}
 
-	chatBoxInput.on('keypress', function (event) {
-		if (event.key === 'Enter') {
+		chatBoxInput.on('keypress', function (event) {
+			if (event.key === 'Enter') {
+				sendMessage();
+			}
+		});
+
+		$('#sendBtn').on('click', function () {
 			sendMessage();
-		}
-	});
-
-	$('#sendBtn').on('click', function () {
-		sendMessage();
-	});
+		});
+	}
 });
