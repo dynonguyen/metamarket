@@ -3,10 +3,38 @@ require_once _DIR_ROOT . '/utils/Image.php';
 
 class Shop extends Controller
 {
+
     public function index()
     {
-        $this->setPageTitle('Kênh bán hàng');
-        $this->render('layouts/shop');
+        self::redirect('/kenh-ban-hang/don-hang/tat-ca');
+    }
+
+    // Order list
+    public function orderList()
+    {
+        global $shop;
+
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $query = http_build_query([
+            'page' => $page,
+            'pageSize' => DEFAULT_PAGE_SIZE,
+            'select' => '_id orderCode orderDate orderStatus orderTotal receiverName receiverPhone note',
+            'sort' => '-orderDate',
+            'where' => json_encode(['shopId' => $shop->_get('shopId')])
+        ]);
+        $apiRes = ApiCaller::get(ORDER_SERVICE_API_URL . "/list?$query");
+
+        $orderDocs = [];
+        if ($apiRes['statusCode'] === 200) {
+            $orderDocs = $apiRes['data'];
+        }
+
+        $this->setViewContent('orderDocs', $orderDocs);
+        $this->appendCssLink(['pagination.css']);
+        $this->appendJSLink(['pagination.js']);
+        $this->setPageTitle('Danh sách đơn hàng');
+        $this->setContentViewPath('shop/order-list');
+        $this->render('layouts/shop', $this->data);
     }
 
     // Product
@@ -91,6 +119,7 @@ class Shop extends Controller
             $lastChats = $apiRes['data'];
         }
 
+        $this->setPageTitle('CSKH');
         $this->setViewContent('lastChats', $lastChats);
 
         $this->appendJSLink(['utils/format.js', 'shop/chat.js']);

@@ -101,7 +101,7 @@ $navbarMenu = [
             foreach ($list as $item) {
                 ['to' => $to, 'label' => $itemLabel] = $item;
                 $link = "/kenh-ban-hang/$root/$to";
-                $activeClass = $link === $_SERVER['REQUEST_URI'] ? 'active' : '';
+                $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
 
                 echo "<li class='navbar-item $activeClass'>
                         <a href='$link'>$itemLabel</a>

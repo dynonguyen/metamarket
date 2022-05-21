@@ -9,4 +9,9 @@ class FormatUtil
         $date->setTimezone($newTZ);
         return $date->format($format);
     }
+
+    public static function currencyVNDFormat($money)
+    {
+        return  number_format($money, 0, ',', '.') . ' ₫';
+    }
 }

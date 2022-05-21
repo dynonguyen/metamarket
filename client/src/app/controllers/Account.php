@@ -77,9 +77,7 @@ class Account extends Controller
         if ($isAuth) {
             self::redirect('/');
         } else {
-            if ($_SESSION['message']) {
-                $this->showSessionMessage();
-            }
+            $this->showSessionMessage();
             $this->renderLoginPage();
         }
     }

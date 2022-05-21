@@ -2,13 +2,15 @@
     <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
 </div>
 
-<?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
+require_once _DIR_ROOT . '/utils/Image.php';
+require_once _DIR_ROOT . '/utils/Format.php';
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
+require_once _DIR_ROOT . '/app/views/mixins/chat-box.php';
+
 renderToast('Thêm vào giỏ hàng thành công');
+$staticUrl = STATIC_FILE_URL;
 ?>
-<?php $staticUrl = STATIC_FILE_URL; ?>
-<?php require_once _DIR_ROOT . '/app/views/mixins/chat-box.php'; ?>
 
 <?php
 $productId = $product->_id;
@@ -16,8 +18,8 @@ $productName = $product->name;
 $productAvt = $product->avt;
 $discount = empty($product->discount) ? 0 : $product->discount;
 $numOfMfg = round((strtotime($product->exp) - time()) / 86400);
-$productPrice = number_format($product->price, 0, ',', '.') . ' ₫';
-$productPriceDiscount = number_format($product->price * (100 - $discount) / 100, 0, ',', '.') . ' ₫';
+$productPrice = FormatUtil::currencyVNDFormat($product->price);
+$productPriceDiscount = FormatUtil::currencyVNDFormat($product->price * (100 - $discount) / 100);
 ?>
 
 <div class='product-wrapper mb-4'>

@@ -2,7 +2,9 @@ const {
 	ORDER_STATUS,
 	PAYMENT_METHOD,
 	SVC_NAME,
+	DEFAULT,
 } = require('../../utils/constants');
+const { mongoosePaginate } = require('../../utils/mongoose-paginate');
 const { Order } = require('./order.db');
 const { MoleculerError } = require('moleculer').Errors;
 
@@ -102,6 +104,61 @@ module.exports = {
 					return true;
 				}
 				return false;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getOrderList: {
+		cache: false,
+		params: {
+			page: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: '1',
+			},
+			pageSize: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: DEFAULT.PAGE_SIZE.toString(),
+			},
+			select: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+			sort: {
+				type: 'string',
+				optional: true,
+				default: 'orderDate',
+			},
+			where: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+		},
+		async handler(ctx) {
+			const { page, pageSize, select, sort, where } = ctx.params;
+			let query = {};
+
+			if (where) {
+				query = JSON.parse(where);
+			}
+
+			try {
+				const orderDocs = await mongoosePaginate(
+					Order,
+					query,
+					{ page: Number(page), pageSize: Number(pageSize) },
+					{ select, sort },
+				);
+
+				return orderDocs;
 			} catch (error) {
 				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);

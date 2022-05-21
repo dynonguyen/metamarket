@@ -1,0 +1,19 @@
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pagination button {
+	border: none;
+	font-size: 1.6rem;
+	padding: 6px 12px;
+	margin: 0 6px;
+	background-color: var(--mm-light-gray);
+	transition: all 0.25s;
+}
+
+.pagination button:hover {
+	background-color: var(--bs-primary);
+	color: #fff;
+}

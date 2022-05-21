@@ -15,8 +15,10 @@ define('USER_SERVICE_API_URL', $_ENV['USER_SERVICE_API'] ?? '');
 // static file server
 define('STATIC_FILE_URL', $_ENV['STATIC_FILE_URL'] ?? '/public');
 
+// Default
 define('DEFAULT_PRODUCT_AVT', STATIC_FILE_URL . '/assets/images/product-not-found.png');
 define('DEFAULT_SHOP_AVT', STATIC_FILE_URL . '/assets/images/shop-not-found.png');
+define('DEFAULT_PAGE_SIZE', 10);
 
 // min max
 define('MAX_LEN_EMAIL', 150);
@@ -69,3 +71,12 @@ define('ACCOUNT_STATUS', [
 ]);
 
 define('CHAT_SOCKET_SERVER', $_ENV['CHAT_SOCKET_SERVER'] ?? 'http://localhost:4444');
+
+define('ORDER_STATUS',  [
+    'PROCESSING' => 0,
+    'PENDING_PAYMENT' => 1,
+    'PENDING_SHOP' => 2,
+    'SHIPPING' => 3,
+    'COMPLETE' => 4,
+    'CANCELED' => 5,
+]);
