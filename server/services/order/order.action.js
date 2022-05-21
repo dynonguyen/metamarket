@@ -44,32 +44,46 @@ module.exports = {
 					{ wardId },
 				);
 
-				const order = await Order.create({
-					userId,
-					orderCode,
-					orderDate: new Date(),
-					shipperId: -1,
-					orderStatus: ORDER_STATUS.PENDING_SHOP,
-					deliveryAddress: {
-						addrDetail,
-						wardId,
-						fullAddrStr: `${addrDetail}, ${fullAddrStr}`,
-					},
-					receiverName,
-					receiverPhone,
-					products,
-					paymentMethod,
-					isPayment,
-					transportFee,
-					orderTotal,
-					note,
+				let productShops = [];
+				products.forEach((p) => {
+					const { shopId, ...rest } = p;
+					const index = productShops.findIndex((ps) => shopId === ps.shopId);
+					if (index === -1) {
+						productShops.push({ shopId, products: [rest] });
+					} else {
+						productShops[index].products.push(rest);
+					}
 				});
 
-				if (order) {
-					return order._id;
-				}
+				const promises = [];
+				productShops.forEach((ps) => {
+					promises.push(
+						Order.create({
+							userId,
+							shopId: ps.shopId,
+							orderCode,
+							orderDate: new Date(),
+							shipperId: -1,
+							orderStatus: ORDER_STATUS.PENDING_SHOP,
+							deliveryAddress: {
+								addrDetail,
+								wardId,
+								fullAddrStr: `${addrDetail}, ${fullAddrStr}`,
+							},
+							receiverName,
+							receiverPhone,
+							products: ps.products,
+							paymentMethod,
+							isPayment,
+							transportFee,
+							orderTotal: this.calcTotalByProducts(ps.products),
+							note,
+						}),
+					);
+				});
 
-				throw new Error('Create Failed');
+				await Promise.all(promises);
+				return true;
 			} catch (error) {
 				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);

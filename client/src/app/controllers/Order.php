@@ -75,7 +75,7 @@ class Order extends Controller
                         // Create a payment record in database
                         $newPayment = ApiCaller::post(PAYMENT_SERVICE_API_URL . '/user/create', [
                             'userId' => $user->_get('userId'),
-                            'orderId' => str_replace("\"", "", $orderId),
+                            'orderCode' => $orderCode,
                             'paymentType' => PAYMENT_METHOD['MOMO'],
                             'transactionCode' => $transId,
                             'totalMoney' => (int)$amount,
