@@ -1,3 +1,4 @@
+const { MoleculerError } = require('moleculer').Errors;
 const { SVC_NAME } = require('../../utils/constants');
 const { Shipper, AdminAccount } = require('./internal.db');
 
@@ -27,7 +28,7 @@ module.exports = {
 					return null;
 				} catch (error) {
 					this.logger.error(error);
-					return null;
+					throw new MoleculerError(error.toString(), 500);
 				}
 			},
 		},
@@ -54,7 +55,61 @@ module.exports = {
 					return null;
 				} catch (error) {
 					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+
+		getAdminById: {
+			cache: false,
+
+			params: {
+				accountId: [{ type: 'number' }, { type: 'string', numeric: true }],
+			},
+
+			async handler(ctx) {
+				const { accountId } = ctx.params;
+				try {
+					const admin = await AdminAccount.findOne({
+						raw: true,
+						where: {
+							accountId,
+						},
+					});
+					if (admin) {
+						return admin;
+					}
 					return null;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+
+		getShipperById: {
+			cache: false,
+
+			params: {
+				shipperId: [{ type: 'number' }, { type: 'string', numeric: true }],
+			},
+
+			async handler(ctx) {
+				const { shipperId } = ctx.params;
+				try {
+					const shipper = await Shipper.findOne({
+						raw: true,
+						where: {
+							shipperId,
+						},
+					});
+					if (shipper) {
+						return shipper;
+					}
+					return null;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
 				}
 			},
 		},
