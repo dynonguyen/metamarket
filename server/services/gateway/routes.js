@@ -40,6 +40,7 @@ const orderAliases = {
 	'POST orders/create': `${ORDER_SVC}.postCreateOrder`,
 	'GET orders/exist/by-order-code/:orderCode': `${ORDER_SVC}.getCheckExistByOrderCode`,
 	'GET orders/list': `${ORDER_SVC}.getOrderList`,
+	'GET orders/detail-by-id/:orderId': `${ORDER_SVC}.getOrderDetailById`,
 };
 
 const paymentAliases = {

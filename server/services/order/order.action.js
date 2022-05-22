@@ -165,4 +165,44 @@ module.exports = {
 			}
 		},
 	},
+
+	getOrderDetailById: {
+		cache: false,
+		params: {
+			orderId: 'string',
+		},
+		async handler(ctx) {
+			const { orderId } = ctx.params;
+
+			try {
+				let orderDetail = {};
+				const order = await Order.findById(orderId);
+				orderDetail = order._doc;
+
+				const promises = [];
+				orderDetail.products.forEach((p) => {
+					promises.push(
+						ctx
+							.call(`${SVC_NAME.PRODUCT}.getBasicProductInfoById`, {
+								productId: p.productId.toString(),
+							})
+							.then((product) => (p._doc.name = product.name)),
+					);
+				});
+				promises.push(
+					ctx
+						.call(`${SVC_NAME.USER}.getUserByUserId`, {
+							userId: orderDetail.userId,
+						})
+						.then((user) => (orderDetail.user = user)),
+				);
+				await Promise.all(promises);
+
+				return orderDetail;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };

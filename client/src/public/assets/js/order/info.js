@@ -43,7 +43,12 @@ jQuery(async function () {
 	products.sort((p1, p2) => p1.price - p2.price);
 	removeAllCart();
 	products.forEach((p) => {
-		addToCart({ productId: p._id, quantity: p.quantity, price: p.price });
+		addToCart({
+			productId: p._id,
+			quantity: p.quantity,
+			price: p.price,
+			discount: p.discount,
+		});
 	});
 	loadCartSummary();
 

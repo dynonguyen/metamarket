@@ -45,7 +45,11 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                                         <td title='$order->note'>$note</td>
                                         <td class='text-end'>
                                             <i class='bi bi-pencil-fill me-3 cursor-pointer update-icon text-gray' title='Cập nhật đơn hàng'></i>
-                                            <i class='bi bi-eye-fill cursor-pointer show-detail-icon text-gray' title='Xem chi tiết đơn hàng'></i>
+                                            <i class='bi bi-eye-fill cursor-pointer show-detail-icon text-gray' 
+                                                title='Xem chi tiết đơn hàng'
+                                                data-id='$order->_id' data-code='$order->orderCode'
+                                                data-bs-toggle='modal' data-bs-target='#orderDetailModal'>
+                                            </i>
                                         </td>
                                     </tr>";
                             }
@@ -62,6 +66,21 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                     echo "<div class='mt-4'></div>";
                     renderPagination(ceil($total / $pageSize), $page);
                 } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-2 text-primary text-uppercase">Chi tiết đơn hàng <span id="orderCodeModal"></span></h5>
+                <button type="button" class="btn-close fs-4" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary fs-3" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
