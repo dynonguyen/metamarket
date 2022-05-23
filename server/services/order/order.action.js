@@ -205,4 +205,24 @@ module.exports = {
 			}
 		},
 	},
+
+	putUpdateOrderStatus: {
+		params: {
+			orderId: 'string',
+			status: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { orderId, status } = ctx.params;
+			try {
+				await Order.updateOne(
+					{ _id: orderId },
+					{ orderStatus: Number(status) },
+				);
+				return true;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };

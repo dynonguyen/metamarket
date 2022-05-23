@@ -10,10 +10,6 @@ $navbarMenu = [
                 'label' => 'Tất cả'
             ],
             [
-                'to' => 'trong-thang',
-                'label' => 'Trong tháng'
-            ],
-            [
                 'to' => 'chua-xu-ly',
                 'label' => 'Chưa xử lý'
             ]

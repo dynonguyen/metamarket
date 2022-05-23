@@ -31,7 +31,11 @@ class Shop extends Controller
 
         $this->setViewContent('orderDocs', $orderDocs);
         $this->appendCssLink(['pagination.css']);
-        $this->setPassedVariables(['ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL]);
+        $this->setPassedVariables([
+            'ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL,
+            'PENDING_SHOP_STATUS' => ORDER_STATUS['PENDING_SHOP'],
+            'SHIPPING_STATUS' => ORDER_STATUS['SHIPPING'],
+        ]);
         $this->appendJSLink(['pagination.js', 'utils/format.js', 'shop/order-list.js']);
         $this->setPageTitle('Danh sách đơn hàng');
         $this->setContentViewPath('shop/order-list');
