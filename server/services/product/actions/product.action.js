@@ -193,18 +193,32 @@ module.exports = {
 				optional: true,
 				default: '',
 			},
+			sort: { type: 'string', optional: true, default: 'createdAt' },
+			query: { type: 'string', optional: true, default: '{}' },
 		},
 		async handler(ctx) {
 			try {
-				let { pageSize, select, shopId, page } = ctx.params;
+				let {
+					pageSize,
+					select,
+					shopId,
+					page,
+					sort = 'createdAt',
+					query = '{}',
+				} = ctx.params;
 				[page, pageSize, shopId] = [page, pageSize, shopId].map(Number);
 
-				const skips = (page - 1) * pageSize;
+				let where = { shopId };
+				if (query) {
+					const queryObj = JSON.parse(query);
+					where = { ...where, ...queryObj };
+				}
+
 				const products = await mongoosePaginate(
 					Product,
-					{ shopId },
+					{ ...where },
 					{ page, pageSize },
-					{ select, sort: 'createdAt' },
+					{ select, sort },
 				);
 
 				return products;

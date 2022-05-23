@@ -17,11 +17,13 @@ const productAliases = {
 	'GET products/catalog/:catalogLink': `${PRODUCT_SVC}.getCatalogByLink`,
 	'GET products/list/catalog/:catalogId': `${PRODUCT_SVC}.getProductWithCatalog`,
 	'GET products/list/category/:catalogId/:categoryId': `${PRODUCT_SVC}.getProductWithCategory`,
+	'GET products/list/by-shop': `${PRODUCT_SVC}.getProductByShopId`,
 	'GET products/search': `${PRODUCT_SVC}.searchProduct`,
 	'GET products/get-shop/:productId': `${PRODUCT_SVC}.getShopByProductId`,
 
 	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
-	'PUT products/desc-stock': `${PRODUCT_SVC}.putDecreaseProductStockById`,
+	'PUT products/decr-stock': `${PRODUCT_SVC}.putDecreaseProductStockById`,
+	'PUT products/incr-purchase': `${PRODUCT_SVC}.putIncreasePurchaseTotalById`,
 };
 
 const aggregateAliases = {

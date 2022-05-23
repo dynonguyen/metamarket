@@ -99,10 +99,11 @@ module.exports = {
 					ctx
 						.call(`${SVC_NAME.PRODUCT}.getProductByShopId`, {
 							shopId: result.product.shopId,
-							limit: 8,
+							page: 1,
+							pageSize: 8,
 							select: '_id name price discount avt unit',
 						})
-						.then((data) => (result.otherProducts = data)),
+						.then((data) => (result.otherProducts = data.docs)),
 				);
 
 				await Promise.all(promises);

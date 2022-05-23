@@ -3,7 +3,6 @@ require_once _DIR_ROOT . '/utils/Image.php';
 
 class Shop extends Controller
 {
-
     public function index()
     {
         self::redirect('/kenh-ban-hang/don-hang/tat-ca');
@@ -53,6 +52,40 @@ class Shop extends Controller
     public function addProduct()
     {
         $this->renderAddProductPage();
+    }
+
+    public function productList()
+    {
+        global $shop;
+
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $sort = empty($_GET['s']) ? '' : $_GET['s'];
+        $query = empty($_GET['q']) ? '' : $_GET['q'];
+        $filter = empty($_GET['f']) ? '' : $_GET['f'];
+        $query = http_build_query([
+            'shopId' => $shop->_get('shopId'),
+            'page' => $page,
+            'pageSize' => DEFAULT_PAGE_SIZE,
+            'select' => '_id code name avt price discount unit stock purchaseTotal exp',
+            'sort' => $sort,
+            'query' => $query
+
+        ]);
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/list/by-shop?' . $query);
+        $productDocs = [];
+
+        if ($apiRes['statusCode'] === 200) {
+            $productDocs = $apiRes['data'];
+        }
+
+        $this->setPassedVariables(['sort' => $sort]);
+        $this->setPassedVariables(['filter' => $filter]);
+        $this->setViewContent('productDocs', $productDocs);
+        $this->appendCssLink(['product-card.css', 'pagination.css']);
+        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
+        $this->setContentViewPath('shop/product-list');
+        $this->setPageTitle('Danh sách sản phẩm');
+        $this->render('layouts/shop', $this->data);
     }
 
     public function postAddProduct()
