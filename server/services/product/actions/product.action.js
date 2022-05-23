@@ -176,7 +176,18 @@ module.exports = {
 		cache: false,
 		params: {
 			shopId: [{ type: 'string', numeric: true }, { type: 'number' }],
-			limit: [{ type: 'number', default: 8 }],
+			pageSize: [
+				{ type: 'number', default: DEFAULT.PAGE_SIZE },
+				{
+					type: 'string',
+					numeric: true,
+					default: DEFAULT.PAGE_SIZE.toString(),
+				},
+			],
+			page: [
+				{ type: 'number', default: 1 },
+				{ type: 'string', numeric: true, default: '1' },
+			],
 			select: {
 				type: 'string',
 				optional: true,
@@ -185,13 +196,16 @@ module.exports = {
 		},
 		async handler(ctx) {
 			try {
-				const shopId = Number(ctx.params.shopId);
-				const { limit, select } = ctx.params;
+				let { pageSize, select, shopId, page } = ctx.params;
+				[page, pageSize, shopId] = [page, pageSize, shopId].map(Number);
 
-				const products = await Product.find({ shopId })
-					.skip(0)
-					.limit(limit)
-					.select(select);
+				const skips = (page - 1) * pageSize;
+				const products = await mongoosePaginate(
+					Product,
+					{ shopId },
+					{ page, pageSize },
+					{ select, sort: 'createdAt' },
+				);
 
 				return products;
 			} catch (error) {
@@ -419,6 +433,25 @@ module.exports = {
 				await Product.findOneAndUpdate(
 					{ _id: ctx.params.productId },
 					{ $inc: { stock: -1 * Number(ctx.params.quantity) } },
+				);
+				return true;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putIncreasePurchaseTotalById: {
+		params: {
+			productId: 'string',
+			quantity: 'number',
+		},
+		async handler(ctx) {
+			try {
+				await Product.findOneAndUpdate(
+					{ _id: ctx.params.productId },
+					{ $inc: { purchaseTotal: 1 * Number(ctx.params.quantity) } },
 				);
 				return true;
 			} catch (error) {

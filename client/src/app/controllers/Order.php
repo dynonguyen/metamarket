@@ -84,6 +84,7 @@ class Order extends Controller
                         if ($newPayment['statusCode'] === 200) {
                             // Increase product stock
                             $this->updateStockProducts($products);
+                            $this->updatePurchaseTotalProducts($products);
                             $this->appendJSLink('order/payment-success.js');
                             $this->setViewContent('isError', 0);
                         } else {
@@ -203,7 +204,17 @@ class Order extends Controller
     private function updateStockProducts($products)
     {
         foreach ($products as $product) {
-            ApiCaller::put(PRODUCT_SERVICE_API_URL . '/desc-stock', [
+            ApiCaller::put(PRODUCT_SERVICE_API_URL . '/decr-stock', [
+                'productId' => $product->productId,
+                'quantity' => (int)$product->quantity
+            ]);
+        }
+    }
+
+    private function updatePurchaseTotalProducts($products)
+    {
+        foreach ($products as $product) {
+            ApiCaller::put(PRODUCT_SERVICE_API_URL . '/incr-purchase', [
                 'productId' => $product->productId,
                 'quantity' => (int)$product->quantity
             ]);
