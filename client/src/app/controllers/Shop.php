@@ -10,9 +10,16 @@ class Shop extends Controller
     }
 
     // Order list
-    public function orderList()
+    public function orderList($orderStatus = '')
     {
         global $shop;
+
+        $where = ['shopId' => $shop->_get('shopId')];
+        if (!empty($orderStatus)) {
+            if ($orderStatus === 'pending_shop') {
+                $where['orderStatus'] = ORDER_STATUS['PENDING_SHOP'];
+            }
+        }
 
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $query = http_build_query([
@@ -20,7 +27,7 @@ class Shop extends Controller
             'pageSize' => DEFAULT_PAGE_SIZE,
             'select' => '_id orderCode orderDate orderStatus orderTotal receiverName receiverPhone note',
             'sort' => '-orderDate',
-            'where' => json_encode(['shopId' => $shop->_get('shopId')])
+            'where' => json_encode($where)
         ]);
         $apiRes = ApiCaller::get(ORDER_SERVICE_API_URL . "/list?$query");
 
