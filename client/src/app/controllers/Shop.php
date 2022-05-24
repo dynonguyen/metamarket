@@ -1,5 +1,6 @@
 <?php
 require_once _DIR_ROOT . '/utils/Image.php';
+require_once _DIR_ROOT . '/app/models/Account.php';
 
 class Shop extends Controller
 {
@@ -194,6 +195,36 @@ class Shop extends Controller
         $this->setViewContent('reviews', $reviews);
         $this->setPageTitle('Đánh giá khách hàng');
         $this->setContentViewPath('shop/review');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    // Shop info
+    public function information()
+    {
+        global $shop;
+
+        $email = AccountModel::findEmailByAccountId($shop->_get('accountId'));
+
+        $catalogName = '';
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalog-name-by-id/' . $shop->_get('catalogId'));
+        if ($apiRes['statusCode'] === 200) {
+            $catalogName = $apiRes['data'];
+        }
+
+        $shopInfo = [
+            'phone' => $shop->_get('phone'),
+            'name' => $shop->_get('name'),
+            'foundingDate' => $shop->_get('foundingDate'),
+            'supporterName' => $shop->_get('supporterName'),
+            'logoUrl' => $shop->_get('logoUrl'),
+            'openHours' => $shop->_get('openHours'),
+            'catalog' => $catalogName,
+            'email' => $email
+        ];
+
+        $this->setViewContent('shopInfo', $shopInfo);
+        $this->setPageTitle('Thông tin cửa hàng');
+        $this->setContentViewPath('shop/info');
         $this->render('layouts/shop', $this->data);
     }
 

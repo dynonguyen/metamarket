@@ -46,4 +46,21 @@ module.exports = {
 			}
 		},
 	},
+
+	getCatalogNameById: {
+		cache: false,
+		params: {
+			catalogId: 'string',
+		},
+		async handler(ctx) {
+			try {
+				const { catalogId } = ctx.params;
+				const catalog = await Catalog.findById(catalogId);
+				return catalog.name;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };

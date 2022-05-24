@@ -32,6 +32,9 @@ const ShopSchema = [
 			type: DataTypes.STRING(255),
 			allowNull: true,
 		},
+		catalogId: {
+			type: DataTypes.STRING(24),
+		},
 		isOnline: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,

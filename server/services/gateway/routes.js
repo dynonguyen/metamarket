@@ -20,6 +20,7 @@ const productAliases = {
 	'GET products/list/by-shop': `${PRODUCT_SVC}.getProductByShopId`,
 	'GET products/search': `${PRODUCT_SVC}.searchProduct`,
 	'GET products/get-shop/:productId': `${PRODUCT_SVC}.getShopByProductId`,
+	'GET products/catalog-name-by-id/:catalogId': `${PRODUCT_SVC}.getCatalogNameById`,
 
 	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
 	'PUT products/decr-stock': `${PRODUCT_SVC}.putDecreaseProductStockById`,

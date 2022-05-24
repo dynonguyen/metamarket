@@ -12,6 +12,19 @@ class AccountModel
     private $createdAt;
     private $updatedAt;
 
+    public static function findEmailByAccountId(int|string $accountId)
+    {
+        try {
+            $conn = MySQLConnection::getConnect();
+            $query = $conn->query("SELECT email FROM accounts WHERE accountId = '$accountId'");
+            $email = $query->fetchColumn(0);
+            return $email;
+        } catch (Exception $ex) {
+            error_log($ex);
+            return null;
+        }
+    }
+
     public static function findAccountByEmail(string $email)
     {
         try {
