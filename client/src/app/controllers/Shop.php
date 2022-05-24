@@ -181,6 +181,22 @@ class Shop extends Controller
         $this->render('layouts/shop', $this->data);
     }
 
+    public function review()
+    {
+        global $shop;
+
+        $apiRes = ApiCaller::get(REVIEW_SERVICE_API_URL . "/shop-review/" . $shop->_get('shopId'));
+        $reviews = [];
+        if ($apiRes['statusCode'] === 200) {
+            $reviews = $apiRes['data'];
+        }
+
+        $this->setViewContent('reviews', $reviews);
+        $this->setPageTitle('Đánh giá khách hàng');
+        $this->setContentViewPath('shop/review');
+        $this->render('layouts/shop', $this->data);
+    }
+
     // private method
     private function renderAddProductPage()
     {

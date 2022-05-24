@@ -52,6 +52,7 @@ const paymentAliases = {
 };
 
 const reviewAliases = {
+	'GET reviews/shop-review/:shopId': `${REVIEW_SVC}.getReviewByShopId`,
 	'POST reviews/add-product-comment': `${REVIEW_SVC}.postAddProductComment`,
 };
 

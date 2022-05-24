@@ -26,6 +26,23 @@ module.exports = {
 		},
 	},
 
+	getReviewByShopId: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			try {
+				const { shopId } = ctx.params;
+				const reviews = await ShopReview.find({ shopId });
+				return reviews;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	postAddProductComment: {
 		cache: false,
 		params: {

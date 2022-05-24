@@ -22,16 +22,12 @@ $navbarMenu = [
         'list' => [
             [
                 'to' => 'tat-ca',
-                'label' => 'Tất cả sản phẩm'
+                'label' => 'Danh sách sản phẩm'
             ],
             [
                 'to' => 'them',
                 'label' => 'Thêm sản phẩm'
             ],
-            [
-                'to' => 'top',
-                'label' => 'Sản phẩm bán chạy'
-            ]
         ]
     ],
     [
