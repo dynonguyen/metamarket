@@ -41,4 +41,26 @@ class ShopModel
             return null;
         }
     }
+
+    public static function updateShop($shopId, $data)
+    {
+        try {
+            [
+                'name' => $name,
+                'phone' => $phone,
+                'supporterName' => $supporterName,
+                'openHours' => $openHours,
+                'logoUrl' => $logoUrl
+            ] = $data;
+            $conn = MySQLConnection::getConnect();
+            $query = "UPDATE shops 
+                    SET name = '$name', phone = '$phone', supporterName = '$supporterName', openHours = '$openHours', logoUrl = '$logoUrl'
+                    WHERE shopId = $shopId";
+            $st = $conn->prepare($query);
+            return $st->execute();
+        } catch (Exception $ex) {
+            error_log($ex);
+            return false;
+        }
+    }
 }

@@ -198,7 +198,7 @@ class Shop extends Controller
         $this->render('layouts/shop', $this->data);
     }
 
-    // Shop info
+    // Shop management
     public function information()
     {
         global $shop;
@@ -222,10 +222,60 @@ class Shop extends Controller
             'email' => $email
         ];
 
+        $this->showSessionMessage();
         $this->setViewContent('shopInfo', $shopInfo);
         $this->setPageTitle('Thông tin cửa hàng');
         $this->setContentViewPath('shop/info');
         $this->render('layouts/shop', $this->data);
+    }
+
+    public function settings()
+    {
+        $this->showSessionMessage();
+        $this->setPageTitle('Thiết lập cửa hàng');
+        $this->appendJSLink(['shop/settings.js']);
+        $this->setContentViewPath('shop/settings');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    public function postSettings()
+    {
+        global $shop;
+        $updateData = [
+            'name' => $shop->_get('name'),
+            'phone' => $shop->_get('phone'),
+            'supporterName' => $shop->_get('supporterName'),
+            'openHours' => $shop->_get('openHours'),
+            'logoUrl' => $shop->_get('logoUrl')
+        ];
+
+        if (!empty($_FILES['avt']) && !empty($_FILES['avt']['tmp_name'])) {
+            $src = $_FILES['avt']['tmp_name'];
+
+            // Remove old logo
+            $oldLogoSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/logo.*';
+            array_map('unlink', glob($oldLogoSrc));
+
+            // Create new image
+            $type = str_replace('image/', '', $_FILES['avt']['type']);
+            $updateData['logoUrl'] = 'upload/shop-' . $shop->_get('shopId') . "/logo.$type";
+            move_uploaded_file($src, _DIR_ROOT . '/public/' . $updateData['logoUrl']);
+        }
+        if (!empty($_POST)) {
+            $updateData['name'] = $_POST['name'];
+            $updateData['phone'] = $_POST['phone'];
+            $updateData['supporterName'] = $_POST['supporterName'];
+            $updateData['openHours'] = $_POST['openHours'];
+        }
+
+        $isSuccess = ShopModel::updateShop($shop->_get('shopId'), $updateData);
+        if ($isSuccess) {
+            $this->setSessionMessage('Cập nhật thành công', false);
+            self::redirect('/kenh-ban-hang/quan-ly/thong-tin');
+        } else {
+            $this->setSessionMessage('Cập nhật thất bại', true);
+            self::redirect('/kenh-ban-hang/quan-ly/thiet-lap');
+        }
     }
 
     // private method

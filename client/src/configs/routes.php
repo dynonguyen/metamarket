@@ -35,6 +35,8 @@ $routes['kenh-ban-hang/don-hang/chua-xu-ly'] = 'shop/orderList/pending_shop';
 $routes['kenh-ban-hang/san-pham/tat-ca'] = 'shop/productList';
 $routes['kenh-ban-hang/ho-tro/danh-gia'] = 'shop/review';
 $routes['kenh-ban-hang/quan-ly/thong-tin'] = 'shop/information';
+$routes['kenh-ban-hang/quan-ly/thiet-lap'] = 'shop/settings';
+$routes['kenh-ban-hang/quan-ly/thiet-lap/post'] = 'shop/postSettings';
 
 // Emp
 $routes['nhan-vien/dang-nhap/(.+)'] = 'InternalAccount/login/$1';
