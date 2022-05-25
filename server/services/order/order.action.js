@@ -206,6 +206,41 @@ module.exports = {
 		},
 	},
 
+	getCountOrderByShop: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { shopId } = ctx.params;
+			try {
+				const count = await Order.countDocuments({ shopId });
+				return count;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	getShopRevenue: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { shopId } = ctx.params;
+			try {
+				const orders = await Order.find({ shopId }).select('orderTotal');
+				const revenue = orders.reduce((sum, o) => sum + o.orderTotal, 0);
+				return revenue;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	putUpdateOrderStatus: {
 		params: {
 			orderId: 'string',

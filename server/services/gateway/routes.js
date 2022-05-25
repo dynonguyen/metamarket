@@ -30,6 +30,7 @@ const productAliases = {
 const aggregateAliases = {
 	'GET aggregates/homepage-products': `${AGGREGATE_SVC}.getHomepageProducts`,
 	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
+	'GET aggregates/shop-statistic-overview/:shopId': `${AGGREGATE_SVC}.getShopStatisticOverview`,
 };
 
 const internalAliases = {

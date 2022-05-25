@@ -43,6 +43,23 @@ module.exports = {
 		},
 	},
 
+	getCountReviewByShop: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { shopId } = ctx.params;
+			try {
+				const count = await ShopReview.countDocuments({ shopId });
+				return count;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	postAddProductComment: {
 		cache: false,
 		params: {

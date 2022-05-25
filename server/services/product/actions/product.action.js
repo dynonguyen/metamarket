@@ -437,6 +437,23 @@ module.exports = {
 		},
 	},
 
+	getCountProductByShop: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { shopId } = ctx.params;
+			try {
+				const count = await Product.countDocuments({ shopId });
+				return count;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	putDecreaseProductStockById: {
 		params: {
 			productId: 'string',

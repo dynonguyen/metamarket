@@ -1,5 +1,6 @@
 const { SVC_NAME } = require('../../utils/constants');
 const productActions = require('./actions/product.action');
+const shopActions = require('./actions/shop.action');
 const aggregateEvents = require('./aggregate.event');
 
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
 
 	actions: {
 		...productActions,
+		...shopActions,
 	},
 
 	events: {

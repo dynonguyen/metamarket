@@ -155,6 +155,28 @@ class Shop extends Controller
         $this->renderAddProductPage();
     }
 
+    // Statistic
+    public function overview()
+    {
+        global $shop;
+        $apiRes = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/shop-statistic-overview/' . $shop->_get('shopId'));
+        $stats = [
+            'revenue' => 0,
+            'order' => 0,
+            'review' => 0,
+            'product' => 0
+        ];
+        if ($apiRes['statusCode'] === 200) {
+            $stats = (array) $apiRes['data'];
+        }
+
+        $this->setViewContent('stats', $stats);
+        $this->setPageTitle('Tổng quan kinh doanh');
+        $this->appendCssLink('shop/overview.css');
+        $this->setContentViewPath('shop/overview');
+        $this->render('layouts/shop', $this->data);
+    }
+
     // Chat, Support
     public function chat()
     {
