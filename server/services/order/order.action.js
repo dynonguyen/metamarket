@@ -241,6 +241,40 @@ module.exports = {
 		},
 	},
 
+	getShopRevenueByMonth: {
+		cache: false,
+		params: {
+			shopId: ['number', { type: 'string', numeric: true }],
+			month: ['number', { type: 'string', numeric: true }],
+			year: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { shopId, month, year } = ctx.params;
+			try {
+				const orders = await Order.aggregate([
+					{
+						$addFields: {
+							orderMonth: { $month: '$orderDate' },
+							orderYear: { $year: '$orderDate' },
+						},
+					},
+					{
+						$match: {
+							shopId: Number(shopId),
+							orderMonth: Number(month),
+							orderYear: Number(year),
+						},
+					},
+				]);
+				const revenue = orders.reduce((sum, o) => sum + o.orderTotal, 0);
+				return revenue;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	putUpdateOrderStatus: {
 		params: {
 			orderId: 'string',

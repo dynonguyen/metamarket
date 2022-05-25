@@ -177,6 +177,17 @@ class Shop extends Controller
         $this->render('layouts/shop', $this->data);
     }
 
+    public function revenue()
+    {
+        global $shop;
+        $this->setPassedVariables(['ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL, 'SHOP_ID' => $shop->_get('shopId')]);
+        $this->setPageTitle('Doanh thu');
+        $this->appendJSLink(['shop/revenue.js']);
+        $this->appendJsCDN('https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js');
+        $this->setContentViewPath('shop/revenue');
+        $this->render('layouts/shop');
+    }
+
     // Chat, Support
     public function chat()
     {

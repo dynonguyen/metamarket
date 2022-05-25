@@ -38,6 +38,7 @@ $routes['kenh-ban-hang/quan-ly/thong-tin'] = 'shop/information';
 $routes['kenh-ban-hang/quan-ly/thiet-lap'] = 'shop/settings';
 $routes['kenh-ban-hang/quan-ly/thiet-lap/post'] = 'shop/postSettings';
 $routes['kenh-ban-hang/thong-ke/tong-quan'] = 'shop/overview';
+$routes['kenh-ban-hang/thong-ke/doanh-thu'] = 'shop/revenue';
 
 // Emp
 $routes['nhan-vien/dang-nhap/(.+)'] = 'InternalAccount/login/$1';

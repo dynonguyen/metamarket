@@ -45,6 +45,7 @@ const orderAliases = {
 	'GET orders/exist/by-order-code/:orderCode': `${ORDER_SVC}.getCheckExistByOrderCode`,
 	'GET orders/list': `${ORDER_SVC}.getOrderList`,
 	'GET orders/detail-by-id/:orderId': `${ORDER_SVC}.getOrderDetailById`,
+	'GET orders/revenue-by-month': `${ORDER_SVC}.getShopRevenueByMonth`,
 
 	'PUT orders/update-status': `${ORDER_SVC}.putUpdateOrderStatus`,
 };
