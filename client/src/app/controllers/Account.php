@@ -8,7 +8,13 @@ class Account extends Controller
 {
     public function index()
     {
-        self::redirect('/tai-khoan/dang-nhap', 301);
+        global $isAuth;
+        if($isAuth){
+            $this->showInfo();
+        } else
+        {
+            self::redirect('/tai-khoan/dang-nhap', 301);
+        }
     }
 
     public function signup()
@@ -174,6 +180,11 @@ class Account extends Controller
         }
     }
 
+    public function showInfo()
+    {
+        $this->renderInfoPage();
+    }
+
     // Private methods
     private function renderSignupPage()
     {
@@ -217,4 +228,16 @@ class Account extends Controller
         setcookie(COOKIE_LOGIN_KEY, $jwt, COOKIE_LOGIN_EXP, path: '/', httponly: true);
         self::redirect('/', 301);
     }
+
+    private function renderInfoPage()
+    {
+        global $user;
+        $this->setViewContent('user', $user);
+        $this->setContentViewPath('account/info');
+        $this->appendCssLink(['user/info.css']);
+        $this->appendJSLink(['account/info.js']);
+        $this->setPageTitle('Thông tin tài khoản');
+        $this->render('layouts/general', $this->data);
+    }
+
 }

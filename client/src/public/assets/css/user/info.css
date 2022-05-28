@@ -1,0 +1,138 @@
+.container_info {
+    display: flex;
+    padding: 4rem 0 3.125rem;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1200px;
+}
+
+.left {
+    margin-right: auto;
+}
+
+.account {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 0.0625rem solid #efefef;
+}
+
+#b {
+    padding: 12px;
+    margin: 12px;
+    font-size: larger;
+    color: var(--bs-orange);
+}
+
+.content {
+    width: 980px;
+    box-sizing: border-box;
+    margin-left: 1.6875rem;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+    border-radius: 0.125rem;
+}
+
+.navbar-label {
+	font-weight: 500;
+	font-size: 1.6rem;
+	text-transform: capitalize;
+	color: var(--mm-gray);
+}
+
+.navbar-item {
+	font-size: 1.6rem;
+	margin-bottom: 1.6rem;
+}
+
+.navbar-item.active a {
+	color: var(--bs-orange);
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.navbar-item a {
+	color: var(--mm-dark-gray);
+	transition: all 0.25s;
+}
+
+.navbar-item a:hover {
+	letter-spacing: 1px;
+}
+
+.icn {
+    color: var(--bs-orange);
+    font-size: larger;
+}
+
+.itm {
+    padding: 10px 20px;
+    margin: 10px 20px;
+    display: block;
+    font-size: 16px;
+}
+
+.title {
+    border-bottom: 0.0625rem solid #efefef;
+    padding: 10px 0px;
+}
+
+.cnt {
+    display: block;
+    padding: 10px 20px;
+    margin: 10px 20px;
+}
+
+.lb {
+    width: 120px;
+}
+
+.hs {
+    color: var(--bs-orange);
+    padding-bottom: 10px;
+    font-size: 34px;
+}
+
+input {
+    padding: 8px;
+    width: 400px;
+    border: 1px solid rgba(0,0,0,.26);
+    box-sizing: border-box;
+}
+
+.submit {
+    margin-left: 140px;
+    font-size: larger;
+}
+
+#up {
+    color: #fff;
+    background-color: var(--bs-orange);
+    width: 100px;
+    margin-top: 20px;
+    padding: 5px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+    border-radius: 0.125rem;
+    border: none;
+}
+
+.gd {
+    padding: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    accent-color: var(--bs-orange);
+}
+
+.sp {
+    padding-left: 10px;
+    margin-right: 20px;
+}
+
+
+.distance-left {
+	margin-left: 26rem;
+}
+
+.color-item {
+    color: var(--bs-orange) !important;
+}

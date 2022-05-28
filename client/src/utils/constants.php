@@ -45,3 +45,9 @@ define('SHOP_ROLE', 2);
 define('SHIPPER_ROLE', 3);
 define('ADMIN_ROLE', 4);
 define('GUEST_ROLE', 0);
+
+//Gender
+define('MALE', 1);
+define('FEMALE', 0);
+
+?>
