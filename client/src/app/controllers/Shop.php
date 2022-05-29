@@ -155,6 +155,11 @@ class Shop extends Controller
         $this->renderAddProductPage();
     }
 
+    public function updateProduct()
+    {
+        $this->renderUpdateProductPage();
+    }
+
     // Statistic
     public function overview()
     {
@@ -328,6 +333,25 @@ class Shop extends Controller
         $this->appendCssLink(['shop/add-product.css']);
         $this->appendJSLink(['shop/add-product.js']);
         $this->setPageTitle('Thêm sản phẩm');
+        $this->render('layouts/shop');
+    }
+
+    private function renderUpdateProductPage()
+    {
+        // Get catalog options
+        $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
+        $catalogs = [];
+        if ($catalogApi['statusCode'] === 200) {
+            $catalogs = $catalogApi['data'];
+        }
+
+        $this->setViewContent('catalogs', $catalogs);
+        $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
+        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
+        $this->setContentViewPath('shop/update-product');
+        $this->appendCssLink(['shop/add-product.css']);
+        $this->appendJSLink(['shop/add-product.js']);
+        $this->setPageTitle('Cập nhật sản phẩm');
         $this->render('layouts/shop');
     }
 
