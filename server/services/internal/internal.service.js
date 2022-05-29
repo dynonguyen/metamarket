@@ -1,7 +1,7 @@
 const { MoleculerError } = require('moleculer').Errors;
 const { SVC_NAME } = require('../../utils/constants');
 const { Shipper, AdminAccount } = require('./internal.db');
-
+const { Op } = require('sequelize');
 module.exports = {
 	name: SVC_NAME.INTERNAL,
 
@@ -107,6 +107,186 @@ module.exports = {
 						return shipper;
 					}
 					return null;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		//tim kiem shipper theo ten
+		searchShipper: {
+			cache: false,
+
+			params: {
+				keyword: {
+					type: 'string',
+				},
+				page: {
+					type: 'string',
+					numeric: true,
+					min: '1',
+					default: '1',
+				},
+				pageSize: {
+					type: 'string',
+					numeric: true,
+					min: '1',
+					default: '10',
+				},
+			},
+
+			async handler(ctx) {
+				let { keyword, page, pageSize } = ctx.params;
+				[page, pageSize] = [page, pageSize].map(Number);
+				keyword = decodeURIComponent(escape(keyword));
+				try {
+					const result = await Shipper.findAll({
+						limit: pageSize,
+						offset: (page - 1) * pageSize,
+						where: { username: { [Op.like]: '%' + keyword + '%' } },
+						attributes: [
+							'shipperID',
+							'username',
+							'address',
+							'peopleId',
+							'driverLicense',
+						],
+					});
+					if (result) return result;
+					return null;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		//update trang thai shippe
+		updateStatusShpper: {
+			cache: false,
+			params: {
+				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
+				status: [{ type: 'number' }, { type: 'string', numeric: true }],
+			},
+			async handler(ctx) {
+				const { shipperid, status } = ctx.params;
+				try {
+					const result = await Shipper.update(
+						{ status: status },
+						{ where: { shipperId: shipperid } },
+					);
+					return result;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		// update dia chi cua shipper
+		updateAddressShiper: {
+			cache: false,
+			params: {
+				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
+				address: 'string',
+			},
+			async handler(ctx) {
+				let { shipperid, address } = ctx.params;
+				address = decodeURIComponent(escape(address));
+				try {
+					const result = await Shipper.update(
+						{ address: address },
+						{ where: { shipperId: shipperid } },
+					);
+					return result;
+				} catch (error) {
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		// update giay phep lai xe shipper
+		updateDriverLicense: {
+			cache: false,
+			params: {
+				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
+				driverlicense: 'string',
+			},
+			async handler(ctx) {
+				const { shipperid, driverlicense } = ctx.params;
+				try {
+					const result = await Shipper.update(
+						{ driverLicense: driverlicense },
+						{ where: { shipperId: shipperid } },
+					);
+					return result;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		//lay tat ca shipper
+		getAllShipper: {
+			caches: false,
+			params: {
+				page: {
+					type: 'string',
+					numeric: true,
+					min: '1',
+					default: '1',
+				},
+				pageSize: {
+					type: 'string',
+					numeric: true,
+					min: '1',
+					default: '10', // them default pagesize
+				},
+			},
+			async handler(ctx) {
+				let { page, pageSize } = ctx.params;
+				page = Number(ctx.params.page);
+				pageSize = Number(ctx.params.pageSize);
+				try {
+					const result = await Shipper.findAll({
+						limit: pageSize,
+						offset: (page - 1) * pageSize,
+						attributes: [
+							'shipperID',
+							'username',
+							'address',
+							'peopleId',
+							'driverLicense',
+						],
+					});
+					if (result) return result;
+					return null;
+				} catch (error) {
+					this.logger.error(error);
+					throw new MoleculerError(error.toString(), 500);
+				}
+			},
+		},
+		//tao moi 1 shipper
+		addNewShipper: {
+			cache: false,
+			params: {
+				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
+				username: 'string',
+				peopleid: 'string',
+				address: 'string',
+				driverlicense: 'string',
+			},
+			async handler(ctx) {
+				let { shipperid, username, peopleid, address, driverlicense } =
+					ctx.params;
+				try {
+					const result = await Shipper.create({
+						shipperId: shipperid,
+						username: username,
+						password: '123', //dung bcrypt va default pass =123
+						peopleId: peopleid,
+						address: address,
+						driverLicense: driverlicense,
+					});
+					return result;
 				} catch (error) {
 					this.logger.error(error);
 					throw new MoleculerError(error.toString(), 500);
