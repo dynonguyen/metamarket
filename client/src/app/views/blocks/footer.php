@@ -26,18 +26,18 @@
             <div class="col col-12 col-sm-6 col-md-3 pt-4">
                 <div class="footer-label">Chăm sóc khách hàng</div>
                 <ul>
-                    <li><a href="#">Trung tâm hỗ trợ khách hàng</a></li>
-                    <li><a href="#">Chính sách giao hàng</a></li>
-                    <li><a href="#">Chính sách thanh toán</a></li>
-                    <li><a href="#">Chính sách đổi trả</a></li>
-                    <li><a href="#">Chính sách ưu đãi</a></li>
+                    <li><a href="/ho-tro-khach-hang">Trung tâm hỗ trợ khách hàng</a></li>
+                    <li><a href="/chinh-sach-giao-hang">Chính sách giao hàng</a></li>
+                    <li><a href="/chinh-sach-thanh-toan">Chính sách thanh toán</a></li>
+                    <li><a href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+                    <li><a href="/chinh-sach-uu-dai">Chính sách ưu đãi</a></li>
                 </ul>
             </div>
             <div class="col col-12 col-sm-6 col-md-3 pt-4">
                 <div class="footer-label">Hỗ trợ</div>
                 <ul>
                     <li><b><a href="/dang-ky-ban-hang" style="color: var(--bs-orange) !important;">Đăng ký bán hàng cùng MetaMarket</a></b></li>
-                    <li>Tổng đài: 1900.1080 (7:00 - 21:00)</li>
+                    <?php echo "<li>Tổng đài: <b><a href='tel:" . CONTACT_PHONE . "'>" . CONTACT_PHONE . "</a></b> (7:00 - 21:00)</li>"; ?>
                     <li>Email: cskh@metamarket.com</li>
                 </ul>
             </div>

@@ -1,17 +1,92 @@
 <?php
 require_once _DIR_ROOT . '/utils/Image.php';
+require_once _DIR_ROOT . '/app/models/Account.php';
 
 class Shop extends Controller
 {
     public function index()
     {
-        $this->setPageTitle('Kênh bán hàng');
-        $this->render('layouts/shop');
+        self::redirect('/kenh-ban-hang/don-hang/tat-ca');
     }
 
+    // Order list
+    public function orderList($orderStatus = '')
+    {
+        global $shop;
+
+        $where = ['shopId' => $shop->_get('shopId')];
+        if (!empty($orderStatus)) {
+            if ($orderStatus === 'pending_shop') {
+                $where['orderStatus'] = ORDER_STATUS['PENDING_SHOP'];
+            }
+        }
+
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $query = http_build_query([
+            'page' => $page,
+            'pageSize' => DEFAULT_PAGE_SIZE,
+            'select' => '_id orderCode orderDate orderStatus orderTotal receiverName receiverPhone note',
+            'sort' => '-orderDate',
+            'where' => json_encode($where)
+        ]);
+        $apiRes = ApiCaller::get(ORDER_SERVICE_API_URL . "/list?$query");
+
+        $orderDocs = [];
+        if ($apiRes['statusCode'] === 200) {
+            $orderDocs = $apiRes['data'];
+        }
+
+        $this->setViewContent('orderDocs', $orderDocs);
+        $this->appendCssLink(['pagination.css']);
+        $this->setPassedVariables([
+            'ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL,
+            'PENDING_SHOP_STATUS' => ORDER_STATUS['PENDING_SHOP'],
+            'SHIPPING_STATUS' => ORDER_STATUS['SHIPPING'],
+        ]);
+        $this->appendJSLink(['pagination.js', 'utils/format.js', 'shop/order-list.js']);
+        $this->setPageTitle('Danh sách đơn hàng');
+        $this->setContentViewPath('shop/order-list');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    // Product
     public function addProduct()
     {
         $this->renderAddProductPage();
+    }
+
+    public function productList()
+    {
+        global $shop;
+
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $sort = empty($_GET['s']) ? '' : $_GET['s'];
+        $query = empty($_GET['q']) ? '' : $_GET['q'];
+        $filter = empty($_GET['f']) ? '' : $_GET['f'];
+        $query = http_build_query([
+            'shopId' => $shop->_get('shopId'),
+            'page' => $page,
+            'pageSize' => DEFAULT_PAGE_SIZE,
+            'select' => '_id code name avt price discount unit stock purchaseTotal exp',
+            'sort' => $sort,
+            'query' => $query
+
+        ]);
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/list/by-shop?' . $query);
+        $productDocs = [];
+
+        if ($apiRes['statusCode'] === 200) {
+            $productDocs = $apiRes['data'];
+        }
+
+        $this->setPassedVariables(['sort' => $sort]);
+        $this->setPassedVariables(['filter' => $filter]);
+        $this->setViewContent('productDocs', $productDocs);
+        $this->appendCssLink(['product-card.css', 'pagination.css']);
+        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
+        $this->setContentViewPath('shop/product-list');
+        $this->setPageTitle('Danh sách sản phẩm');
+        $this->render('layouts/shop', $this->data);
     }
 
     public function postAddProduct()
@@ -80,6 +155,162 @@ class Shop extends Controller
         $this->renderAddProductPage();
     }
 
+    // Statistic
+    public function overview()
+    {
+        global $shop;
+        $apiRes = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/shop-statistic-overview/' . $shop->_get('shopId'));
+        $stats = [
+            'revenue' => 0,
+            'order' => 0,
+            'review' => 0,
+            'product' => 0
+        ];
+        if ($apiRes['statusCode'] === 200) {
+            $stats = (array) $apiRes['data'];
+        }
+
+        $this->setViewContent('stats', $stats);
+        $this->setPageTitle('Tổng quan kinh doanh');
+        $this->appendCssLink('shop/overview.css');
+        $this->setContentViewPath('shop/overview');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    public function revenue()
+    {
+        global $shop;
+        $this->setPassedVariables(['ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL, 'SHOP_ID' => $shop->_get('shopId')]);
+        $this->setPageTitle('Doanh thu');
+        $this->appendJSLink(['shop/revenue.js']);
+        $this->appendJsCDN('https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js');
+        $this->setContentViewPath('shop/revenue');
+        $this->render('layouts/shop');
+    }
+
+    // Chat, Support
+    public function chat()
+    {
+        global $shop;
+        $apiRes = ApiCaller::get(SUPPORT_SERVICE_API_URL . '/last-chats-by-shopId/' . $shop->_get('shopId'));
+        $lastChats = [];
+        if ($apiRes['statusCode'] === 200) {
+            $lastChats = $apiRes['data'];
+        }
+
+        $this->setPageTitle('CSKH');
+        $this->setViewContent('lastChats', $lastChats);
+
+        $this->appendJSLink(['utils/format.js', 'shop/chat.js']);
+        $this->appendCssLink(['chat-box.css', 'shop/chat.css']);
+        $this->appendJsCDN([STATIC_FILE_URL . '/vendors/socket.io.min.js']);
+        $this->setPassedVariables([
+            'DEFAULT_SHOP_AVT' => DEFAULT_SHOP_AVT, 'STATIC_URL' => STATIC_FILE_URL,
+            'SUPPORT_SERVICE_API_URL' => SUPPORT_SERVICE_API_URL,
+            'USER_SERVICE_API_URL' => USER_SERVICE_API_URL,
+            'CHAT_SOCKET_SERVER' => CHAT_SOCKET_SERVER,
+            'SHOP_ID' => $shop->_get('shopId')
+        ]);
+        $this->setContentViewPath('shop/chat');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    public function review()
+    {
+        global $shop;
+
+        $apiRes = ApiCaller::get(REVIEW_SERVICE_API_URL . "/shop-review/" . $shop->_get('shopId'));
+        $reviews = [];
+        if ($apiRes['statusCode'] === 200) {
+            $reviews = $apiRes['data'];
+        }
+
+        $this->setViewContent('reviews', $reviews);
+        $this->setPageTitle('Đánh giá khách hàng');
+        $this->setContentViewPath('shop/review');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    // Shop management
+    public function information()
+    {
+        global $shop;
+
+        $email = AccountModel::findEmailByAccountId($shop->_get('accountId'));
+
+        $catalogName = '';
+        $apiRes = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalog-name-by-id/' . $shop->_get('catalogId'));
+        if ($apiRes['statusCode'] === 200) {
+            $catalogName = $apiRes['data'];
+        }
+
+        $shopInfo = [
+            'phone' => $shop->_get('phone'),
+            'name' => $shop->_get('name'),
+            'foundingDate' => $shop->_get('foundingDate'),
+            'supporterName' => $shop->_get('supporterName'),
+            'logoUrl' => $shop->_get('logoUrl'),
+            'openHours' => $shop->_get('openHours'),
+            'catalog' => $catalogName,
+            'email' => $email
+        ];
+
+        $this->showSessionMessage();
+        $this->setViewContent('shopInfo', $shopInfo);
+        $this->setPageTitle('Thông tin cửa hàng');
+        $this->setContentViewPath('shop/info');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    public function settings()
+    {
+        $this->showSessionMessage();
+        $this->setPageTitle('Thiết lập cửa hàng');
+        $this->appendJSLink(['shop/settings.js']);
+        $this->setContentViewPath('shop/settings');
+        $this->render('layouts/shop', $this->data);
+    }
+
+    public function postSettings()
+    {
+        global $shop;
+        $updateData = [
+            'name' => $shop->_get('name'),
+            'phone' => $shop->_get('phone'),
+            'supporterName' => $shop->_get('supporterName'),
+            'openHours' => $shop->_get('openHours'),
+            'logoUrl' => $shop->_get('logoUrl')
+        ];
+
+        if (!empty($_FILES['avt']) && !empty($_FILES['avt']['tmp_name'])) {
+            $src = $_FILES['avt']['tmp_name'];
+
+            // Remove old logo
+            $oldLogoSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/logo.*';
+            array_map('unlink', glob($oldLogoSrc));
+
+            // Create new image
+            $type = str_replace('image/', '', $_FILES['avt']['type']);
+            $updateData['logoUrl'] = 'upload/shop-' . $shop->_get('shopId') . "/logo.$type";
+            move_uploaded_file($src, _DIR_ROOT . '/public/' . $updateData['logoUrl']);
+        }
+        if (!empty($_POST)) {
+            $updateData['name'] = $_POST['name'];
+            $updateData['phone'] = $_POST['phone'];
+            $updateData['supporterName'] = $_POST['supporterName'];
+            $updateData['openHours'] = $_POST['openHours'];
+        }
+
+        $isSuccess = ShopModel::updateShop($shop->_get('shopId'), $updateData);
+        if ($isSuccess) {
+            $this->setSessionMessage('Cập nhật thành công', false);
+            self::redirect('/kenh-ban-hang/quan-ly/thong-tin');
+        } else {
+            $this->setSessionMessage('Cập nhật thất bại', true);
+            self::redirect('/kenh-ban-hang/quan-ly/thiet-lap');
+        }
+    }
+
     // private method
     private function renderAddProductPage()
     {
@@ -108,6 +339,9 @@ class Shop extends Controller
 
         if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId");
+        }
+
+        if (!is_dir(_DIR_ROOT . "/public/upload/shop-$shopId/products")) {
             mkdir(_DIR_ROOT . "/public/upload/shop-$shopId/products");
         }
 

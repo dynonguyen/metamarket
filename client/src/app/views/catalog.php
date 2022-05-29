@@ -4,7 +4,7 @@
 <?php require_once _DIR_ROOT . '/app/views/mixins/product-card.php'; ?>
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
-renderToast('Đã thêm vào giỏ hàng');
+renderToast('Thêm vào giỏ hàng thành công');
 ?>
 
 <style>
@@ -31,7 +31,7 @@ function renderOption($value, $label, $selectedValue)
 ?>
 
 <div class='container bg-white mb-4'>
-    <?php if (!empty($productDocs)) { ?>
+    <?php if (!empty($productDocs) && $productDocs->total > 0) { ?>
         <div class='d-flex justify-content-end mb-3'>
             <select id='sort' style="max-width: 250px; font-size: 1.5rem" class='form-select'>
                 <?php

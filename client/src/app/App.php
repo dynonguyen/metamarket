@@ -76,6 +76,8 @@ class App
 
         // protect page
         $this->controller = Route::protectPage($this->controller, $role);
+
+
         if (!$this->controller) {
             $this->handleError('404');
         }
@@ -123,7 +125,11 @@ class App
 
     private function getUser()
     {
-        global $user, $shop, $isAuth;
+        if (!empty($_SESSION['isAuth'])) {
+            $account = $_SESSION['account'];
+            $this->getGlobalUserWithRole($account['role'], $account['userId']);
+            return $account['role'];
+        }
 
         if (isset($_COOKIE[COOKIE_LOGIN_KEY])) {
             $accessToken = $_COOKIE[COOKIE_LOGIN_KEY];
@@ -132,26 +138,42 @@ class App
             if (!empty($jwtDecoded)) {
                 $userId = $jwtDecoded['sub']->userId;
                 $role = $jwtDecoded['sub']->role;
-
-                if ($role === USER_ROLE) {
-                    $checkUser = UserModel::findUserById($userId);
-
-                    if (!empty($checkUser)) {
-                        $user = $checkUser;
-                        $isAuth = true;
-                    }
-                } else if ($role === SHOP_ROLE) {
-                    $checkShop = ShopModel::findShopById($userId);
-                    if (!empty($checkShop)) {
-                        $shop = $checkShop;
-                        $isAuth = true;
-                    }
-                }
-
+                $this->getGlobalUserWithRole($role, $userId);
                 return $role;
             }
         }
 
         return GUEST_ROLE;
+    }
+
+    private function getGlobalUserWithRole($role, $userId)
+    {
+        global $user, $shop, $isAuth;
+
+        if ($role === USER_ROLE) {
+            $user = UserModel::findUserById($userId);
+            if ($user->_get('userId')) {
+                $isAuth = true;
+            }
+        } else if ($role === SHOP_ROLE) {
+            $shop = ShopModel::findShopById($userId);
+            if ($shop->_get('shopId')) {
+                $isAuth = true;
+            }
+        } else if ($role === ADMIN_ROLE) {
+            $admin = ApiCaller::get(INTERNAL_SERVICE_API_URL . '/admin/by-id/' . $userId);
+
+            if (!empty($admin['data']->accountId)) {
+                $isAuth = true;
+            }
+        } else if ($role === SHIPPER_ROLE) {
+            $shipper = ApiCaller::get(INTERNAL_SERVICE_API_URL . '/shipper/by-id/' . $userId);
+
+            if (!empty($shipper['data']->shipperId)) {
+                $isAuth = true;
+            }
+        } else {
+            $isAuth = false;
+        }
     }
 }

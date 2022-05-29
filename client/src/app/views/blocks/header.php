@@ -70,10 +70,13 @@
     <div class="sub-nav py-2">
         <div class="container flex-center-between">
             <?php require_once _DIR_ROOT . '/app/views/blocks/catalog.php'; ?>
-            <a href="#" class="flex-center support-block cursor-pointer">
-                <i class="bi bi-headset me-2"></i>
+            <?php
+            $contactPhone = CONTACT_PHONE;
+            echo "<a href='tel:$contactPhone' class='flex-center support-block cursor-pointer'>
+                <i class='bi bi-headset me-2'></i>
                 <strong>Tư vấn trực tiếp</strong>
-            </a>
+            </a>";
+            ?>
         </div>
     </div>
 </header>

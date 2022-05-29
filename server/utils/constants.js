@@ -71,7 +71,7 @@ module.exports = {
 	ORDER_STATUS: {
 		PROCESSING: 0,
 		PENDING_PAYMENT: 1,
-		PENDING: 2,
+		PENDING_SHOP: 2,
 		SHIPPING: 3,
 		COMPLETE: 4,
 		CANCELED: 5,
@@ -111,7 +111,7 @@ module.exports = {
 
 	PAYMENT_METHOD: {
 		COD: 0,
-		PAYPAL: 1,
+		MOMO: 1,
 	},
 
 	USER_VOCATIVE: {

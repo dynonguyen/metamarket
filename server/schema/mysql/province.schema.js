@@ -3,7 +3,7 @@ const { DataTypes } = require('../../configs/sequelize');
 const ProvinceSchema = [
 	'Province',
 	{
-		id: {
+		provinceId: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 		},

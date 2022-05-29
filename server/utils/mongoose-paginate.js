@@ -28,7 +28,7 @@ const mongoosePaginate = async (
 			Model.find({ ...query })
 				.skip((page - 1) * pageSize)
 				.limit(pageSize)
-				.select(options.select)
+				.select(select)
 				.sort(sort)
 				.then((data) => (result.docs = data)),
 		);

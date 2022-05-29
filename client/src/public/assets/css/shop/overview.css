@@ -1,0 +1,15 @@
+.overview-item {
+	padding: 1.5rem 2rem;
+	border-radius: 12px;
+	color: #fff;
+}
+
+.overview-item .title {
+	font-size: 2rem;
+	text-transform: uppercase;
+}
+
+.overview-item .quantity {
+	font-size: 3rem;
+	letter-spacing: 1px;
+}

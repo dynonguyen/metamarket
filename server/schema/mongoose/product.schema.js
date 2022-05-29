@@ -84,6 +84,14 @@ const ProductSchema = new Schema({
 		type: Date,
 		required: true,
 	},
+	createdAt: {
+		type: Date,
+		default: new Date(),
+	},
+	updatedAt: {
+		type: Date,
+		default: null,
+	},
 });
 
 module.exports = ProductSchema;
