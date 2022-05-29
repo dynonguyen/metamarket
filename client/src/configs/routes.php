@@ -22,3 +22,5 @@ $routes['gio-hang'] = 'cart/index';
 
 $routes['kenh-ban-hang/san-pham/them'] = 'shop/addProduct';
 $routes['kenh-ban-hang/san-pham/them/post'] = 'shop/postAddProduct';
+
+$routes['tim-kiem-shipper'] = 'internal/searchshipper';

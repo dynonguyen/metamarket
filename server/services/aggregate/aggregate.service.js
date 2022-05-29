@@ -1,6 +1,7 @@
 const { SVC_NAME } = require('../../utils/constants');
 const productAction = require('./actions/product.action');
 
+
 module.exports = {
 	name: SVC_NAME.AGGREGATE,
 

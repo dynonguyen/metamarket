@@ -1,0 +1,55 @@
+section {
+    position:relative;
+    /*border: 1px solid #000;*/
+    padding-top: 3%;
+}
+.container {
+    overflow-y: auto;
+    height: 350px;
+}
+table {
+    border-spacing: 0;
+    width: 100%;
+    font-size: 1.6rem;
+}
+td {
+    border-bottom: 1px solid #eee;
+    background: #ddd;
+    color: #000;
+    padding: 10px 25px;
+}
+td + td {
+    border-left: 1px solid #eee;
+}
+th {
+    border-bottom: 1px solid #eee;
+    background: #ddd;
+    padding: 10px 25px;
+    height: 0;
+    line-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: transparent;
+    border: none;
+    white-space: nowrap;
+}
+th div {
+    position:absolute;
+    background: transparent;
+    color: #000;
+    padding: 9px 25px;
+    top: 0;
+    margin-left: -25px;
+    line-height: normal;
+    border-left: 1px solid #eee;
+}
+th:first-child div {
+    border: none;
+}
+.shipperinfor{
+    text-align: center;
+    font-size: 1.6rem;
+}
+.searchshipper{
+    padding:1%;
+}

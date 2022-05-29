@@ -107,6 +107,8 @@ module.exports = {
 		PRODUCT_AVT: '',
 		PRODUCT_UNIT: 'Sản phẩm',
 		PAGE_SIZE: 10,
+		PAGE_SIZE_SHIPPER: 50,
+		SHIPPER_PASSWORD: '123',
 	},
 
 	PAYMENT_METHOD: {

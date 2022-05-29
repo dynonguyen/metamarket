@@ -27,12 +27,12 @@ class Route
 
         if ($role === SHOP_ROLE) return 'Shop';
         if ($role === ADMIN_ROLE) return 'Admin';
-        if ($role === SHIPPER_ROLE) return 'Shipper';
+        //if ($role === SHIPPER_ROLE) return 'Shipper';
 
         // guest & user role
-        if ($c === 'shop' || $c === 'admin' || $c === 'shipper') {
-            return false;
-        }
+        //if ($c === 'shop' || $c === 'admin' || $c === 'shipper') {
+            //return false;
+        //}
         return $controller;
     }
 }

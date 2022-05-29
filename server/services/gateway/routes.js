@@ -22,9 +22,19 @@ const productAliases = {
 	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
 };
 
+const internalAliases = {
+	'GET internal/getallshipper': `${INTERNAL_SVC}.getAllShipper`,
+	'GET internal/searchshipper': `${INTERNAL_SVC}.searchShipper`,
+	'GET internal/shipper/id/:shipperid': `${INTERNAL_SVC}.getShipperById`,
+	'GET internal/updateshipper': `${INTERNAL_SVC}.updateShipperStatus`,
+};
 const aggregateAliases = {
 	'GET aggregates/homepage-products': `${AGGREGATE_SVC}.getHomepageProducts`,
 	'GET aggregates/product-details/:productId': `${AGGREGATE_SVC}.getProductDetailPage`,
+
+	'PUT aggregates/homepage-shippers': `${AGGREGATE_SVC}.getHomepageShippers`,
+
+	'POST internal/add-shipper': `${INTERNAL_SVC}.addNewShipper`,
 };
 
 module.exports = [
@@ -43,9 +53,8 @@ module.exports = [
 		aliases: {
 			// Aggregate service
 			...aggregateAliases,
-
 			// Internal service
-
+			...internalAliases,
 			// Order service
 
 			// Payment service

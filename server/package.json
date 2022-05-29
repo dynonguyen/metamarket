@@ -22,6 +22,7 @@
     "moleculer-repl": "^0.6.6"
   },
   "dependencies": {
+		"bcrypt": "^5.0.1",
     "dotenv": "16.0.0",
     "moleculer": "0.14.16",
     "moleculer-web": "0.10.2",
