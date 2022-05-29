@@ -38,6 +38,15 @@ const internalAliases = {
 	'GET internal/shipper/by-username/:username': `${INTERNAL_SVC}.getShipperByUsername`,
 	'GET internal/admin/by-id/:accountId': `${INTERNAL_SVC}.getAdminById`,
 	'GET internal/shipper/by-id/:shipperId': `${INTERNAL_SVC}.getShipperById`,
+
+	'GET internal/get-all-shipper': `${INTERNAL_SVC}.getAllShipper`,
+	'GET internal/search-shipper': `${INTERNAL_SVC}.searchShipper`,
+
+	'PUT internal/shipper/update-address': `${INTERNAL_SVC}.updateAddressShiper`,
+	'PUT internal/shipper/update-status': `${INTERNAL_SVC}.updateStatusShpper`,
+	'PUT internal/shipper/update-driverlicense': `${INTERNAL_SVC}.updateDriverLicense`,
+
+	'POST internal/shipper/add': `${INTERNAL_SVC}.addNewShipper`,
 };
 
 const orderAliases = {
