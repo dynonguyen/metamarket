@@ -1,19 +1,25 @@
-<div class='pt-4'></div>
+<div class='pt-4'>
+    <?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
+</div>
 
-<?php require_once _DIR_ROOT . '/app/views/blocks/breadcrumb.php'; ?>
-<?php require_once _DIR_ROOT . '/utils/Image.php'; ?>
 <?php
+require_once _DIR_ROOT . '/utils/Image.php';
+require_once _DIR_ROOT . '/utils/Format.php';
 require_once _DIR_ROOT . '/app/views/mixins/toast.php';
-renderToast('Đã thêm vào giỏ hàng');
+require_once _DIR_ROOT . '/app/views/mixins/chat-box.php';
+
+renderToast('Thêm vào giỏ hàng thành công');
+$staticUrl = STATIC_FILE_URL;
 ?>
-<?php $staticUrl = STATIC_FILE_URL; ?>
 
 <?php
+$productId = $product->_id;
 $productName = $product->name;
 $productAvt = $product->avt;
-$numOfMfg = round((strtotime($product->mfg) - time()) / 86400);
-$productPrice = number_format($product->price, 0, ',', '.') . ' ₫';
-$productPriceDiscount = number_format($product->price * (100 + $product->discount) / 100, 0, ',', '.') . ' ₫';
+$discount = empty($product->discount) ? 0 : $product->discount;
+$numOfMfg = round((strtotime($product->exp) - time()) / 86400);
+$productPrice = FormatUtil::currencyVNDFormat($product->price);
+$productPriceDiscount = FormatUtil::currencyVNDFormat($product->price * (100 - $discount) / 100);
 ?>
 
 <div class='product-wrapper mb-4'>
@@ -58,7 +64,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <div class='vertical-center my-3 product-stats'>
                         <div class='avg-rate orange-color'>
                             <strong>
-                                <?php echo $product->rateAvg; ?>
+                                <?php echo number_format($product->rateAvg, 1, '.', ""); ?>
                             </strong>
                             <i class="bi bi-star-fill"></i>
                         </div>
@@ -78,10 +84,10 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <div class="product-exp">HSD còn <?php echo $numOfMfg; ?> ngày</div>
 
                     <div class='product-price vertical-center'>
-                        <span class='price'><?php echo $productPrice; ?></span>
+                        <span class='price'><?php echo $productPriceDiscount; ?></span>
                         <?php
                         if ($product->discount > 0) {
-                            echo "<strike class='discount'>$productPriceDiscount</strike>";
+                            echo "<strike class='discount'>$productPrice</strike>";
                             echo "<span class='discount-rate'>-$product->discount%</span>";
                         }
                         ?>
@@ -101,11 +107,11 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                         </div>
 
                         <div class='action-btn'>
-                            <?php echo "<button class='btn btn-outline-accent me-3 add-cart' data-id='$product->_id' data-stock='$product->stock' data-price='$product->price' id='addCartBtn'>"; ?>
+                            <?php echo "<button class='btn btn-outline-accent me-3 add-cart' data-id='$product->_id' data-stock='$product->stock' data-price='$product->price' data-discount='$product->discount' id='addCartBtn'>"; ?>
                             <i class='bi bi-cart-plus-fill me-3'></i>
                             <span>Thêm giỏ hàng</span>
                             </button>
-                            <button class='btn btn-primary' id='buyBtn'>Mua ngay</button>
+                            <?php echo "<button class='btn btn-primary' data-id='$product->_id' data-price='$product->price' id='buyBtn'>Mua ngay</button>"; ?>
                         </div>
                     <?php } else { ?>
                         <div class='action-btn text-center'>
@@ -134,7 +140,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     <h2 class="title">Mô tả sản phẩm</h2>
                     <div class='product-desc'>
                         <?php
-                        if (!empty($productDetail)) {
+                        if (!empty($productDetail->desc)) {
                             echo $productDetail->desc;
                         } else {
                             echo "<p class='updating'>Đang cập nhật ...</p>";
@@ -170,13 +176,13 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
             <div class='row'>
                 <div class='shop-info d-flex col col-12 col-md-4'>
                     <?php
-                    $shopLogo = $shop->logoUrl ?? DEFAULT_SHOP_AVT;
+                    $shopLogo =  STATIC_FILE_URL . "/" . $shop->logoUrl ?? DEFAULT_SHOP_AVT;
                     echo "<img class='logo' src='$shopLogo' alt='$shop->name'>";
                     ?>
                     <div class='d-flex flex-column justify-content-center ms-4'>
                         <h3 class='shop-name mb-3'><?php echo $shop->name; ?></h3>
                         <div class='shop-actions'>
-                            <button class='btn btn-outline-accent me-2'>
+                            <button class='btn btn-outline-accent me-2 mb-3 mb-lg-0' id='showChatBtn'>
                                 <i class='bi bi-chat-square-dots-fill'></i>
                                 <span>Chat ngay</span>
                             </button>
@@ -219,12 +225,12 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
             <div class='review-summary row p-4'>
                 <div class='col col-4'>
                     <span class='total'>
-                        <b><?php echo $product->rateAvg; ?></b> trên 5
+                        <b><?php echo number_format($product->rateAvg, 1, '.', ""); ?></b> trên 5
                     </span>
                     <div class='d-flex'>
                         <?php
-                        $star = (int)$product->rateAvg;
-                        for ($i = 1; $i < $star; ++$i) {
+                        $star = (int)round($product->rateAvg);
+                        for ($i = 1; $i <= $star; ++$i) {
                             echo "<i class='bi bi-star-fill'></i>";
                         }
                         for ($i = 1; $i <= 5 - $star; ++$i) {
@@ -252,6 +258,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
                     $cusFullname = $review->customerInfo->fullname;
                     $cusName = $review->isAnonymous ? $cusFullname[0] . '******' . $cusFullname[strlen($cusFullname) - 1] : $cusFullname;
                     $rate = (int)$review->rate;
+                    $content = $review->content;
 
                     echo "<li class='comment-item'>
                             <div class='comment-name'>$cusName</div>
@@ -266,8 +273,7 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
 
                     echo "</div>
                             <div class='comment-date'>15-02-2022 15:10</div>
-                            <p class='comment-content'>Giao hàng nhanh, đóng gói cẩn thận. Sản phẩm giống như mô tả và rất xịn xò, giá rẻ.
-                            </p>
+                            <p class='comment-content'>$content</p>
                         </li>";
                 }
                 ?>
@@ -277,32 +283,42 @@ $productPriceDiscount = number_format($product->price * (100 + $product->discoun
         <?php } ?>
 
         <h2 class='title'>Bình luận</h2>
-        <div class='comment-box'>
-            <textarea class='input form-control' rows="5" placeholder="Nhập một bình luận"></textarea>
+        <p class='alert alert-danger fs-4 d-none' id="commentError"></p>
+        <form action='/danh-gia-san-pham' method="POST" id="commentForm">
+            <input type='number' class="d-none" name="rate" value="0">
+            <?php echo "<input name='productId' class='d-none' value='$productId'>"; ?>
 
-            <?php
-            global $user;
-            if (empty($user->_get('fullname'))) {
-                echo "<div class='d-flex mt-3'>
-                    <input type='text' placeholder='Họ tên (bắt buộc)' class='form-control form-control-lg me-2'>
-                    <input type='text' placeholder='Email (bắt buộc)' class='form-control form-control-lg'>
+            <div class='comment-box'>
+                <textarea class='input form-control' name="content" rows="5" placeholder="Nhập một bình luận" required id="commentContent"></textarea>
+
+                <?php
+                global $user;
+                if (empty($user->_get('fullname'))) {
+                    echo "<div class='d-flex mt-3'>
+                    <input type='text' name='fullname' placeholder='Họ tên (bắt buộc)' required class='form-control form-control-lg me-2'>
+                    <input type='email' name='email' placeholder='Email (bắt buộc)' required class='form-control form-control-lg'>
                 </div>";
-            }
-            ?>
+                }
+                ?>
 
-            <div class='row mt-4'>
-                <div class='col col-6 d-flex align-items-center orange-color'>
-                    <i class='bi bi-star-fill'></i>
-                    <i class='bi bi-star-fill'></i>
-                    <i class='bi bi-star-fill'></i>
-                    <i class='bi bi-star-fill'></i>
-                    <i class='bi bi-star-fill'></i>
-                </div>
-                <div class='col col-6'>
-                    <button class='btn btn-primary w-100'>Gửi</button>
+                <div class='row mt-4'>
+                    <div class='col col-6 col-md-4 d-flex align-items-center orange-color'>
+                        <i class='bi bi-star comment-star' data-star="1"></i>
+                        <i class='bi bi-star comment-star' data-star="2"></i>
+                        <i class='bi bi-star comment-star' data-star="3"></i>
+                        <i class='bi bi-star comment-star' data-star="4"></i>
+                        <i class='bi bi-star comment-star' data-star="5"></i>
+                    </div>
+                    <div class="col col-6 col-md-4 form-check vertical-center">
+                        <input class="form-check-input me-3" name="isAnonymous" type="checkbox" id="anonymous">
+                        <label class="form-check-label" for="anonymous">Ẩn danh</label>
+                    </div>
+                    <div class='col col-12 col-md-4 mt-4 mt-md-0'>
+                        <button class='btn btn-primary w-100' id="submitReviewBtn" type="submit" form="commentForm">Gửi</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <!-- Shop's other products -->

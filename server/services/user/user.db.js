@@ -57,21 +57,21 @@ UserAddress.belongsTo(User, {
 
 // province vs district (1-n)
 Province.hasMany(District, {
-	sourceKey: 'id',
+	sourceKey: 'provinceId',
 	foreignKey: 'provinceId',
 });
 District.belongsTo(Province, { foreignKey: 'provinceId' });
 
 // district vs wards (1-n)
 District.hasMany(Ward, {
-	sourceKey: 'id',
+	sourceKey: 'districtId',
 	foreignKey: 'districtId',
 });
 Ward.belongsTo(District, { foreignKey: 'districtId' });
 
 // ward vs address (1-n)
 Ward.hasMany(UserAddress, {
-	sourceKey: 'id',
+	sourceKey: 'wardId',
 	foreignKey: 'wardId',
 });
 UserAddress.belongsTo(Ward, { foreignKey: 'wardId' });
@@ -110,4 +110,5 @@ module.exports = {
 	User,
 	UserAddress,
 	Ward,
+	userDb,
 };

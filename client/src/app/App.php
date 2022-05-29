@@ -76,6 +76,8 @@ class App
 
         // protect page
         $this->controller = Route::protectPage($this->controller, $role);
+
+
         if (!$this->controller) {
             $this->handleError('404');
         }
@@ -158,6 +160,20 @@ class App
             if ($shop->_get('shopId')) {
                 $isAuth = true;
             }
+        } else if ($role === ADMIN_ROLE) {
+            $admin = ApiCaller::get(INTERNAL_SERVICE_API_URL . '/admin/by-id/' . $userId);
+
+            if (!empty($admin['data']->accountId)) {
+                $isAuth = true;
+            }
+        } else if ($role === SHIPPER_ROLE) {
+            $shipper = ApiCaller::get(INTERNAL_SERVICE_API_URL . '/shipper/by-id/' . $userId);
+
+            if (!empty($shipper['data']->shipperId)) {
+                $isAuth = true;
+            }
+        } else {
+            $isAuth = false;
         }
     }
 }

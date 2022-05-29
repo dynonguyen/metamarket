@@ -60,15 +60,27 @@ function renderCartSummary() {
 						<div class='text-end text-gray'>
 								<i>(Giá đã bao gồm VAT)</i>
 						</div>
-						<button class='btn btn-accent w-100 mt-5'>Đặt hàng</button>
+						<a href='/thong-tin-giao-hang'>
+							<button class='btn btn-accent w-100 mt-5'>Đặt hàng</button>
+						</a>
 				</div>`;
 
 	$('#cartSummary').html(xml);
 }
 
 function renderProductCart(product) {
-	const { _id, avt, price, stock, unit, name, quantity } = product;
+	const {
+		_id,
+		avt,
+		price,
+		stock,
+		unit,
+		name,
+		quantity,
+		discount = 0,
+	} = product;
 	const thumbAvt = toThumbnail(`${staticUrl}/${avt}`);
+	const priceDiscount = (price * (100 - discount)) / 100;
 
 	const xml = `<div class='cart-item row g-2' data-id='${_id}'>
 						<div class="col col-12 col-lg-7 vertical-center">
@@ -83,7 +95,7 @@ function renderProductCart(product) {
 								</div>
 						</div>
 						<div class="col col-12 col-lg-5 vertical-center cart-action-wrap">
-								<div class='price'>${currencyFormat(price)}</div>
+								<div class='price'>${currencyFormat(priceDiscount)}</div>
 								
 								<div class='input-group cart-action ms-5'>
 										<button type='button' class='btn btn-outline-primary decrease' data-id='${_id}'>-</button>
@@ -101,7 +113,8 @@ function updateProductInCart(productId, quantity) {
 	if (index !== -1) {
 		products[index].quantity += quantity;
 
-		cartTotal += products[index].price * quantity;
+		const { price, discount = 0 } = products[index];
+		cartTotal += ((price * (100 - discount)) / 100) * quantity;
 		$(`.cart-action input[data-id="${productId}"]`).val(
 			products[index].quantity,
 		);
@@ -122,13 +135,22 @@ jQuery(async function () {
 	products = await getCartData(cart);
 	products.sort((p1, p2) => p1.price - p2.price);
 
-	cartTotal = products.reduce((sum, p) => sum + p.quantity * p.price, 0);
+	cartTotal = products.reduce(
+		(sum, p) => sum + p.quantity * p.price * ((100 - p.discount) / 100),
+		0,
+	);
+
 	renderCartSummary();
 
 	// reload & render cart
 	removeAllCart();
 	products.forEach((p) => {
-		addToCart({ productId: p._id, quantity: p.quantity, price: p.price });
+		addToCart({
+			productId: p._id,
+			quantity: p.quantity,
+			price: p.price,
+			discount: p.discount,
+		});
 		renderProductCart(p);
 	});
 	loadCartSummary();

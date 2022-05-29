@@ -12,18 +12,13 @@ const UserPaymentSchema = [
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
-		orderId: {
+		orderCode: {
 			type: DataTypes.STRING(24),
 			allowNull: false,
 		},
 		paymentType: {
 			type: DataTypes.SMALLINT,
 			allowNull: false,
-		},
-		cardInfo: {
-			type: DataTypes.STRING(20),
-			allowNull: true,
-			defaultValue: '',
 		},
 		transactionCode: {
 			type: DataTypes.STRING(20),

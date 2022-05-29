@@ -33,5 +33,6 @@ class Shipper extends Controller
         $this->appendCssLink(['home.css', 'shipper/shipper.css']);
         $this->appendJSLink(['utils/format.js', 'home.js', 'scroll-top.js', 'search.js']);
         $this->setPassedVariables(['INTERNAL_SERVICE_API_URL' => INTERNAL_SERVICE_API_URL]);
+        echo "index dashboard shipper";
     }
 }

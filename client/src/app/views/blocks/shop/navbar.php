@@ -10,10 +10,6 @@ $navbarMenu = [
                 'label' => 'Tất cả'
             ],
             [
-                'to' => 'trong-thang',
-                'label' => 'Trong tháng'
-            ],
-            [
                 'to' => 'chua-xu-ly',
                 'label' => 'Chưa xử lý'
             ]
@@ -26,16 +22,12 @@ $navbarMenu = [
         'list' => [
             [
                 'to' => 'tat-ca',
-                'label' => 'Tất cả sản phẩm'
+                'label' => 'Danh sách sản phẩm'
             ],
             [
                 'to' => 'them',
                 'label' => 'Thêm sản phẩm'
             ],
-            [
-                'to' => 'top',
-                'label' => 'Sản phẩm bán chạy'
-            ]
         ]
     ],
     [
@@ -54,6 +46,21 @@ $navbarMenu = [
         ]
     ],
     [
+        'icon' => 'bi bi-chat-dots-fill',
+        'label' => 'CSKH, Đánh Giá',
+        'root' => 'ho-tro',
+        'list' => [
+            [
+                'to' => 'chat',
+                'label' => 'Chăm sóc khách hàng'
+            ],
+            [
+                'to' => 'danh-gia',
+                'label' => 'Đánh giá của KH'
+            ]
+        ]
+    ],
+    [
         'icon' => 'bi bi-gear-fill',
         'label' => 'Quản lý shop',
         'root' => 'quan-ly',
@@ -67,7 +74,8 @@ $navbarMenu = [
                 'label' => 'Thiết lập Shop'
             ]
         ]
-    ]
+    ],
+
 ];
 ?>
 
@@ -85,7 +93,7 @@ $navbarMenu = [
             foreach ($list as $item) {
                 ['to' => $to, 'label' => $itemLabel] = $item;
                 $link = "/kenh-ban-hang/$root/$to";
-                $activeClass = $link === $_SERVER['REQUEST_URI'] ? 'active' : '';
+                $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
 
                 echo "<li class='navbar-item $activeClass'>
                         <a href='$link'>$itemLabel</a>

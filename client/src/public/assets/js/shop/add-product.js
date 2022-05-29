@@ -6,18 +6,15 @@ const staticUrl =
 	typeof STATIC_FILE_URL !== 'undefined' ? STATIC_FILE_URL : '/public';
 
 function loadNicEditor() {
-	bkLib.onDomLoaded(function () {
-		new nicEditor({
-			iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
-		}).panelInstance('desc');
-		$('.nicEdit-main').parent('div').css({ width: '100%', padding: '8px' });
-		$('.nicEdit-panelContain').parent('div').css({ width: '100%' });
-	});
+	new nicEditor({
+		iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
+	}).panelInstance('desc');
+	$('.nicEdit-main').parent('div').css({ width: '100%', padding: '8px' });
+	$('.nicEdit-panelContain').parent('div').css({ width: '100%' });
 }
 
 function onRemoveOtherInfoInput() {
 	$('.remove-other-info').on('click', function () {
-		console.log($(this).parent('div'));
 		$(this).parent('.form-label').parent('div').remove();
 	});
 }
@@ -42,6 +39,12 @@ function renderOtherInfoInput() {
 	});
 	onRemoveOtherInfoInput();
 	infosLen++;
+}
+
+function autoTrimInputOnChange() {
+	$('input[type="text"]').on('change', function () {
+		$(this).val($(this).val().trim());
+	});
 }
 
 $.validator.addMethod(
@@ -95,6 +98,7 @@ $.validator.addMethod(
 
 jQuery(function () {
 	loadNicEditor();
+	autoTrimInputOnChange();
 
 	$('#addProductForm').validate({
 		validClass: 'field-valid',
@@ -238,7 +242,7 @@ jQuery(function () {
 				}
 			}
 
-			$(form).append(`<input name="desc" type="hidden" value="${desc}" />`);
+			$('#descInput').val(desc);
 			form.submit();
 		},
 	});

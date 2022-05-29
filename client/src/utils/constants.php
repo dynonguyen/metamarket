@@ -15,8 +15,10 @@ define('USER_SERVICE_API_URL', $_ENV['USER_SERVICE_API'] ?? '');
 // static file server
 define('STATIC_FILE_URL', $_ENV['STATIC_FILE_URL'] ?? '/public');
 
+// Default
 define('DEFAULT_PRODUCT_AVT', STATIC_FILE_URL . '/assets/images/product-not-found.png');
 define('DEFAULT_SHOP_AVT', STATIC_FILE_URL . '/assets/images/shop-not-found.png');
+define('DEFAULT_PAGE_SIZE', 10);
 
 // min max
 define('MAX_LEN_EMAIL', 150);
@@ -51,3 +53,30 @@ define('MAIL_EXP', 10); // 10 minutes
 define('MAIL_HOST', $_ENV['MAIL_HOST'] ?? 'stmp.gmail.com');
 define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
 define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
+
+define('CONTACT_PHONE', $_ENV['CONTACT_PHONE'] ?? '');
+define('SHIPPING_FEE', 25000);
+
+define('MOMO_PARTNER_CODE', $_ENV['MOMO_PARTNER_CODE'] ?? '');
+define('MOMO_ACCESS_KEY', $_ENV['MOMO_ACCESS_KEY'] ?? '');
+define('MOMO_SECRET_KEY', $_ENV['MOMO_SECRET_KEY'] ?? '');
+define('MOMO_ENDPOINT', $_ENV['MOMO_ENDPOINT'] ?? '');
+
+define('PAYMENT_METHOD', ['COD' => 0, 'MOMO' => 1]);
+
+define('ACCOUNT_STATUS', [
+    'LOCKED' => -1,
+    'WAITING_APPROVAL' => 0,
+    'ACTIVE' => 1
+]);
+
+define('CHAT_SOCKET_SERVER', $_ENV['CHAT_SOCKET_SERVER'] ?? 'http://localhost:4444');
+
+define('ORDER_STATUS',  [
+    'PROCESSING' => 0,
+    'PENDING_PAYMENT' => 1,
+    'PENDING_SHOP' => 2,
+    'SHIPPING' => 3,
+    'COMPLETE' => 4,
+    'CANCELED' => 5,
+]);
