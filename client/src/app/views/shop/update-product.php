@@ -1,14 +1,19 @@
+<?php
+require_once _DIR_ROOT . '/utils/Format.php';
+// global $shop;
+?>
+
 <div class='container pt-4 mb-4'>
     <div class='bg-white p-4'>
         <h1 class='shop-title'>Cập nhật sản phẩm</h1>
 
         <form action='/kenh-ban-hang/san-pham/cap-nhat/post' id='updateProductForm' method='POST' enctype='multipart/form-data'>
-            <h2 class='sub-title'>Thông tin cơ bản</h2>
+            <h2 class='sub-title'>Cập nhật thông tin cơ bản</h2>
             <div class='row g-4'>
                 <!-- Name -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='name' class='form-label'>Tên <span class='required'>(*)</span></label>
-                    <input type='text' name='name' class='form-control' id='name' autofocus>
+                    <?php echo "<input type='text' name='name' class='form-control' id='name' value='" . $productDetailDocs->product->name . "'>"; ?>
                 </div>
                 <!-- Catalog, category -->
                 <div class='col col-12 col-md-4 col-lg-3'>
@@ -25,7 +30,11 @@
                             foreach ($categories as $cate) {
                                 $cateId = $cate->id;
                                 $cateName = $cate->name;
-                                echo "<option value='$catalogId/$cateId'>$cateName</option>";
+                                if ($productDetailDocs->product->catalogId->name == $catalogName && $productDetailDocs->product->categoryId) {
+                                    echo "<option value='$catalogId/$cateId' selected>$cateName</option>";
+                                } else {
+                                    echo "<option value='$catalogId/$cateId'>$cateName</option>";
+                                }
                             }
                             echo "</optgroup>";
                         }
@@ -35,27 +44,28 @@
                 <!-- Price -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='price' class='form-label'>Giá <span class='required'>(*)</span></label>
-                    <input type='number' name='price' min='0' class='form-control' id='price'>
+                    <?php echo "<input type='number' name='price' min='0' class='form-control' id='price' value='" . $productDetailDocs->product->price . "'>"; ?>
                 </div>
                 <!-- Stock -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='stock' class='form-label'>SL tồn kho <span class='required'>(*)</span></label>
-                    <input type='number' name='stock' min='0' class='form-control' id='stock'>
+                    <?php echo "<input type='number' name='stock' min='0' class='form-control' id='stock' value='" . $productDetailDocs->product->stock . "'>"; ?>
                 </div>
                 <!-- Discount -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='discount' class='form-label'>Khuyến mại (%)</label>
-                    <input type='number' name='discount' min='0' max='100' class='form-control' id='discount'>
+                    <?php echo "<input type='number' name='discount' min='0' max='100' class='form-control' id='discount' value='" . $productDetailDocs->product->discount . "'>"; ?>
                 </div>
                 <!-- Unit -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='unit' class='form-label'>Đơn vị <span class='required'>(*)</span></label>
-                    <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái'>
+                    <?php echo "<input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='" . $productDetailDocs->product->discount . "'>"; ?>
                 </div>
                 <!-- MFG -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
                     <input type='date' name='mfg' class='form-control' id='mfg'>
+                    <!-- <?php echo "<input type='date' name='mfg' class='form-control' id='mfg' value='" . $productDetailDocs->product->mfg . "'>"; ?> -->
                 </div>
                 <!-- EXP -->
                 <div class='col col-12 col-md-4 col-lg-3'>

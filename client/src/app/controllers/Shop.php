@@ -157,7 +157,37 @@ class Shop extends Controller
 
     public function updateProduct()
     {
+        $url = $_SERVER['REQUEST_URI'];
+        $productId = explode('/', $url);
+
+        // Get basic product info by id
+        $apiResProduct = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/id/' . $productId[4]);
+        $productDocs = [];
+
+        if ($apiResProduct['statusCode'] === 200) {
+            $productDocs = $apiResProduct['data'];
+        }
+
+        // Get product detail by id
+        $apiResProductDetail = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $productId[4]);
+        $productDetailDocs = [];
+
+        if ($apiResProductDetail['statusCode'] === 200) {
+            $productDetailDocs = $apiResProductDetail['data'];
+        }
+
+        // print_r(gettype($productDetailDocs));
+        // echo "<br>";
+        // print_r($productDetailDocs->product->mfg);
+        // die();
+
+        $this->setViewContent('productDetailDocs', $productDetailDocs);
+
         $this->renderUpdateProductPage();
+    }
+
+    public function postUpdateProduct()
+    {
     }
 
     // Statistic
