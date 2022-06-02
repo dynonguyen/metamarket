@@ -1,5 +1,7 @@
 <?php
 require_once _DIR_ROOT . '/utils/Format.php';
+$staticUrl = STATIC_FILE_URL;
+$productAvt = $productDetailDocs->product->avt;
 // global $shop;
 ?>
 
@@ -64,17 +66,23 @@ require_once _DIR_ROOT . '/utils/Format.php';
                 <!-- MFG -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
-                    <input type='date' name='mfg' class='form-control' id='mfg'>
-                    <!-- <?php echo "<input type='date' name='mfg' class='form-control' id='mfg' value='" . $productDetailDocs->product->mfg . "'>"; ?> -->
+                    <?php echo "<input type='date' name='mfg' class='form-control' id='mfg' value='" . FormatUtil::ISOChangeTimeZone($productDetailDocs->product->mfg, 'Y-m-d') . "'>"; ?>
                 </div>
                 <!-- EXP -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='exp' class='form-label'>Ngày hết hạn <span class='required'>(*)</span></label>
-                    <input type='date' name='exp' class='form-control' id='exp'>
+                    <?php echo "<input type='date' name='exp' class='form-control' id='exp' value='" . FormatUtil::ISOChangeTimeZone($productDetailDocs->product->exp, 'Y-m-d') . "'>"; ?>
                 </div>
                 <!-- Avt -->
+                <div class='flex-center mb-4 mt-5'>
+                    <?php
+                    $productAvt = empty($productDetailDocs->product->avt) ? DEFAULT_PRODUCT_AVT : STATIC_FILE_URL . '/' . $productDetailDocs->product->avt;
+                    echo "<img src='$productAvt' id='avtImg' alt='Logo' class='rounded-circle' style='width: 15rem; height: 15rem;'>";
+                    ?>
+                </div>
+
                 <div class='col col-12 col-md-4 col-lg-3'>
-                    <label for='avt' class='form-label'>Ảnh đại diện <span class='required'>(*)</span></label>
+                    <label for='avt' class='form-label'>Đổi ảnh đại diện <span class='required'>(*)</span></label>
                     <input name='avt' class='form-control' type='file' id='avt' accept='image/*'>
                 </div>
             </div>
@@ -84,28 +92,55 @@ require_once _DIR_ROOT . '/utils/Format.php';
                 <!-- Origin -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='origin' class='form-label'>Xuất xứ <span class='required'>(*)</span></label>
-                    <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam'>
+                    <?php echo "<input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam' value='" . $productDetailDocs->productDetail->origin . "'>"; ?>
                 </div>
 
                 <!-- Branch -->
                 <div class='col col-12 col-md-4 col-lg-3'>
                     <label for='brand' class='form-label'>Thương hiệu <span class='required'>(*)</span></label>
-                    <input type='text' name='brand' class='form-control' id='brand'>
+                    <?php echo "<input type='text' name='brand' class='form-control' id='brand' value='" . $productDetailDocs->productDetail->brand . "'>"; ?>
                 </div>
 
                 <!-- Infos -->
-                <div class='col col-12 col-md-4 col-lg-3 d-flex align-items-end' id='addInfoWrap'>
+                <!-- <div class='col col-12 col-md-4 col-lg-3 d-flex align-items-end' id='addInfoWrap'>
                     <button id='addInfoInputBtn' class='btn btn-outline-accent w-100' type='button' style='border-style: dashed;'>
                         Thêm thông tin <i class='bi bi-plus'></i>
                     </button>
-                </div>
+                </div> -->
             </div>
 
-            <h2 class='sub-title mt-5'>Hình ảnh sản phẩm</h2>
+            <!-- Photos -->
+            <div class='col col-12 col-md-6 col-lg-5 product-photo'>
+                <div class='avt p-4'>
+                    <?php echo "<img id='photoAvt' src='$staticUrl/$productAvt' alt=''>"; ?>
+                </div>
+
+                <?php if (!empty($productDetailDocs->productDetail->photos)) {
+                    $photos = $productDetailDocs->productDetail->photos;
+                ?>
+                    <div class='photos'>
+                        <?php
+                        $avtThumb = ImageUtil::toThumbnail("$staticUrl/$productAvt");
+                        echo "<div class='photo-item active'>
+                                <img src='$avtThumb'>
+                            </div>";
+
+                        foreach ($photos as $photoSrc) {
+                            $photoThumb = ImageUtil::toThumbnail("$staticUrl/$photoSrc");
+                            echo "<div class='photo-item'>
+                                    <img src='$photoThumb'>
+                                </div>";
+                        }
+
+                        ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <h2 class='sub-title mt-5'>Thêm hình ảnh sản phẩm</h2>
             <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
 
             <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
-            <textarea class='validate-ignore' cols='20' id='desc'></textarea>
+            <textarea class='validate-ignore' cols='20' id='desc'><?php echo $productDetailDocs->productDetail->desc ?></textarea>
             <input name="desc" id='descInput' type="text" class='d-none' />
 
             <!-- submit button -->

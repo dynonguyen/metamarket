@@ -1,6 +1,7 @@
 <?php
 require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/app/models/Account.php';
+require_once _DIR_ROOT . '/utils/Format.php';
 
 class Shop extends Controller
 {
@@ -176,9 +177,8 @@ class Shop extends Controller
             $productDetailDocs = $apiResProductDetail['data'];
         }
 
-        // print_r(gettype($productDetailDocs));
-        // echo "<br>";
-        // print_r($productDetailDocs->product->mfg);
+        // $formatMfg = FormatUtil::ISOChangeTimeZone($productDetailDocs->product->mfg, 'Y-m-d');
+        // print_r($formatMfg);
         // die();
 
         $this->setViewContent('productDetailDocs', $productDetailDocs);
