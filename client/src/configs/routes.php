@@ -61,3 +61,6 @@ $routes['thong-tin-giao-hang'] = 'order/info';
 $routes['thanh-toan-momo-qr-code'] = 'order/momoQRCode';
 $routes['thanh-toan-momo-atm'] = 'order/momoATM';
 $routes['ket-qua-thanh-toan'] = 'order/momoPaymentResult';
+
+//Admin
+$routes['kenh-quan-ly/shipper/tat-ca'] = 'admin/shipperlist';
