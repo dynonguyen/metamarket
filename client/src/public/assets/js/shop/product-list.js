@@ -1,41 +1,52 @@
+const staticUrl =
+  typeof STATIC_FILE_URL !== "undefined" ? STATIC_FILE_URL : "/public";
+
+function loadNicEditor() {
+  new nicEditor({
+    iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
+  }).panelInstance("desc");
+  $(".nicEdit-main").parent("div").css({ width: "100%", padding: "8px" });
+  $(".nicEdit-panelContain").parent("div").css({ width: "100%" });
+}
+
 jQuery(function () {
-	const url = new URL(location.href);
+  const url = new URL(location.href);
 
-	$('#sort').val(sort);
-	$('#filter').val(filter);
+  $("#sort").val(sort);
+  $("#filter").val(filter);
 
-	$('#sort').on('change', function () {
-		const value = $(this).val();
-		if (!value) url.searchParams.delete('s');
-		else url.searchParams.set('s', value);
-		location.href = url.href;
-	});
+  $("#sort").on("change", function () {
+    const value = $(this).val();
+    if (!value) url.searchParams.delete("s");
+    else url.searchParams.set("s", value);
+    location.href = url.href;
+  });
 
-	$('#filter').on('change', function () {
-		const value = $(this).val();
-		if (!value) {
-			url.searchParams.delete('q');
-			url.searchParams.delete('f');
-		} else {
-			let query = {};
-			switch (value) {
-				case 'exp':
-					query = { exp: { $lt: new Date() } };
-					break;
-				case 'discount':
-					query = { discount: { $gt: 0 } };
-					break;
-				case 'no-discount':
-					query = { discount: 0 };
-					break;
-				case 'no-stock':
-					query = { stock: 0 };
-					break;
-			}
-			url.searchParams.set('q', JSON.stringify(query));
-			url.searchParams.set('f', value);
-		}
+  $("#filter").on("change", function () {
+    const value = $(this).val();
+    if (!value) {
+      url.searchParams.delete("q");
+      url.searchParams.delete("f");
+    } else {
+      let query = {};
+      switch (value) {
+        case "exp":
+          query = { exp: { $lt: new Date() } };
+          break;
+        case "discount":
+          query = { discount: { $gt: 0 } };
+          break;
+        case "no-discount":
+          query = { discount: 0 };
+          break;
+        case "no-stock":
+          query = { stock: 0 };
+          break;
+      }
+      url.searchParams.set("q", JSON.stringify(query));
+      url.searchParams.set("f", value);
+    }
 
-		location.href = url.href;
-	});
+    location.href = url.href;
+  });
 });

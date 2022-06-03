@@ -1,5 +1,6 @@
 <?php
 require_once _DIR_ROOT . '/app/views/mixins/product-card-shop.php';
+require_once _DIR_ROOT . '/app/views/mixins/product-modal-shop.php';
 require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
 ?>
 
@@ -50,10 +51,13 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                 $pageSize = (int)$productDocs->pageSize;
                 $totalPage = ceil($total / $pageSize);
                 $products = $productDocs->docs;
+
                 foreach ($products as $p) {
                     echo "<div class='col col-12 col-md-6 col-lg-4 col-xl-3'>";
                     renderProductCard($p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit, $p->exp, $p->stock, $p->purchaseTotal);
                     echo "</div>";
+
+                    renderProductModal($catalogs, $p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit, $p->exp, $p->stock, $p->purchaseTotal, $p->catalogId, $p->categoryId);
                 }
 
                 echo "<div class='col col-12'>";

@@ -60,6 +60,13 @@ class Shop extends Controller
     {
         global $shop;
 
+        // Get catalog options
+        $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
+        $catalogs = [];
+        if ($catalogApi['statusCode'] === 200) {
+            $catalogs = $catalogApi['data'];
+        }
+
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $sort = empty($_GET['s']) ? '' : $_GET['s'];
         $query = empty($_GET['q']) ? '' : $_GET['q'];
@@ -68,7 +75,7 @@ class Shop extends Controller
             'shopId' => $shop->_get('shopId'),
             'page' => $page,
             'pageSize' => DEFAULT_PAGE_SIZE,
-            'select' => '_id code name avt price discount unit stock purchaseTotal exp',
+            'select' => '_id code name avt price discount unit stock purchaseTotal exp catalogId categoryId',
             'sort' => $sort,
             'query' => $query
 
@@ -80,14 +87,27 @@ class Shop extends Controller
             $productDocs = $apiRes['data'];
         }
 
+        $this->setViewContent('productDocs', $productDocs);
+        $this->setViewContent('catalogs', $catalogs);
         $this->setPassedVariables(['sort' => $sort]);
         $this->setPassedVariables(['filter' => $filter]);
-        $this->setViewContent('productDocs', $productDocs);
-        $this->appendCssLink(['product-card.css', 'pagination.css']);
-        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
+        $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
+        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
         $this->setContentViewPath('shop/product-list');
+        $this->appendCssLink(['product-card.css', 'product-modal.css', 'pagination.css']);
+        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
         $this->setPageTitle('Danh sách sản phẩm');
         $this->render('layouts/shop', $this->data);
+
+        //
+        // $this->setViewContent('catalogs', $catalogs);
+        // $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
+        // $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
+        // $this->setContentViewPath('shop/add-product');
+        // $this->appendCssLink(['shop/add-product.css']);
+        // $this->appendJSLink(['shop/add-product.js']);
+        // $this->setPageTitle('Thêm sản phẩm');
+        // $this->render('layouts/shop');
     }
 
     public function postAddProduct()
@@ -156,35 +176,26 @@ class Shop extends Controller
         $this->renderAddProductPage();
     }
 
-    public function updateProduct()
-    {
-        $url = $_SERVER['REQUEST_URI'];
-        $productId = explode('/', $url);
+    // public function updateProduct()
+    // {
+    //     $url = $_SERVER['REQUEST_URI'];
+    //     $productId = explode('/', $url);
 
-        // Get basic product info by id
-        $apiResProduct = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/id/' . $productId[4]);
-        $productDocs = [];
+    //     // Get product detail by id
+    //     $apiResProductDetail = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $productId[4]);
+    //     $productDetailDocs = [];
 
-        if ($apiResProduct['statusCode'] === 200) {
-            $productDocs = $apiResProduct['data'];
-        }
+    //     if ($apiResProductDetail['statusCode'] === 200) {
+    //         $productDetailDocs = $apiResProductDetail['data'];
+    //     }
 
-        // Get product detail by id
-        $apiResProductDetail = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $productId[4]);
-        $productDetailDocs = [];
-
-        if ($apiResProductDetail['statusCode'] === 200) {
-            $productDetailDocs = $apiResProductDetail['data'];
-        }
-
-        // $formatMfg = FormatUtil::ISOChangeTimeZone($productDetailDocs->product->mfg, 'Y-m-d');
-        // print_r($formatMfg);
-        // die();
-
-        $this->setViewContent('productDetailDocs', $productDetailDocs);
-
-        $this->renderUpdateProductPage();
-    }
+    //     $this->setViewContent('productDetailDocs', $productDetailDocs);
+    //     $this->appendCssLink(['product-card.css', 'pagination.css']);
+    //     $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
+    //     $this->setContentViewPath('shop/product-list');
+    //     $this->setPageTitle('Danh sách sản phẩm');
+    //     $this->render('layouts/shop', $this->data);
+    // }
 
     public function postUpdateProduct()
     {
@@ -366,24 +377,24 @@ class Shop extends Controller
         $this->render('layouts/shop');
     }
 
-    private function renderUpdateProductPage()
-    {
-        // Get catalog options
-        $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
-        $catalogs = [];
-        if ($catalogApi['statusCode'] === 200) {
-            $catalogs = $catalogApi['data'];
-        }
+    // private function renderUpdateProductPage()
+    // {
+    //     // Get catalog options
+    //     $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
+    //     $catalogs = [];
+    //     if ($catalogApi['statusCode'] === 200) {
+    //         $catalogs = $catalogApi['data'];
+    //     }
 
-        $this->setViewContent('catalogs', $catalogs);
-        $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
-        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
-        $this->setContentViewPath('shop/update-product');
-        $this->appendCssLink(['shop/add-product.css']);
-        $this->appendJSLink(['shop/add-product.js']);
-        $this->setPageTitle('Cập nhật sản phẩm');
-        $this->render('layouts/shop');
-    }
+    //     $this->setViewContent('catalogs', $catalogs);
+    //     $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
+    //     $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
+    //     $this->setContentViewPath('shop/update-product');
+    //     $this->appendCssLink(['shop/add-product.css']);
+    //     $this->appendJSLink(['shop/add-product.js']);
+    //     $this->setPageTitle('Cập nhật sản phẩm');
+    //     $this->render('layouts/shop');
+    // }
 
     private function uploadProductPhoto($source, $filename, $filetype, $shopId, $productCode, $thumbSize = 260)
     {
