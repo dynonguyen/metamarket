@@ -145,11 +145,12 @@ module.exports = {
 						offset: (page - 1) * pageSize,
 						where: { username: { [Op.like]: '%' + keyword + '%' } },
 						attributes: [
-							'shipperID',
+							'shipperId',
 							'username',
 							'address',
 							'peopleId',
 							'driverLicense',
+							'status',
 						],
 					});
 					if (result) return result;
@@ -227,6 +228,10 @@ module.exports = {
 		getAllShipper: {
 			caches: false,
 			params: {
+				keyword: {
+					type: 'string',
+					default: '',
+				},
 				page: {
 					type: 'string',
 					numeric: true,
@@ -241,22 +246,25 @@ module.exports = {
 				},
 			},
 			async handler(ctx) {
-				let { page, pageSize } = ctx.params;
+				let { page, pageSize, keyword } = ctx.params;
+				keyword = decodeURIComponent(escape(keyword));
 				page = Number(ctx.params.page);
 				pageSize = Number(ctx.params.pageSize);
 				try {
-					const result = await Shipper.findAll({
+					const result = await Shipper.findAndCountAll({
 						limit: pageSize,
 						offset: (page - 1) * pageSize,
+						where: { username: { [Op.like]: '%' + keyword + '%' } },
 						attributes: [
-							'shipperID',
+							'shipperId',
 							'username',
 							'address',
 							'peopleId',
 							'driverLicense',
+							'status',
 						],
 					});
-					if (result) return result;
+					if (result) return { result, page, pagesize: pageSize };
 					return null;
 				} catch (error) {
 					this.logger.error(error);
@@ -270,18 +278,28 @@ module.exports = {
 			params: {
 				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
 				username: 'string',
+				password: {
+					type: 'string',
+					default: '123',
+				},
 				peopleid: 'string',
 				address: 'string',
 				driverlicense: 'string',
 			},
 			async handler(ctx) {
-				let { shipperid, username, peopleid, address, driverlicense } =
-					ctx.params;
+				let {
+					shipperid,
+					username,
+					peopleid,
+					address,
+					driverlicense,
+					password,
+				} = ctx.params;
 				try {
 					const result = await Shipper.create({
 						shipperId: shipperid,
 						username: username,
-						password: '123', //dung bcrypt va default pass =123
+						password: password, //dung bcrypt va default pass =123
 						peopleId: peopleid,
 						address: address,
 						driverLicense: driverlicense,

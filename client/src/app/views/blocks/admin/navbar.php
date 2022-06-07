@@ -26,7 +26,7 @@ $navbarMenu = [
         'list' => [
             [
                 'to' => 'tat-ca',
-                'label' => 'Tất cae các cửa hàng'
+                'label' => 'Tất cả các cửa hàng'
             ],
             [
                 'to' => 'cho-duyet',

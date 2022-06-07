@@ -27,3 +27,19 @@ th:first-child div {
 .searchshipper{
     padding:1%;
 }
+.add-shipper{
+    font-size: 18px;
+    width: 100%;
+    padding: 2%;
+}
+.btn-addshipper{
+    margin: 2%;
+    padding: 2px;
+}
+input.field-error {
+	border: solid 1px var(--bs-danger) !important;
+}
+.field-error{
+    color: var(--bs-danger);
+    font-size: 16px;
+}

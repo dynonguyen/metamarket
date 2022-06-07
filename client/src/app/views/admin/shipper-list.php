@@ -5,8 +5,8 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
 ?>
 <div class="shipperinfor">
   <div class="searchshipper">
-    <input type="text" id="keyworshipper" placeholder="Nhập tên shipper">
-    <button type="submit" class="searchButton" id='searchshipper'>
+    <input type="text" id="keywordInput" placeholder="Nhập tên shipper">
+    <button type="submit" id='searchshipper'>
       <i class="bi bi-search" id="search"></i>
     </button>
   </div>

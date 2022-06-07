@@ -21,3 +21,4 @@ composer.lock
 **/public/upload/*
 !**/public/upload/.gitkeep
 api-test.http
+package-lock.json
