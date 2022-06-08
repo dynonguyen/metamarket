@@ -3,75 +3,50 @@
         <div class="col-12 col-lg-9 col-xl-7">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
-                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Thêm Shipper</h3>
-                    <form action="them-shipper/post" id="addShipper" method='POST' enctype='multipart/form-data'>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-
-                                <div class="form-outline">
-                                    <label class="form-label" for="shipperid">Shipper ID: <span class='required'>(*)</span></label>
-                                    <input type="text" id="shipperid" name="shipperid" class="form-control form-control-lg" />
-                                </div>
-
-                            </div>
-                            <div class="col-md-6 mb-4">
-
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 fs-1">Thêm Shipper</h3>
+                    <form action="them-shipper/post" id="addShipper" method='POST' class="fs-3">
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6">
                                 <div class="form-outline">
                                     <label class="form-label" for="username">Tên tài khoản: <span class='required'>(*)</span></label>
-                                    <input type="text" id="username" name="username" class="form-control form-control-lg" />
+                                    <input type="text" id="username" name="username" class="form-control form-control-lg fs-3" />
                                 </div>
-
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-
+                            <div class="col-12 col-md-6">
                                 <div class="form-outline">
                                     <label class="form-label" for="address">Địa chỉ của shipper: <span class='required'>(*)</span> </label>
-                                    <input type="text" id="address" name="address" class="form-control form-control-lg" />
+                                    <input type="text" id="address" name="address" class="form-control form-control-lg fs-3" />
                                 </div>
-
                             </div>
-                            <div class="col-md-6 mb-4">
-
+                            <div class="col-12 col-md-6">
                                 <div class="form-outline">
-                                    <label class="form-label" for="driverlicense">Mã giấy phép lái xe: <span class='required'>(*)</span> </label>
-                                    <input type="text" id="driverlicense" name="driverlicense" class="form-control form-control-lg" />
+                                    <label class="form-label" for="driverLicense">Mã giấy phép lái xe: <span class='required'>(*)</span> </label>
+                                    <input type="text" id="driverLicense" name="driverLicense" class="form-control form-control-lg fs-3" />
                                 </div>
-
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-
+                            <div class="col-12 col-md-6">
                                 <div class="form-outline">
-                                    <label class="form-label" for="peopleid">CMND/CCCD: <span class='required'>(*)</span></label>
-                                    <input type="text" id="peopleid" name="peopleid" class="form-control form-control-lg" />
+                                    <label class="form-label" for="peopleId">CMND/CCCD: <span class='required'>(*)</span></label>
+                                    <input type="text" id="peopleId" name="peopleId" class="form-control form-control-lg fs-3" />
                                 </div>
-
                             </div>
-                            <div class="col-md-6 mb-4">
-
+                            <div class="col-12 col-md-6">
                                 <div class="form-outline">
                                     <label class="form-label" for="password">Mật khẩu ban đầu: <span class='required'>(*)</span></label>
-                                    <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                    <input type="password" id="password" name="password" class="form-control form-control-lg fs-3" />
                                 </div>
-
+                            </div>
+                            <div class="col-12">
+                                <input class="btn btn-primary btn-lg py-2 text-uppercase w-100 ms-auto fs-3" type="submit" value="Thêm mới" />
                             </div>
                         </div>
-
-                        <div class="text-center btn-addshipper">
-                            <input class="btn btn-primary btn-lg" type="submit" value="Thêm mới" />
-                        </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <?php
 if (isset($isError)) {
     require_once _DIR_ROOT . '/app/views/mixins/toast.php';

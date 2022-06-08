@@ -6,7 +6,7 @@ class Admin extends Controller
     {
         self::redirect('kenh-quan-ly/shipper/tat-ca');
     }
-    public function shipperlist()
+    public function shipperList()
     {
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $keyword = empty($_GET['keyword']) ? '' : (int)$_GET['keyword'];
@@ -29,19 +29,18 @@ class Admin extends Controller
     }
     public function viewAddShipper()
     {
-        $this->renderviewAddShipper();
+        $this->renderViewAddShipper();
     }
-    public function AddShipper()
+    public function addShipper()
     {
-        $password = empty($_POST['password']) ? '123' : $_POST['password'];
+        $password = empty($_POST['password']) ? '' : $_POST['password'];
         $hashPwd = password_hash($password, PASSWORD_BCRYPT, ['cost' => BCRYPT_SALT]);
         $data = [
-            'shipperid' => empty($_POST['shipperid']) ? '' : $_POST['shipperid'],
             'username' => empty($_POST['username']) ? '' : $_POST['username'],
             'password' => $hashPwd,
-            'peopleid' => empty($_POST['peopleid']) ? '' : $_POST['peopleid'],
+            'peopleId' => empty($_POST['peopleId']) ? '' : $_POST['peopleId'],
             'address' => empty($_POST['address']) ? '' : $_POST['address'],
-            'driverlicense' => empty($_POST['driverlicense']) ? '' : $_POST['driverlicense'],
+            'driverLicense' => empty($_POST['driverLicense']) ? '' : $_POST['driverLicense'],
         ];
         $apiRes = ApiCaller::post(INTERNAL_SERVICE_API_URL . '/shipper/add', $data);
         if ($apiRes['statusCode'] === 200 || $apiRes['statusCode'] === 201) {
@@ -49,9 +48,9 @@ class Admin extends Controller
         } else {
             $this->setViewContent('isError', true);
         }
-        $this->renderviewAddShipper();
+        $this->renderViewAddShipper();
     }
-    private function renderviewAddShipper()
+    private function renderViewAddShipper()
     {
         $this->setPageTitle('Quản lý shipper');
         $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);

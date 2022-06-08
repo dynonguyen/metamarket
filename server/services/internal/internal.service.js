@@ -113,6 +113,7 @@ module.exports = {
 				}
 			},
 		},
+
 		//tim kiem shipper theo ten
 		searchShipper: {
 			cache: false,
@@ -161,7 +162,8 @@ module.exports = {
 				}
 			},
 		},
-		//update trang thai shippe
+
+		//update trang thai shipper
 		updateStatusShpper: {
 			cache: false,
 			params: {
@@ -182,6 +184,7 @@ module.exports = {
 				}
 			},
 		},
+
 		// update dia chi cua shipper
 		updateAddressShiper: {
 			cache: false,
@@ -203,6 +206,7 @@ module.exports = {
 				}
 			},
 		},
+
 		// update giay phep lai xe shipper
 		updateDriverLicense: {
 			cache: false,
@@ -224,6 +228,7 @@ module.exports = {
 				}
 			},
 		},
+
 		//lay tat ca shipper
 		getAllShipper: {
 			caches: false,
@@ -272,37 +277,30 @@ module.exports = {
 				}
 			},
 		},
+
 		//tao moi 1 shipper
 		addNewShipper: {
 			cache: false,
 			params: {
-				shipperid: [{ type: 'number' }, { type: 'string', numeric: true }],
 				username: 'string',
 				password: {
 					type: 'string',
 					default: '123',
 				},
-				peopleid: 'string',
+				peopleId: 'string',
 				address: 'string',
-				driverlicense: 'string',
+				driverLicense: 'string',
 			},
 			async handler(ctx) {
-				let {
-					shipperid,
-					username,
-					peopleid,
-					address,
-					driverlicense,
-					password,
-				} = ctx.params;
+				let { username, peopleId, address, driverLicense, password } =
+					ctx.params;
 				try {
 					const result = await Shipper.create({
-						shipperId: shipperid,
 						username: username,
-						password: password, //dung bcrypt va default pass =123
-						peopleId: peopleid,
+						password: password,
+						peopleId: peopleId,
 						address: address,
-						driverLicense: driverlicense,
+						driverLicense: driverLicense,
 					});
 					return result;
 				} catch (error) {

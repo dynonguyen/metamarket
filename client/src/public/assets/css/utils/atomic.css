@@ -75,3 +75,12 @@
 	color: var(--bs-primary);
 	margin-bottom: 1rem;
 }
+
+input.field-error {
+	border: solid 1px var(--bs-danger) !important;
+}
+
+p.field-error {
+	color: var(--bs-danger);
+	font-size: 14px;
+}

@@ -63,7 +63,6 @@ $routes['thanh-toan-momo-atm'] = 'order/momoATM';
 $routes['ket-qua-thanh-toan'] = 'order/momoPaymentResult';
 
 //Admin
-$routes['kenh-quan-ly/shipper'] = 'admin/shipperlist';
+$routes['kenh-quan-ly/shipper'] = 'admin/shipperList';
 $routes['kenh-quan-ly/shipper/them-shipper'] = 'admin/viewAddShipper';
-$routes['kenh-quan-ly/shipper/them-shipper/post'] = 'admin/AddShipper';
-
+$routes['kenh-quan-ly/shipper/them-shipper/post'] = 'admin/addShipper';
