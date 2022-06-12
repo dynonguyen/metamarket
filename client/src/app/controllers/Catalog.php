@@ -24,7 +24,7 @@ class Catalog extends Controller
             ['link' => "/catalog/$catalogLink", 'name' => $catalog->name]
         ]);
 
-        $this->setPassedVariables(['sort' => $sort, 'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL]);
+        $this->setPassedVariables(['sort' => $sort, 'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL, 'STATIC_FILE_URL' => STATIC_FILE_URL]);
 
         $this->setViewContent('productDocs', $productDocs);
         $this->setViewContent('sort', $sort);

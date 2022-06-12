@@ -81,7 +81,13 @@ $productPriceDiscount = FormatUtil::currencyVNDFormat($product->price * (100 - $
                     </div>
 
                     <strong class='product-code'>SKU&nbsp;<?php echo $product->code; ?></strong>
-                    <div class="product-exp">HSD còn <?php echo $numOfMfg; ?> ngày</div>
+                    <?php
+                    if ($numOfMfg > 0) {
+                        echo "<div class='product-exp'>HSD còn <?php echo $numOfMfg; ?> ngày</div>";
+                    } else {
+                        echo "<div class='product-exp text-danger'>Sản phẩm hết hạn sử dụng</div>";
+                    }
+                    ?>
 
                     <div class='product-price vertical-center'>
                         <span class='price'><?php echo $productPriceDiscount; ?></span>
@@ -186,12 +192,13 @@ $productPriceDiscount = FormatUtil::currencyVNDFormat($product->price * (100 - $
                                 <i class='bi bi-chat-square-dots-fill'></i>
                                 <span>Chat ngay</span>
                             </button>
+                            <?php echo "<a href='/cua-hang/$shop->shopId'>
                             <button class='btn btn-outline-secondary'>
                                 <i class='bi bi-shop'></i>
-                                <span>
-                                    <?php echo "<a href='/cua-hang/$shop->shopId'>Xem shop</a>"; ?>
-                                </span>
+                                <span>Xem shop</span>
                             </button>
+                            </a>";
+                            ?>
                         </div>
                     </div>
                 </div>

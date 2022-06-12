@@ -63,6 +63,7 @@ class Product extends Controller
         if ($apiRes['statusCode'] === 200) {
             $productDocs = $apiRes['data'];
         }
+
         $this->setPassedVariables(['sort' => $sort, 'PRODUCT_SERVICE_API_URL' => PRODUCT_SERVICE_API_URL, 'keyword' => $keyword]);
 
         $this->setViewContent('productDocs', $productDocs);

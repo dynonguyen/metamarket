@@ -35,11 +35,19 @@ function renderProductCard({ _id, name, avt, price, unit, discount }) {
 }
 
 function renderProductList(products = []) {
-	let xml = '';
-
-	products.forEach((product) => {
-		xml += renderProductCard({ ...product });
-	});
-
-	return xml;
+	let staticUrl = '/public';
+	try {
+		staticUrl = STATIC_FILE_URL;
+	} catch (error) {
+		staticUrl = '/public';
+	} finally {
+		let xml = '';
+		products.forEach(product => {
+			xml += renderProductCard({
+				...product,
+				avt: `${staticUrl}/${product.avt}`,
+			});
+		});
+		return xml;
+	}
 }

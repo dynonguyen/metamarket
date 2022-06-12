@@ -30,7 +30,7 @@ function renderOption($value, $label, $selectedValue)
 <div class='pt-4'></div>
 
 <div class='container bg-white mb-4 py-4'>
-    <?php if (!empty($productDocs)) { ?>
+    <?php if (!empty($productDocs->docs)) { ?>
         <div class='d-flex justify-content-end mb-3'>
             <select id='sort' style="max-width: 250px; font-size: 1.5rem" class='form-select'>
                 <?php
