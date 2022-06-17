@@ -3,7 +3,7 @@ $navbarMenu = [
 [
         'icon' => 'bi bi-person',
         'label' => 'Thông tin tài khoản',
-        'root' => '',
+        'root' => 'thong-tin',
     ],
     [
         'icon' => 'bi bi-clipboard-data',
@@ -30,7 +30,9 @@ $navbarMenu = [
             ['icon' => $icon, 'label' => $label, 'root' => $root] = $menuItem;
             echo "<div class='navbar-group'>";
                 $link = "/tai-khoan/$root";
-                echo "<h3 class='navbar-item'>
+                $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
+
+                echo "<h3 class='navbar-item $activeClass'>
                         <i class='icn $icon me-2'></i>
                         <a href='$link'>$label</a>
                     </h3>";
