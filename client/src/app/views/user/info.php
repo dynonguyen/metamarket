@@ -32,7 +32,7 @@ $dbo = FormatUtil::ISOChangeTimeZone($user->_get('dbo'), 'Y-m-d');
             }
             ?>
 
-            <form id='form' method='POST' class="row gy-4 gx-0 py-3" action='/account/postUpdateInfo'>
+            <form id='form' method='POST' class="row gy-4 gx-0 py-3" action='/user/postUpdateInfo'>
                 <div class='col col-12'>
                     <label for='name' class="d-block mb-2 text-black-50">Họ tên</label>
                     <?php echo "<input class='form-control form-control-lg fs-3' id='name' type='text' name='name' value='$fullname' minlength='5' maxlength='50'/>"; ?>

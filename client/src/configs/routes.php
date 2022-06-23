@@ -12,14 +12,16 @@ $routes['category/(.+)/(.+)'] = 'catalog/category/$1/$2';
 $routes['danh-muc/*'] = 'category/$1';
 
 // Account
-$routes['tai-khoan'] = 'account/index';
 $routes['tai-khoan/dang-ky'] = 'account/signup';
-$routes['tai-khoan/cap-nhat-thong-tin'] = 'account/postUpdateInfo';
 $routes['tai-khoan/dang-nhap'] = 'account/login';
 $routes['quen-mat-khau'] = 'account/forgotPassword';
 $routes['thay-doi-mat-khau'] = 'account/changePassword';
 $routes['thuc-hien-thay-doi-mat-khau'] = 'account/postChangePassword';
 $routes['dang-ky-ban-hang'] = 'account/shopRegister';
+
+// User
+$routes['tai-khoan'] = 'user/index';
+$routes['tai-khoan/cap-nhat-thong-tin'] = 'user/postUpdateInfo';
 
 // Product
 $routes['san-pham/(.+)'] = 'product/index/$1';
