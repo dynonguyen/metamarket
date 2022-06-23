@@ -1,6 +1,6 @@
 <?php
 $navbarMenu = [
-[
+    [
         'icon' => 'bi bi-person',
         'label' => 'Thông tin tài khoản',
         'root' => 'thong-tin',
@@ -25,19 +25,17 @@ $navbarMenu = [
 <aside id="navbar">
     <nav>
         <?php
-        $i = 0;
         foreach ($navbarMenu as $menuItem) {
             ['icon' => $icon, 'label' => $label, 'root' => $root] = $menuItem;
             echo "<div class='navbar-group'>";
-                $link = "/tai-khoan/$root";
-                $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
+            $link = "/tai-khoan/$root";
+            $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
 
-                echo "<h3 class='navbar-item $activeClass'>
+            echo "<h3 class='navbar-item $activeClass'>
                         <i class='icn $icon me-2'></i>
                         <a href='$link'>$label</a>
                     </h3>";
             echo "</div>";
-            $i = $i + 1;
         }
         ?>
     </nav>

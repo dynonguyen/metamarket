@@ -1,35 +1,16 @@
 .container_info {
-    display: flex;
-    padding: 4rem 0 3.125rem;
-    margin-right: auto;
-    margin-left: auto;
-    width: 1200px;
-}
-
-.left {
-    margin-right: auto;
-}
-
-.account {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 0.0625rem solid #efefef;
+	display: flex;
+	padding: 4rem 0 3.125rem;
+	margin-right: auto;
+	margin-left: auto;
+	width: 1200px;
 }
 
 #b {
-    padding: 12px;
-    margin: 12px;
-    font-size: larger;
-    color: var(--bs-orange);
-}
-
-.content {
-    width: 980px;
-    box-sizing: border-box;
-    margin-left: 1.6875rem;
-    background: #fff;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
-    border-radius: 0.125rem;
+	padding: 12px;
+	margin: 12px;
+	font-size: larger;
+	color: var(--bs-orange);
 }
 
 .navbar-label {
@@ -60,79 +41,51 @@
 }
 
 .icn {
-    color: var(--bs-orange);
-    font-size: larger;
+	color: var(--bs-orange);
+	font-size: larger;
 }
 
 .itm {
-    padding: 10px 20px;
-    margin: 10px 20px;
-    display: block;
-    font-size: 16px;
+	padding: 10px 20px;
+	margin: 10px 20px;
+	display: block;
+	font-size: 16px;
 }
 
 .title {
-    border-bottom: 0.0625rem solid #efefef;
-    padding: 10px 0px;
-}
-
-.cnt {
-    display: block;
-    padding: 10px 20px;
-    margin: 10px 20px;
-}
-
-.lb {
-    width: 120px;
+	border-bottom: 0.0625rem solid #efefef;
+	padding: 10px 0px;
 }
 
 .hs {
-    color: var(--bs-orange);
-    padding-bottom: 10px;
-    font-size: 34px;
-}
-
-input {
-    padding: 8px;
-    width: 400px;
-    border: 1px solid rgba(0,0,0,.26);
-    box-sizing: border-box;
-}
-
-.submit {
-    margin-left: 140px;
-    font-size: larger;
-}
-
-#up {
-    color: #fff;
-    background-color: var(--bs-orange);
-    width: 100px;
-    margin-top: 20px;
-    padding: 5px;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
-    border-radius: 0.125rem;
-    border: none;
+	color: var(--bs-orange);
+	padding-bottom: 10px;
+	font-size: 34px;
 }
 
 .gd {
-    padding: 10px;
-    width: 18px;
-    height: 18px;
-    border-radius: 100%;
-    accent-color: var(--bs-orange);
+	padding: 10px;
+	width: 18px;
+	height: 18px;
+	border-radius: 100%;
+	accent-color: var(--bs-orange);
 }
 
 .sp {
-    padding-left: 10px;
-    margin-right: 20px;
+	padding-left: 10px;
+	margin-right: 20px;
 }
-
 
 .distance-left {
 	margin-left: 26rem;
 }
 
 .color-item {
-    color: var(--bs-orange) !important;
+	color: var(--bs-orange) !important;
+}
+
+.submit-btn {
+	min-width: 200px;
+	margin-left: auto;
+	display: block;
 }
