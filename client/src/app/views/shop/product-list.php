@@ -61,7 +61,7 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                     renderProductCard($pDataProduct->_id, $pDataProduct->name, $pDataProduct->avt, $pDataProduct->price, $pDataProduct->discount, $pDataProduct->unit, $pDataProduct->exp, $pDataProduct->stock, $pDataProduct->purchaseTotal);
                     echo "</div>";
 
-                    renderProductModal($catalogs, $pDataProduct->_id, $pDataProduct->name, $pDataProduct->avt, $pDataProduct->price, $pDataProduct->discount, $pDataProduct->unit, $pDataProduct->mfg, $pDataProduct->exp, $pDataProduct->stock, $pDataProductDetail->origin, $pDataProductDetail->brand, $pDataProductDetail->desc, $pDataProduct->purchaseTotal, $pDataProduct->catalogId, $pDataProduct->categoryId);
+                    renderProductModal($catalogs, $pDataProduct->_id, $pDataProduct->name, $pDataProduct->avt, $pDataProduct->price, $pDataProduct->discount, $pDataProduct->unit, $pDataProduct->mfg, $pDataProduct->exp, $pDataProduct->stock, $pDataProductDetail->origin, $pDataProductDetail->brand, $pDataProductDetail->desc, $pDataProduct->catalogId, $pDataProduct->categoryId);
                 }
 
                 echo "<div class='col col-12'>";

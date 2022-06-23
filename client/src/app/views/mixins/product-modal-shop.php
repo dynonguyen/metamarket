@@ -3,7 +3,7 @@ require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/utils/Format.php';
 // global $shop;
 
-function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $purchaseTotal = 0, $shopCatalogId = 1, $shopCategoryId = 1)
+function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $shopCatalogId, $shopCategoryId)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
     $mfgDate = FormatUtil::ISOChangeTimeZone($mfg, 'Y-m-d');
@@ -48,7 +48,7 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
         foreach ($categories as $cate) {
             $cateId = $cate->id;
             $cateName = $cate->name;
-            if ($shopCatalogId == $catalogId && $shopCategoryId) {
+            if ($shopCatalogId->_id == $catalogId && $shopCategoryId) {
                 echo "<option value='$catalogId/$cateId' selected>$cateName</option>";
             } else {
                 echo "<option value='$catalogId/$cateId'>$cateName</option>";
