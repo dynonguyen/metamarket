@@ -22,6 +22,7 @@ $routes['dang-ky-ban-hang'] = 'account/shopRegister';
 // User
 $routes['tai-khoan'] = 'user/index';
 $routes['tai-khoan/cap-nhat-thong-tin'] = 'user/postUpdateInfo';
+$routes['tai-khoan/don-hang'] = 'user/orders';
 
 // Product
 $routes['san-pham/(.+)'] = 'product/index/$1';

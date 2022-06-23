@@ -23,7 +23,7 @@ $navbarMenu = [
 ];
 ?>
 <aside id="navbar">
-    <nav>
+    <nav class="d-flex flex-column gap-4">
         <?php
         foreach ($navbarMenu as $menuItem) {
             ['icon' => $icon, 'label' => $label, 'root' => $root] = $menuItem;
@@ -32,7 +32,7 @@ $navbarMenu = [
             $activeClass = str_contains($_SERVER['REQUEST_URI'], $link) ? 'active' : '';
 
             echo "<h3 class='navbar-item $activeClass'>
-                        <i class='icn $icon me-2'></i>
+                        <i class='icon $icon me-2'></i>
                         <a href='$link'>$label</a>
                     </h3>";
             echo "</div>";

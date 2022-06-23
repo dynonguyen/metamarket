@@ -1,0 +1,41 @@
+.navbar-label {
+	font-weight: 500;
+	font-size: 1.6rem;
+	text-transform: capitalize;
+	color: var(--mm-gray);
+}
+
+.navbar-item {
+	font-size: 1.8rem;
+}
+
+.navbar-item.active a {
+	color: var(--bs-orange);
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.navbar-item a {
+	color: var(--mm-dark-gray);
+	transition: all 0.25s;
+}
+
+.navbar-item a:hover {
+	letter-spacing: 1px;
+}
+
+.icon {
+	color: var(--bs-orange);
+	font-size: larger;
+}
+
+.title {
+	border-bottom: 0.0625rem solid #efefef;
+	padding: 10px 0px;
+}
+
+.submit-btn {
+	min-width: 200px;
+	margin-left: auto;
+	display: block;
+}

@@ -45,7 +45,6 @@ class User extends Controller
 
         if ((int)$isUpdateInfoSuccess === 1) {
             $this->setViewContent('formError', 'Cập nhật thành công !');
-            // $this->renderInfoPage();
             self::redirect('/tai-khoan/thong-tin');
         } else {
             $this->setViewContent('formError', 'Cập nhật thất bại !');
@@ -54,12 +53,27 @@ class User extends Controller
         }
     }
 
+    public function orders()
+    {
+        global $user;
+        $orderDocs = ApiCaller::get(ORDER_SERVICE_API_URL . '/list?where={"userId":' . $user->_get('userId') . '}&page=1&pageSize=1000');
+        $orders = $orderDocs['statusCode'] === 200 ? $orderDocs['data']->docs : [];
+
+        $this->setViewContent('user', $user);
+        $this->setViewContent('orders', $orders);
+
+        $this->setPageTitle('Đơn hàng của tôi');
+        $this->setContentViewPath('user/orders');
+        $this->appendCssLink(['user/navbar.css']);
+        $this->render('layouts/general', $this->data);
+    }
+
     private function renderInfoPage()
     {
         global $user;
         $this->setViewContent('user', $user);
         $this->setContentViewPath('user/info');
-        $this->appendCssLink(['user/info.css']);
+        $this->appendCssLink(['user/navbar.css']);
         $this->appendJSLink(['user/info.js']);
         $this->setPageTitle('Thông tin tài khoản');
         $this->render('layouts/general', $this->data);

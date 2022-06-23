@@ -9,26 +9,26 @@ $dbo = FormatUtil::ISOChangeTimeZone($user->_get('dbo'), 'Y-m-d');
 <div class="container py-5">
     <div class='row g-2'>
         <div class="col col-12 col-lg-3 bg-white py-5 px-4">
-            <h3 class="mb-3">
-                <i class='icn bi bi-person-circle me-2'></i>
+            <h2>
+                <i class='icon bi bi-person-circle me-2'></i>
                 <?php echo $fullname; ?>
-            </h3>
-            <div class='mt-5'>
+            </h2>
+            <div class='mt-4'>
                 <?php require_once _DIR_ROOT . '/app/views/blocks/user/navbar.php'; ?>
             </div>
         </div>
 
         <div class="col col-12 col-lg-9 p-4 bg-white fs-3">
             <div class="title">
-                <h1 class="hs">Hồ Sơ Của Tôi</h1>
-                <div class="spe">Quản lý thông tin hồ sơ của bạn</div>
+                <h1 class="text-primary">Hồ Sơ Của Tôi</h1>
+                <div>Quản lý thông tin hồ sơ của bạn</div>
             </div>
 
             <?php
             if (!empty($formError)) {
-                echo "<p id='formError' class='form-error mb-3 color-item'>$formError</p>";
+                echo "<p id='formError' class='form-error my-3 text-danger'>$formError</p>";
             } else {
-                echo "<p id='formError' class='form-error mb-3 color-item d-none'></p>";
+                echo "<p id='formError' class='form-error my-3 text-danger d-none'></p>";
             }
             ?>
 
@@ -43,15 +43,27 @@ $dbo = FormatUtil::ISOChangeTimeZone($user->_get('dbo'), 'Y-m-d');
                 </div>
                 <div class='col col-12'>
                     <label for='gender' class="d-block mb-2 text-black-50">Giới tính</label>
-                    <?php
-                    if ($gender == FEMALE) {
-                        echo "<input class='gd' name='gender' type='radio' value='Nam'/><span class='sp'>Nam</span>
-                                    <input class='gd' name='gender' type='radio' value='Nữ' checked/><span class='sp'>Nữ</spa>";
-                    } else {
-                        echo "<input class='gd' name='gender' type='radio' value='Nam' checked/><span class='sp'>Nam</span>
-                                    <input class='gd' name='gender' type='radio' value='Nữ'/><span class='sp'>Nữ</spa>";
-                    } ?>
-
+                    <div class='d-flex gap-3'>
+                        <?php if ($gender == FEMALE) { ?>
+                            <div class="form-check">
+                                <input class="form-check-input" name='gender' id="gender" type='radio' value='Nam' />
+                                <label class="form-check-label" for="gender">Nam</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name='gender' id="gender" type='radio' value='Nữ' checked />
+                                <label class="form-check-label" for="gender">Nữ</label>
+                            </div>
+                        <?php } else { ?>
+                            <div class="form-check">
+                                <input class="form-check-input" name='gender' id="gender" type='radio' value='Nam' checked />
+                                <label class="form-check-label" for="gender">Nam</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name='gender' id="gender" type='radio' value='Nữ' />
+                                <label class="form-check-label" for="gender">Nữ</label>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
                 <div class='col col-12'>
                     <label for='dbo' class="d-block mb-2 text-black-50">Ngày sinh</label>
