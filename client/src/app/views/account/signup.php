@@ -29,7 +29,7 @@
         <button type='submit' id='submitBtn' class='btn btn-primary'>Đăng ký</button>
 
         <div class='other-options mt-5 pt-3'>
-            <a href='/' class='orange-color'>Đăng ký bán hàng</a>
+            <a href='/dang-ky-ban-hang' class='orange-color'>Đăng ký bán hàng</a>
             <a href='/tai-khoan/dang-nhap'>Đăng nhập</a>
         </div>
     </form>

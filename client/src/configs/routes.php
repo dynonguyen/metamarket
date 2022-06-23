@@ -3,6 +3,7 @@ $routes['default_controller'] = 'home';
 
 // Virtual route -> real route
 $routes['trang-chu'] = 'home';
+$routes['cua-hang/(.+)'] = 'home/shopInfo/$1';
 
 // Catalog
 $routes['nhom-danh-muc/*'] = 'catalog/$1';

@@ -10,10 +10,9 @@ class Account extends Controller
     public function index()
     {
         global $isAuth;
-        if($isAuth){
+        if ($isAuth) {
             $this->showInfo();
-        } else
-        {
+        } else {
             self::redirect('/tai-khoan/dang-nhap', 301);
         }
     }
@@ -232,7 +231,6 @@ class Account extends Controller
             }
         }
     }
-
 
     public function showInfo()
     {

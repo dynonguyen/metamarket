@@ -1,0 +1,21 @@
+.shop-info-box {
+	background-color: rgba(17, 37, 75, 0.8);
+	border-radius: 8px;
+}
+
+.shop-avt {
+	width: 9rem;
+	height: 9rem;
+	border-radius: 50%;
+}
+
+.shop-info-box .dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: var(--mm-gray);
+}
+
+.shop-info-box .dot.active {
+	background-color: var(--bs-green);
+}
