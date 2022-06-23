@@ -3,14 +3,11 @@ require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/utils/Format.php';
 // global $shop;
 
-function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $unit, $exp, $stock = 1, $purchaseTotal = 0, $shopCatalogId = 1, $shopCategoryId = 1)
+function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $purchaseTotal = 0, $shopCatalogId = 1, $shopCategoryId = 1)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
-    $discountRateXML = !empty($discount) ? "<label class='discount-rate'>-$discount%</label>" : "";
-    $formattedPrice = FormatUtil::currencyVNDFormat($price);
-    $discountPriceXML = !empty($discount) ? "<div class='discount'>$formattedPrice</div>" :  "";
-    $discountPrice = !empty($discount) ? FormatUtil::currencyVNDFormat($price * (100 - $discount) / 100) : $formattedPrice;
-    $expDate = FormatUtil::ISOChangeTimeZone($exp, 'd-m-Y');
+    $mfgDate = FormatUtil::ISOChangeTimeZone($mfg, 'Y-m-d');
+    $expDate = FormatUtil::ISOChangeTimeZone($exp, 'Y-m-d');
 
     echo "
         <!-- Modal -->
@@ -80,8 +77,19 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='unit' class='form-label'>Đơn vị <span class='required'>(*)</span></label>
                         <input type='text' name='unit' class='form-control' id='unit' placeholder='VD: Cái' value='" . $unit . "'>
-                    </div>           
+                    </div> 
+                    <!-- MFG -->
+                    <div class='col col-12 col-md-4 col-lg-3'>
+                        <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
+                        <input type='date' name='mfg' class='form-control' id='mfg' disabled value='" . $mfgDate . "'>
+                    </div>
+                    <!-- EXP -->
+                    <div class='col col-12 col-md-4 col-lg-3'>
+                        <label for='exp' class='form-label'>Ngày hết hạn <span class='required'>(*)</span></label>
+                        <input type='date' name='exp' class='form-control' id='exp' disabled value='" . $expDate . "'>
+                    </div>          
         
+                    <!-- Avt -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='avt' class='form-label'>Đổi ảnh đại diện <span class='required'>(*)</span></label>
                         <input name='avt' class='form-control' type='file' id='avt' accept='image/*'>
@@ -93,21 +101,14 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
                     <!-- Origin -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='origin' class='form-label'>Xuất xứ <span class='required'>(*)</span></label>
-                        <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam' value='" . $unit . "'>
+                        <input type='text' name='origin' class='form-control' id='origin' placeholder='VD: Việt Nam' value='" . $origin . "'>
                     </div>
         
                     <!-- Branch -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='brand' class='form-label'>Thương hiệu <span class='required'>(*)</span></label>
-                        <input type='text' name='brand' class='form-control' id='brand' value='" . $unit . "'>
+                        <input type='text' name='brand' class='form-control' id='brand' value='" . $brand . "'>
                     </div>
-        
-                    <!-- Infos -->
-                    <!-- <div class='col col-12 col-md-4 col-lg-3 d-flex align-items-end' id='addInfoWrap'>
-                        <button id='addInfoInputBtn' class='btn btn-outline-accent w-100' type='button' style='border-style: dashed;'>
-                            Thêm thông tin <i class='bi bi-plus'></i>
-                        </button>
-                    </div> -->
                 </div>
         
                 
@@ -115,16 +116,13 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
                 <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
         
                 <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
-                <textarea class='validate-ignore' cols='20' id='desc'>$unit</textarea>
+                <textarea class='validate-ignore' cols='20' id='desc-$_id'>$desc</textarea>
                 <input name='desc' id='descInput' type='text' class='d-none' />
         
                 <!-- submit button -->
                 <div class='text-end mt-4'>
-                    <button class='btn btn-danger btn-lg me-3' type='button' type='button' id='resetBtn'>
-                        Nhập lại
-                    </button>
                     <button class='btn btn-primary btn-lg' type='submit' type='button' id='submitBtn'>
-                        Thêm sản phẩm
+                        Cập nhật sản phẩm
                     </button>
                 </div>
             </form>

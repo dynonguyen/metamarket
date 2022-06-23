@@ -67,6 +67,7 @@ class Shop extends Controller
             $catalogs = $catalogApi['data'];
         }
 
+        // Get products list by shopId
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $sort = empty($_GET['s']) ? '' : $_GET['s'];
         $query = empty($_GET['q']) ? '' : $_GET['q'];
@@ -87,8 +88,17 @@ class Shop extends Controller
             $productDocs = $apiRes['data'];
         }
 
-        $this->setViewContent('productDocs', $productDocs);
+        // Get product-details by productId in the above list
+        $productDetailList = array();
+
+        foreach ($productDocs->docs as $pDoc) {
+            $queryProductDetails = $pDoc->_id;
+            $productDetailList[] = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $queryProductDetails);
+        }
+
         $this->setViewContent('catalogs', $catalogs);
+        $this->setViewContent('productDocs', $productDocs);
+        $this->setViewContent('productDetailList', $productDetailList);
         $this->setPassedVariables(['sort' => $sort]);
         $this->setPassedVariables(['filter' => $filter]);
         $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
@@ -98,16 +108,6 @@ class Shop extends Controller
         $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
         $this->setPageTitle('Danh sách sản phẩm');
         $this->render('layouts/shop', $this->data);
-
-        //
-        // $this->setViewContent('catalogs', $catalogs);
-        // $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
-        // $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
-        // $this->setContentViewPath('shop/add-product');
-        // $this->appendCssLink(['shop/add-product.css']);
-        // $this->appendJSLink(['shop/add-product.js']);
-        // $this->setPageTitle('Thêm sản phẩm');
-        // $this->render('layouts/shop');
     }
 
     public function postAddProduct()
@@ -175,27 +175,6 @@ class Shop extends Controller
         $this->appendJSLink('utils/toast.js');
         $this->renderAddProductPage();
     }
-
-    // public function updateProduct()
-    // {
-    //     $url = $_SERVER['REQUEST_URI'];
-    //     $productId = explode('/', $url);
-
-    //     // Get product detail by id
-    //     $apiResProductDetail = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $productId[4]);
-    //     $productDetailDocs = [];
-
-    //     if ($apiResProductDetail['statusCode'] === 200) {
-    //         $productDetailDocs = $apiResProductDetail['data'];
-    //     }
-
-    //     $this->setViewContent('productDetailDocs', $productDetailDocs);
-    //     $this->appendCssLink(['product-card.css', 'pagination.css']);
-    //     $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
-    //     $this->setContentViewPath('shop/product-list');
-    //     $this->setPageTitle('Danh sách sản phẩm');
-    //     $this->render('layouts/shop', $this->data);
-    // }
 
     public function postUpdateProduct()
     {
@@ -376,25 +355,6 @@ class Shop extends Controller
         $this->setPageTitle('Thêm sản phẩm');
         $this->render('layouts/shop');
     }
-
-    // private function renderUpdateProductPage()
-    // {
-    //     // Get catalog options
-    //     $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
-    //     $catalogs = [];
-    //     if ($catalogApi['statusCode'] === 200) {
-    //         $catalogs = $catalogApi['data'];
-    //     }
-
-    //     $this->setViewContent('catalogs', $catalogs);
-    //     $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
-    //     $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
-    //     $this->setContentViewPath('shop/update-product');
-    //     $this->appendCssLink(['shop/add-product.css']);
-    //     $this->appendJSLink(['shop/add-product.js']);
-    //     $this->setPageTitle('Cập nhật sản phẩm');
-    //     $this->render('layouts/shop');
-    // }
 
     private function uploadProductPhoto($source, $filename, $filetype, $shopId, $productCode, $thumbSize = 260)
     {

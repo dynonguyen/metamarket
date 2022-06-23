@@ -1,15 +1,34 @@
 const staticUrl =
   typeof STATIC_FILE_URL !== "undefined" ? STATIC_FILE_URL : "/public";
 
-function loadNicEditor() {
-  new nicEditor({
+let myEditor;
+
+function loadNicEditor(descId) {
+  myEditor = new nicEditor({
     iconsPath: `${staticUrl}/vendors/nicEdit/nicEditorIcons.gif`,
-  }).panelInstance("desc");
+  }).panelInstance(descId);
   $(".nicEdit-main").parent("div").css({ width: "100%", padding: "8px" });
   $(".nicEdit-panelContain").parent("div").css({ width: "100%" });
 }
 
+function removeNicEditor(descId) {
+  myEditor.removeInstance(descId);
+  myEditor = null;
+}
+
 jQuery(function () {
+  $(".update-product").on("click", function () {
+    if (!myEditor) {
+      loadNicEditor($(this).attr("desc-id"));
+    } else {
+      removeNicEditor($(this).attr("desc-id"));
+      loadNicEditor($(this).attr("desc-id"));
+    }
+
+    console.log("update product click");
+    console.log($(this).attr("desc-id"));
+  });
+
   const url = new URL(location.href);
 
   $("#sort").val(sort);

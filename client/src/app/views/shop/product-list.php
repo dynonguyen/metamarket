@@ -50,14 +50,18 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                 $page = (int)$productDocs->page;
                 $pageSize = (int)$productDocs->pageSize;
                 $totalPage = ceil($total / $pageSize);
+
                 $products = $productDocs->docs;
 
-                foreach ($products as $p) {
+                foreach ($productDetailList as $p) {
+                    $pDataProduct = $p['data']->product;
+                    $pDataProductDetail = $p['data']->productDetail;
+
                     echo "<div class='col col-12 col-md-6 col-lg-4 col-xl-3'>";
-                    renderProductCard($p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit, $p->exp, $p->stock, $p->purchaseTotal);
+                    renderProductCard($pDataProduct->_id, $pDataProduct->name, $pDataProduct->avt, $pDataProduct->price, $pDataProduct->discount, $pDataProduct->unit, $pDataProduct->exp, $pDataProduct->stock, $pDataProduct->purchaseTotal);
                     echo "</div>";
 
-                    renderProductModal($catalogs, $p->_id, $p->name, $p->avt, $p->price, $p->discount, $p->unit, $p->exp, $p->stock, $p->purchaseTotal, $p->catalogId, $p->categoryId);
+                    renderProductModal($catalogs, $pDataProduct->_id, $pDataProduct->name, $pDataProduct->avt, $pDataProduct->price, $pDataProduct->discount, $pDataProduct->unit, $pDataProduct->mfg, $pDataProduct->exp, $pDataProduct->stock, $pDataProductDetail->origin, $pDataProductDetail->brand, $pDataProductDetail->desc, $pDataProduct->purchaseTotal, $pDataProduct->catalogId, $pDataProduct->categoryId);
                 }
 
                 echo "<div class='col col-12'>";
