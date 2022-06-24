@@ -178,6 +178,23 @@ class Shop extends Controller
 
     public function postUpdateProduct()
     {
+        // form data
+        $data = [
+            'name' => empty($_POST['name']) ? '' : $_POST['name'],
+            'price' => empty($_POST['price']) ? 0 : (int)$_POST['price'],
+            'stock' => empty($_POST['stock']) ? 0 : (int)$_POST['stock'],
+            'discount' => empty($_POST['discount']) ? 0 : (int)$_POST['discount'],
+            'unit' => empty($_POST['unit']) ? 'Sản phẩm' : $_POST['unit'],
+            'mfg' => empty($_POST['mfg']) ? strval(date("Y-m-d")) : $_POST['mfg'],
+            'exp' => empty($_POST['exp']) ? strval(date("Y-m-d")) : $_POST['exp'],
+            'origin' => empty($_POST['origin']) ? '' : $_POST['origin'],
+            'brand' => empty($_POST['brand']) ? '' : $_POST['brand'],
+            'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
+        ];
+
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
     }
 
     // Statistic

@@ -20,6 +20,12 @@ function removeNicEditor(descId) {
   myEditor = null;
 }
 
+function autoTrimInputOnChange() {
+  $('input[type="text"]').on("change", function () {
+    $(this).val($(this).val().trim());
+  });
+}
+
 $.validator.addMethod(
   "expCheck",
   function (value, element) {
@@ -117,126 +123,139 @@ jQuery(function () {
       removeNicEditor($(this).attr("desc-id"));
       loadNicEditor($(this).attr("desc-id"));
     }
-  });
 
-  $("#updateProductForm").validate({
-    validClass: "field-valid",
-    errorClass: "field-error",
-    errorElement: "p",
-    ignore: ".nicEdit-main, .validate-ignore",
+    autoTrimInputOnChange();
 
-    rules: {
-      name: {
-        required: true,
-        minlength: 8,
-        maxlength: 150,
-      },
-      catalog: {
-        required: true,
-      },
-      price: {
-        required: true,
-        number: true,
-        min: 500,
-        max: 1_000_000_00,
-      },
-      stock: {
-        required: true,
-        number: true,
-        min: 0,
-        max: 100_000,
-      },
-      discount: {
-        number: true,
-        min: 0,
-        max: 100,
-      },
-      unit: {
-        required: true,
-        minlength: 1,
-        maxlength: 100,
-      },
-      mfg: {
-        required: true,
-        dateISO: true,
-        mfgCheck: true,
-      },
-      exp: {
-        required: true,
-        dateISO: true,
-        expCheck: true,
-      },
-      origin: {
-        required: true,
-        minlength: 2,
-        maxlength: 100,
-      },
-      brand: {
-        required: true,
-        minlength: 2,
-        maxlength: 255,
-      },
-    },
+    $("#updateProductForm").validate({
+      validClass: "field-valid",
+      errorClass: "field-error",
+      errorElement: "p",
+      ignore: ".nicEdit-main, .validate-ignore",
 
-    messages: {
-      name: {
-        required: "Vui lòng nhập tên sản phẩm",
-        minlength: "Tên sản phẩm ít nhất 8 ký tự",
-        maxlength: "Tên sản phẩm nhiều nhất 150 ký tự",
+      rules: {
+        name: {
+          required: true,
+          minlength: 8,
+          maxlength: 150,
+        },
+        catalog: {
+          required: true,
+        },
+        price: {
+          required: true,
+          number: true,
+          min: 500,
+          max: 1_000_000_00,
+        },
+        stock: {
+          required: true,
+          number: true,
+          min: 0,
+          max: 100_000,
+        },
+        discount: {
+          number: true,
+          min: 0,
+          max: 100,
+        },
+        unit: {
+          required: true,
+          minlength: 1,
+          maxlength: 100,
+        },
+        mfg: {
+          required: true,
+          dateISO: true,
+          mfgCheck: true,
+        },
+        exp: {
+          required: true,
+          dateISO: true,
+          expCheck: true,
+        },
+        origin: {
+          required: true,
+          minlength: 2,
+          maxlength: 100,
+        },
+        brand: {
+          required: true,
+          minlength: 2,
+          maxlength: 255,
+        },
       },
-      catalog: {
-        required: "Vui lòng chọn danh mục sản phẩm",
-      },
-      price: {
-        required: "Vui lòng nhập giá sản phẩm",
-        number: "Giá phải là một số",
-        min: "Giá tối thiểu 1.000 đ",
-        max: "Giá tối đa 1.000.000.000 đ",
-      },
-      stock: {
-        required: "Vui lòng nhập SL tồn kho",
-        min: "Tối thiểu là 0",
-        max: "Tối đa là 100.000",
-      },
-      discount: {
-        min: "Tối thiểu là 0%",
-        max: "Tối đa là 100%",
-      },
-      unit: {
-        required: "Vui lòng nhập đơn vị",
-        minlength: "Tối thiểu 1 ký tự",
-        maxlength: "Tối đa 100 ký tự",
-      },
-      mfg: {
-        required: "Vui lòng nhập ngày sản xuất",
-      },
-      exp: {
-        required: "Vui lòng nhập ngày hết hạn",
-      },
-      origin: {
-        required: "Vui lòng nhập xuất xứ",
-        minlength: "Tối thiểu 2 ký tự",
-        maxlength: "Tối đa 100 ký tự",
-      },
-      brand: {
-        required: "Vui lòng nhập thương hiệu",
-        minlength: "Tối thiểu 2 ký tự",
-        maxlength: "Tối đa 100 ký tự",
-      },
-    },
 
-    invalidHandler: function (e, validator) {
-      const { errorList } = validator;
-      if (errorList) {
-        errorList.forEach((item) => {
-          $(item.element).addClass("field-error");
-        });
-      }
-    },
+      messages: {
+        name: {
+          required: "Vui lòng nhập tên sản phẩm",
+          minlength: "Tên sản phẩm ít nhất 8 ký tự",
+          maxlength: "Tên sản phẩm nhiều nhất 150 ký tự",
+        },
+        catalog: {
+          required: "Vui lòng chọn danh mục sản phẩm",
+        },
+        price: {
+          required: "Vui lòng nhập giá sản phẩm",
+          number: "Giá phải là một số",
+          min: "Giá tối thiểu 1.000 đ",
+          max: "Giá tối đa 1.000.000.000 đ",
+        },
+        stock: {
+          required: "Vui lòng nhập SL tồn kho",
+          min: "Tối thiểu là 0",
+          max: "Tối đa là 100.000",
+        },
+        discount: {
+          min: "Tối thiểu là 0%",
+          max: "Tối đa là 100%",
+        },
+        unit: {
+          required: "Vui lòng nhập đơn vị",
+          minlength: "Tối thiểu 1 ký tự",
+          maxlength: "Tối đa 100 ký tự",
+        },
+        mfg: {
+          required: "Vui lòng nhập ngày sản xuất",
+        },
+        exp: {
+          required: "Vui lòng nhập ngày hết hạn",
+        },
+        origin: {
+          required: "Vui lòng nhập xuất xứ",
+          minlength: "Tối thiểu 2 ký tự",
+          maxlength: "Tối đa 100 ký tự",
+        },
+        brand: {
+          required: "Vui lòng nhập thương hiệu",
+          minlength: "Tối thiểu 2 ký tự",
+          maxlength: "Tối đa 100 ký tự",
+        },
+      },
 
-    submitHandler: function (form, e) {
-      e.preventDefault();
-      form.submit();
-    },
+      invalidHandler: function (e, validator) {
+        const { errorList } = validator;
+        if (errorList) {
+          errorList.forEach((item) => {
+            $(item.element).addClass("field-error");
+          });
+        }
+      },
+
+      submitHandler: function (form, e) {
+        const desc = nicEditors.findEditor("desc").getContent();
+
+        if (!desc || !desc.trim() || desc === "<br>") {
+          const ok = confirm(
+            'Chưa nhập "Mô tả sản phẩm", bạn có chắc muốn cập nhật ?'
+          );
+          if (!ok) {
+            return;
+          }
+        }
+
+        $("#descInput").val(desc);
+        form.submit();
+      },
+    });
   });
 });

@@ -91,7 +91,7 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
         
                     <!-- Avt -->
                     <div class='col col-12 col-md-4 col-lg-3'>
-                        <label for='avt' class='form-label'>Đổi ảnh đại diện <span class='required'>(*)</span></label>
+                        <label for='avt' class='form-label'>Đổi ảnh đại diện</label>
                         <input name='avt' class='form-control' type='file' id='avt' accept='image/*'>
                     </div>
                 </div>
@@ -116,8 +116,8 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
                 <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
         
                 <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
-                <textarea class='validate-ignore' cols='20' id='desc-$_id'>$desc</textarea>
-                <input name='desc' id='descInput' type='text' class='d-none' />
+                <textarea class='validate-ignore' cols='20' id='desc-$_id' name='desc'>$desc</textarea>
+                <input id='descInput' type='text' class='d-none' value='" . $desc . "'/>
         
                 <!-- submit button -->
                 <div class='text-end mt-4'>
