@@ -3,7 +3,7 @@ require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/utils/Format.php';
 // global $shop;
 
-function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $shopCatalogId, $shopCategoryId)
+function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $shopCatalogId, $shopCategoryId)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
     $mfgDate = FormatUtil::ISOChangeTimeZone($mfg, 'Y-m-d');
@@ -23,12 +23,17 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
             <h2 class='shop-title'>$name</h2>
             <!-- Avt -->
             <div class='flex-center mb-4 mt-5'>
-            <img src='$productAvt' id='avtImg' alt='Logo' class='rounded-circle' style='width: 15rem; height: 15rem;'>
+            <img src='$productAvt' id='avtImg' name='avt' alt='Logo' class='rounded-circle' style='width: 15rem; height: 15rem;'>
             </div>
         
             <form action='/kenh-ban-hang/san-pham/cap-nhat/post' id='updateProductForm' method='POST' enctype='multipart/form-data'>
                 <h2 class='sub-title'>Cập nhật thông tin cơ bản</h2>
-                <div class='row g-4'>                   
+                <div class='row g-4'>   
+                    <!-- Product Id -->
+                    <input type='hidden' name='_id' value='" . $_id . "'>
+                    <!-- Product code -->
+                    <input type='hidden' name='code' value='" . $code . "'>
+                
                     <!-- Name -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='name' class='form-label'>Tên <span class='required'>(*)</span></label>
@@ -81,12 +86,12 @@ function renderProductModal($catalogs, $_id, $name, $avt, $price, $discount, $un
                     <!-- MFG -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='mfg' class='form-label'>Ngày sản xuất <span class='required'>(*)</span></label>
-                        <input type='date' name='mfg' class='form-control' id='mfg' disabled value='" . $mfgDate . "'>
+                        <input type='date' class='form-control' id='mfg' disabled value='" . $mfgDate . "'>
                     </div>
                     <!-- EXP -->
                     <div class='col col-12 col-md-4 col-lg-3'>
                         <label for='exp' class='form-label'>Ngày hết hạn <span class='required'>(*)</span></label>
-                        <input type='date' name='exp' class='form-control' id='exp' disabled value='" . $expDate . "'>
+                        <input type='date' class='form-control' id='exp' disabled value='" . $expDate . "'>
                     </div>          
         
                     <!-- Avt -->

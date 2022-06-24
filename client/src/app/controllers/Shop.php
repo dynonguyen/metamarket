@@ -178,23 +178,44 @@ class Shop extends Controller
 
     public function postUpdateProduct()
     {
+        global $shop;
         // form data
-        $data = [
+        $updateData = [
+            '_id' => empty($_POST['_id']) ? '' : $_POST['_id'],
+            'code' => empty($_POST['code']) ? '' : $_POST['code'],
             'name' => empty($_POST['name']) ? '' : $_POST['name'],
             'price' => empty($_POST['price']) ? 0 : (int)$_POST['price'],
             'stock' => empty($_POST['stock']) ? 0 : (int)$_POST['stock'],
             'discount' => empty($_POST['discount']) ? 0 : (int)$_POST['discount'],
             'unit' => empty($_POST['unit']) ? 'Sản phẩm' : $_POST['unit'],
-            'mfg' => empty($_POST['mfg']) ? strval(date("Y-m-d")) : $_POST['mfg'],
-            'exp' => empty($_POST['exp']) ? strval(date("Y-m-d")) : $_POST['exp'],
+            'avt' => empty($_POST['avt']) ? '' : $_POST['avt'],
             'origin' => empty($_POST['origin']) ? '' : $_POST['origin'],
             'brand' => empty($_POST['brand']) ? '' : $_POST['brand'],
             'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
         ];
 
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
+        if (!empty($_FILES['avt']) && !empty($_FILES['avt']['tmp_name'])) {
+            $src = $_FILES['avt']['tmp_name'];
+
+            // Remove old avt
+            $oldAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt.*';
+            array_map('unlink', glob($oldAvtSrc));
+
+            // Remove old thumb avt
+            $oldThumbAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt_thumb.*';
+            array_map('unlink', glob($oldThumbAvtSrc));
+
+            // Create new image
+            // $type = str_replace('image/', '', $_FILES['avt']['type']);
+            // $updateData['avt'] = 'upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . "/avt.$type";
+            // move_uploaded_file($src, _DIR_ROOT . '/public/' . $updateData['avt']);
+
+            // Create new avt and thumb avt
+            $avtSrc = $this->uploadProductPhoto($_FILES['avt']['tmp_name'], 'avt',  str_replace('image/', '', $_FILES['avt']['type']), $shop->_get('shopId'), $updateData['code'], 260);
+            $updateData['avt'] = str_replace(_DIR_ROOT . '/public/', '', $avtSrc);
+        }
+
+        self::redirect('/kenh-ban-hang/san-pham/tat-ca');
     }
 
     // Statistic
