@@ -143,6 +143,11 @@ jQuery(function () {
       previewImage(this, $("#avtImg"));
     });
 
+    $(".photo").on("click", function () {
+      $("#" + $(this).attr("data-photo")).removeAttr("disabled");
+      $("#" + $(this).attr("data-thumb")).removeAttr("disabled");
+    });
+
     autoTrimInputOnChange();
 
     $("#updateProductForm").validate({

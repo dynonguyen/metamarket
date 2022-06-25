@@ -191,28 +191,47 @@ class Shop extends Controller
             'avt' => empty($_POST['avt']) ? '' : $_POST['avt'],
             'origin' => empty($_POST['origin']) ? '' : $_POST['origin'],
             'brand' => empty($_POST['brand']) ? '' : $_POST['brand'],
+            'currentPhotos' => empty($_POST['currentPhotos']) ? '' : $_POST['currentPhotos'],
+            'removePhotos' => empty($_POST['removePhotos']) ? '' : $_POST['removePhotos'],
+            'removeThumbPhotos' => empty($_POST['removeThumbPhotos']) ? '' : $_POST['removeThumbPhotos'],
             'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
         ];
 
+        // Edit product avt
         if (!empty($_FILES['avt']) && !empty($_FILES['avt']['tmp_name'])) {
-            $src = $_FILES['avt']['tmp_name'];
-
             // Remove old avt
             $oldAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt.*';
             array_map('unlink', glob($oldAvtSrc));
+
+            print_r($oldAvtSrc);
+            die();
 
             // Remove old thumb avt
             $oldThumbAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt_thumb.*';
             array_map('unlink', glob($oldThumbAvtSrc));
 
-            // Create new image
-            // $type = str_replace('image/', '', $_FILES['avt']['type']);
-            // $updateData['avt'] = 'upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . "/avt.$type";
-            // move_uploaded_file($src, _DIR_ROOT . '/public/' . $updateData['avt']);
-
             // Create new avt and thumb avt
             $avtSrc = $this->uploadProductPhoto($_FILES['avt']['tmp_name'], 'avt',  str_replace('image/', '', $_FILES['avt']['type']), $shop->_get('shopId'), $updateData['code'], 260);
             $updateData['avt'] = str_replace(_DIR_ROOT . '/public/', '', $avtSrc);
+        }
+
+        // Remove chosen photos
+        $currentPhotosLen = count($updateData['currentPhotos']);
+        $removePhotosLen = count($updateData['removePhotos']);
+        if (!empty($updateData['removePhotos'])) {
+            for ($i = 0; $i < $currentPhotosLen; $i++) {
+                for ($j = 0; $j < $removePhotosLen; $j++) {
+                    if ($updateData['removePhotos'][$j] == $updateData['currentPhotos'][$i]) {
+                        // Remove old product photo
+                        $oldPhotoSrc = _DIR_ROOT . '/public/' . $updateData['removePhotos'][$j];
+                        array_map('unlink', glob($oldPhotoSrc));
+
+                        // Remove old thumb product photo
+                        $oldThumbPhotoSrc = _DIR_ROOT . '/public/' . $updateData['removeThumbPhotos'][$j];
+                        array_map('unlink', glob($oldThumbPhotoSrc));
+                    }
+                }
+            }
         }
 
         self::redirect('/kenh-ban-hang/san-pham/tat-ca');

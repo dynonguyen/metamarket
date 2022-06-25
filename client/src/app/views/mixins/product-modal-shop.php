@@ -3,7 +3,7 @@ require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/utils/Format.php';
 // global $shop;
 
-function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $desc, $shopCatalogId, $shopCategoryId)
+function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discount, $unit, $mfg, $exp, $stock, $origin, $brand, $photos, $desc, $shopCatalogId, $shopCategoryId)
 {
     $productAvt = empty($avt) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$avt");
     $mfgDate = FormatUtil::ISOChangeTimeZone($mfg, 'Y-m-d');
@@ -119,8 +119,29 @@ function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discou
                 
                 <h2 class='sub-title mt-5'>Thêm hình ảnh sản phẩm</h2>
                 <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
-        
-                <h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
+                <br>";
+
+    foreach ($photos as $photo) {
+        $key = array_search($photo, $photos);
+        $productPhoto = empty($photo) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$photo");
+        $productThumbPhoto = empty($photo) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail($photo);
+
+        echo "<input class='validate-ignore' cols='20' name='currentPhotos[]' readonly hidden value='" . $photo . "'/>"; // Sending current photos
+        echo "<input class='validate-ignore' id='removePhoto-$key' cols='20' name='removePhotos[]' readonly hidden disabled value='" . $photo . "'/>"; // Sending photos to remove
+        echo "<input class='validate-ignore' id='removeThumb-$key' cols='20' name='removeThumbPhotos[]' readonly hidden disabled value='" . $productThumbPhoto . "'/>"; // Sending thumb photos to remove
+    }
+    echo "<div class='row g-4'>";
+
+    foreach ($photos as $photo) {
+        $key = array_search($photo, $photos);
+        $productPhoto = empty($photo) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$photo");
+        echo " <div class='col col-12 col-md-4 col-lg-3'>
+                    <img src='$productPhoto' class='photo' data-photo='removePhoto-$key' data-thumb='removeThumb-$key' alt='photo' style='width: 15rem; height: 15rem;'>
+                </div>";
+    }
+    echo "</div>";
+
+    echo "<h2 class='sub-title mt-5'>Mô tả sản phẩm</h2>
                 <textarea class='validate-ignore' cols='20' id='desc-$_id' name='desc'>$desc</textarea>
                 <input id='descInput' type='text' class='d-none' value='" . $desc . "'/>
         
