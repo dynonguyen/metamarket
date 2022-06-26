@@ -193,10 +193,10 @@ class Shop extends Controller
             'avt' => empty($_POST['avt']) ? '' : $_POST['avt'],
             'origin' => empty($_POST['origin']) ? '' : $_POST['origin'],
             'brand' => empty($_POST['brand']) ? '' : $_POST['brand'],
-            'currentPhotos' => empty($_POST['currentPhotos']) ? '' : $_POST['currentPhotos'],
-            'removePhotos' => empty($_POST['removePhotos']) ? '' : $_POST['removePhotos'],
-            'removeThumbPhotos' => empty($_POST['removeThumbPhotos']) ? '' : $_POST['removeThumbPhotos'],
-            'photos' => empty($_POST['photos']) ? '' : $_POST['photos'],
+            'currentPhotos' => empty($_POST['currentPhotos']) ? [] : $_POST['currentPhotos'],
+            'removePhotos' => empty($_POST['removePhotos']) ? [] : $_POST['removePhotos'],
+            'removeThumbPhotos' => empty($_POST['removeThumbPhotos']) ? [] : $_POST['removeThumbPhotos'],
+            'photos' => empty($_POST['photos']) ? [] : $_POST['photos'],
             'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
         ];
 
@@ -237,16 +237,16 @@ class Shop extends Controller
             }
         }
 
+        // Use RegExr to get latest photo name
         $latestPhotoSrc = end($updateData['currentPhotos']);
         $regexLatestPhoto = "/\d+(?=\.)/i";
         $matches = array();
         $latestPhotoSrc = preg_match($regexLatestPhoto, $latestPhotoSrc, $matches);
-
         $latestPhotoName = $matches[0];
 
-        // photos
+        // Add more product photos
         $photos = [];
-        if (!empty($_FILES['photos'])) {
+        if ($_FILES['photos']['name'][0] != '') {
             $len = sizeof($_FILES['photos']['tmp_name']);
             for ($i = 0; $i < $len; ++$i) {
                 $src = $this->uploadProductPhoto($_FILES['photos']['tmp_name'][$i], strval($i + (int)$latestPhotoName + 1), str_replace('image/', '', $_FILES['photos']['type'][$i]), $shopId, $updateData['code'], 80);

@@ -119,7 +119,9 @@ function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discou
                 
                 <h2 class='sub-title mt-5'>Thêm hình ảnh sản phẩm</h2>
                 <input name='photos[]' class='form-control' multiple type='file' id='photos' accept='image/*'>
-                <br>";
+                <br>
+
+                <h2 class='sub-title mt-5'>Chọn hình ảnh sản phẩm cần xóa</h2>";
 
     foreach ($photos as $photo) {
         $key = array_search($photo, $photos);
@@ -136,7 +138,7 @@ function renderProductModal($catalogs, $_id, $code, $name, $avt, $price, $discou
         $key = array_search($photo, $photos);
         $productPhoto = empty($photo) ? DEFAULT_PRODUCT_AVT : ImageUtil::toThumbnail(STATIC_FILE_URL . "/$photo");
         echo " <div class='col col-12 col-md-4 col-lg-3'>
-                    <img src='$productPhoto' class='photo' data-photo='removePhoto-$key' data-thumb='removeThumb-$key' alt='photo' style='width: 15rem; height: 15rem;'>
+                    <img src='$productPhoto' class='photo' id='photo-$key' data-photo='removePhoto-$key' data-thumb='removeThumb-$key' photo-position='$key' alt='photo' style='width: 15rem; height: 15rem;'>
                 </div>";
     }
     echo "</div>";

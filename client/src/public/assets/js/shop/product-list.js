@@ -144,8 +144,16 @@ jQuery(function () {
     });
 
     $(".photo").on("click", function () {
-      $("#" + $(this).attr("data-photo")).removeAttr("disabled");
-      $("#" + $(this).attr("data-thumb")).removeAttr("disabled");
+      let text = `Bạn muốn xóa hình ảnh thứ ${
+        Number($(this).attr("photo-position")) + 1
+      } này của sản phẩm?`;
+      if (confirm(text) == true) {
+        $("#" + $(this).attr("data-photo")).removeAttr("disabled");
+        $("#" + $(this).attr("data-thumb")).removeAttr("disabled");
+        $(this).attr("hidden", true);
+      } else {
+        return;
+      }
     });
 
     autoTrimInputOnChange();
