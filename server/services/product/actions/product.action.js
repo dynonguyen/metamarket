@@ -403,9 +403,38 @@ module.exports = {
 		},
 		async handler(ctx) {
 			try {
+				if (!ctx.params.updateFields) {
+					throw new Error('Invalid params');
+				}
 				const updateRes = await Product.updateOne(
 					{ _id: ctx.params.productId },
-					{ ...ctx.params.updateFields },
+					{ $set: { ...ctx.params.updateFields } },
+				);
+				if (updateRes) {
+					return true;
+				}
+				return false;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putUpdateDetailByProductId: {
+		cache: false,
+		params: {
+			productId: 'string',
+			updateFields: 'any',
+		},
+		async handler(ctx) {
+			try {
+				if (!ctx.params.updateFields) {
+					throw new Error('Invalid params');
+				}
+				const updateRes = await ProductDetail.updateOne(
+					{ productId: ctx.params.productId },
+					{ $set: { ...ctx.params.updateFields } },
 				);
 				if (updateRes) {
 					return true;
@@ -485,6 +514,175 @@ module.exports = {
 					{ $inc: { purchaseTotal: 1 * Number(ctx.params.quantity) } },
 				);
 				return true;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putShopUpdateProductById: {
+		cache: false,
+		params: {
+			catalogId: 'string',
+			categoryId: [
+				{ type: 'number', min: 0 },
+				{ type: 'string', numeric: true },
+			],
+			productId: 'string',
+			code: 'string',
+			name: 'string',
+			price: { type: 'number', min: 0 },
+			stock: { type: 'number', min: 0 },
+			discount: { type: 'number', min: 0, max: 100 },
+			unit: 'string',
+			avt: 'string',
+			origin: 'string',
+			brand: 'string',
+			currentPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			removePhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			removeThumbPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			addPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			productPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			desc: { type: 'string', optional: true, default: '' },
+		},
+		async handler(ctx) {
+			const {
+				catalogId,
+				categoryId,
+				productId,
+				code,
+				name,
+				price,
+				stock,
+				discount,
+				unit,
+				avt,
+				origin,
+				brand,
+				currentPhotos,
+				removePhotos,
+				removeThumbPhotos,
+				addPhotos,
+				productPhotos,
+				desc,
+			} = ctx.params;
+			try {
+				await ctx.call(`${SVC_NAME.PRODUCT}.putUpdateProductById`, {
+					productId: productId,
+					updateFields: {
+						catalogId: catalogId,
+						categoryId: categoryId,
+						name: name,
+						price: price,
+						stock: stock,
+						discount: discount,
+						unit: unit,
+					},
+				});
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putShopUpdateDetailByProductId: {
+		cache: false,
+		params: {
+			catalogId: 'string',
+			categoryId: [
+				{ type: 'number', min: 0 },
+				{ type: 'string', numeric: true },
+			],
+			productId: 'string',
+			code: 'string',
+			name: 'string',
+			price: { type: 'number', min: 0 },
+			stock: { type: 'number', min: 0 },
+			discount: { type: 'number', min: 0, max: 100 },
+			unit: 'string',
+			avt: 'string',
+			origin: 'string',
+			brand: 'string',
+			currentPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			removePhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			removeThumbPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			addPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			productPhotos: {
+				type: 'array',
+				items: 'string',
+				default: [],
+			},
+			desc: { type: 'string', optional: true, default: '' },
+		},
+		async handler(ctx) {
+			const {
+				catalogId,
+				categoryId,
+				productId,
+				code,
+				name,
+				price,
+				stock,
+				discount,
+				unit,
+				avt,
+				origin,
+				brand,
+				currentPhotos,
+				removePhotos,
+				removeThumbPhotos,
+				addPhotos,
+				productPhotos,
+				desc,
+			} = ctx.params;
+			try {
+				await ctx.call(`${SVC_NAME.PRODUCT}.putUpdateDetailByProductId`, {
+					productId: productId,
+					updateFields: {
+						photos: productPhotos,
+						origin: origin,
+						brand: brand,
+						desc: desc,
+					},
+				});
 			} catch (error) {
 				this.logger.error(error);
 				throw new MoleculerError(error.toString(), 500);

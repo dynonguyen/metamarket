@@ -25,6 +25,9 @@ const productAliases = {
 	'POST products/add-product': `${PRODUCT_SVC}.postAddProduct`,
 	'PUT products/decr-stock': `${PRODUCT_SVC}.putDecreaseProductStockById`,
 	'PUT products/incr-purchase': `${PRODUCT_SVC}.putIncreasePurchaseTotalById`,
+
+	'PUT products/update-product': `${PRODUCT_SVC}.putShopUpdateProductById`,
+	'PUT products/update-product-detail': `${PRODUCT_SVC}.putShopUpdateDetailByProductId`,
 };
 
 const aggregateAliases = {

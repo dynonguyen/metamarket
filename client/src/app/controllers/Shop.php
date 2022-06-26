@@ -96,6 +96,7 @@ class Shop extends Controller
             $productDetailList[] = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $queryProductDetails);
         }
 
+        $this->showSessionMessage();
         $this->setViewContent('catalogs', $catalogs);
         $this->setViewContent('productDocs', $productDocs);
         $this->setViewContent('productDetailList', $productDetailList);
@@ -181,9 +182,15 @@ class Shop extends Controller
         global $shop;
         $shopId = $shop->_get('shopId');
 
+        // catalog
+        $catalog = empty($_POST['catalog']) ? '' : $_POST['catalog'];
+        [0 => $catalogId, 1 => $categoryId] = explode('/', $catalog);
+
         // form data
         $updateData = [
-            '_id' => empty($_POST['_id']) ? '' : $_POST['_id'],
+            'catalogId' => $catalogId,
+            'categoryId' => (int)$categoryId,
+            'productId' => empty($_POST['_id']) ? '' : $_POST['_id'],
             'code' => empty($_POST['code']) ? '' : $_POST['code'],
             'name' => empty($_POST['name']) ? '' : $_POST['name'],
             'price' => empty($_POST['price']) ? 0 : (int)$_POST['price'],
@@ -196,7 +203,8 @@ class Shop extends Controller
             'currentPhotos' => empty($_POST['currentPhotos']) ? [] : $_POST['currentPhotos'],
             'removePhotos' => empty($_POST['removePhotos']) ? [] : $_POST['removePhotos'],
             'removeThumbPhotos' => empty($_POST['removeThumbPhotos']) ? [] : $_POST['removeThumbPhotos'],
-            'photos' => empty($_POST['photos']) ? [] : $_POST['photos'],
+            'addPhotos' => empty($_POST['photos']) ? [] : $_POST['photos'],
+            'productPhotos' => [],
             'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
         ];
 
@@ -205,9 +213,6 @@ class Shop extends Controller
             // Remove old avt
             $oldAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt.*';
             array_map('unlink', glob($oldAvtSrc));
-
-            print_r($oldAvtSrc);
-            die();
 
             // Remove old thumb avt
             $oldThumbAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt_thumb.*';
@@ -254,7 +259,30 @@ class Shop extends Controller
             }
         }
 
-        self::redirect('/kenh-ban-hang/san-pham/tat-ca');
+        $updateData['addPhotos'] = $photos; // update photos
+        $remainPhotos = array();
+        $remainPhotos = array_diff($updateData['currentPhotos'], $updateData['removePhotos']);
+        $updateData['productPhotos'] = array_merge($remainPhotos, $updateData['addPhotos']); // productPhotos will be used to update in database
+
+        // Update product in database
+        $apiResProduct = ApiCaller::put(PRODUCT_SERVICE_API_URL . '/update-product', $updateData);
+        if ($apiResProduct['statusCode'] === 200 || $apiResProduct['statusCode'] === 201) {
+            $this->setViewContent('isError', false);
+        } else {
+            $this->setViewContent('isError', true);
+        }
+
+        // Update product detail  in database
+        $apiResProductDetail = ApiCaller::put(PRODUCT_SERVICE_API_URL . '/update-product-detail', $updateData);
+        if ($apiResProductDetail['statusCode'] === 200 || $apiResProductDetail['statusCode'] === 201) {
+            $this->setViewContent('isError', false);
+            $this->setSessionMessage('Cập nhật thành công', false);
+            self::redirect('/kenh-ban-hang/san-pham/tat-ca');
+        } else {;
+            $this->setViewContent('isError', true);
+            $this->setSessionMessage('Cập nhật thất bại', true);
+            self::redirect('/kenh-ban-hang/san-pham/tat-ca');
+        }
     }
 
     // Statistic
