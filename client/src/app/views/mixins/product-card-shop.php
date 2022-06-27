@@ -29,7 +29,7 @@ function renderProductCard($_id, $name, $avt, $price, $discount, $unit, $exp, $s
             <div class='product-bottom'>
                 <p class='text-gray fs-4'>HSD: $expDate</p>
                 <p class='text-gray fs-4 mb-3'>Đã bán ($purchaseTotal) - Tồn kho: $stock</p>
-                <button class='btn btn-outline-primary-accent' data-id='$_id'>Chỉnh sửa</button>
+                <a class='btn btn-outline-primary-accent update-product' desc-id='desc-$_id' data-bs-toggle='modal' data-bs-target='#exampleModal-$_id'>Chỉnh sửa</a>
             </div>
         </div>";
 }

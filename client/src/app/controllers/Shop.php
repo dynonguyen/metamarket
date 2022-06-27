@@ -1,6 +1,7 @@
 <?php
 require_once _DIR_ROOT . '/utils/Image.php';
 require_once _DIR_ROOT . '/app/models/Account.php';
+require_once _DIR_ROOT . '/utils/Format.php';
 
 class Shop extends Controller
 {
@@ -59,6 +60,14 @@ class Shop extends Controller
     {
         global $shop;
 
+        // Get catalog options
+        $catalogApi = ApiCaller::get(PRODUCT_SERVICE_API_URL . '/catalogs?select=-link%20-categories.link');
+        $catalogs = [];
+        if ($catalogApi['statusCode'] === 200) {
+            $catalogs = $catalogApi['data'];
+        }
+
+        // Get products list by shopId
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $sort = empty($_GET['s']) ? '' : $_GET['s'];
         $query = empty($_GET['q']) ? '' : $_GET['q'];
@@ -67,7 +76,7 @@ class Shop extends Controller
             'shopId' => $shop->_get('shopId'),
             'page' => $page,
             'pageSize' => DEFAULT_PAGE_SIZE,
-            'select' => '_id code name avt price discount unit stock purchaseTotal exp',
+            'select' => '_id code name avt price discount unit stock purchaseTotal exp catalogId categoryId',
             'sort' => $sort,
             'query' => $query
 
@@ -79,12 +88,25 @@ class Shop extends Controller
             $productDocs = $apiRes['data'];
         }
 
+        // Get product-details by productId in the above list
+        $productDetailList = array();
+
+        foreach ($productDocs->docs as $pDoc) {
+            $queryProductDetails = $pDoc->_id;
+            $productDetailList[] = ApiCaller::get(AGGREGATE_SERVICE_API_URL . '/product-details/' . $queryProductDetails);
+        }
+
+        $this->showSessionMessage();
+        $this->setViewContent('catalogs', $catalogs);
+        $this->setViewContent('productDocs', $productDocs);
+        $this->setViewContent('productDetailList', $productDetailList);
         $this->setPassedVariables(['sort' => $sort]);
         $this->setPassedVariables(['filter' => $filter]);
-        $this->setViewContent('productDocs', $productDocs);
-        $this->appendCssLink(['product-card.css', 'pagination.css']);
-        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
+        $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
+        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
         $this->setContentViewPath('shop/product-list');
+        $this->appendCssLink(['product-card.css', 'product-modal.css', 'pagination.css']);
+        $this->appendJSLink(['pagination.js', 'shop/product-list.js']);
         $this->setPageTitle('Danh sách sản phẩm');
         $this->render('layouts/shop', $this->data);
     }
@@ -153,6 +175,114 @@ class Shop extends Controller
 
         $this->appendJSLink('utils/toast.js');
         $this->renderAddProductPage();
+    }
+
+    public function postUpdateProduct()
+    {
+        global $shop;
+        $shopId = $shop->_get('shopId');
+
+        // catalog
+        $catalog = empty($_POST['catalog']) ? '' : $_POST['catalog'];
+        [0 => $catalogId, 1 => $categoryId] = explode('/', $catalog);
+
+        // form data
+        $updateData = [
+            'catalogId' => $catalogId,
+            'categoryId' => (int)$categoryId,
+            'productId' => empty($_POST['_id']) ? '' : $_POST['_id'],
+            'code' => empty($_POST['code']) ? '' : $_POST['code'],
+            'name' => empty($_POST['name']) ? '' : $_POST['name'],
+            'price' => empty($_POST['price']) ? 0 : (int)$_POST['price'],
+            'stock' => empty($_POST['stock']) ? 0 : (int)$_POST['stock'],
+            'discount' => empty($_POST['discount']) ? 0 : (int)$_POST['discount'],
+            'unit' => empty($_POST['unit']) ? 'Sản phẩm' : $_POST['unit'],
+            'avt' => empty($_POST['avt']) ? '' : $_POST['avt'],
+            'origin' => empty($_POST['origin']) ? '' : $_POST['origin'],
+            'brand' => empty($_POST['brand']) ? '' : $_POST['brand'],
+            'currentPhotos' => empty($_POST['currentPhotos']) ? [] : $_POST['currentPhotos'],
+            'removePhotos' => empty($_POST['removePhotos']) ? [] : $_POST['removePhotos'],
+            'removeThumbPhotos' => empty($_POST['removeThumbPhotos']) ? [] : $_POST['removeThumbPhotos'],
+            'addPhotos' => empty($_POST['photos']) ? [] : $_POST['photos'],
+            'productPhotos' => [],
+            'desc' => empty($_POST['desc']) ? '' : $_POST['desc'],
+        ];
+
+        // Edit product avt
+        if (!empty($_FILES['avt']) && !empty($_FILES['avt']['tmp_name'])) {
+            // Remove old avt
+            $oldAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt.*';
+            array_map('unlink', glob($oldAvtSrc));
+
+            // Remove old thumb avt
+            $oldThumbAvtSrc = _DIR_ROOT . '/public/upload/shop-' . $shop->_get('shopId') . '/products/' . $updateData['code'] . '/avt_thumb.*';
+            array_map('unlink', glob($oldThumbAvtSrc));
+
+            // Create new avt and thumb avt
+            $avtSrc = $this->uploadProductPhoto($_FILES['avt']['tmp_name'], 'avt',  str_replace('image/', '', $_FILES['avt']['type']), $shop->_get('shopId'), $updateData['code'], 260);
+            $updateData['avt'] = str_replace(_DIR_ROOT . '/public/', '', $avtSrc);
+        }
+
+        // Remove chosen photos
+        if (!empty($updateData['removePhotos'])) {
+            $currentPhotosLen = count($updateData['currentPhotos']);
+            $removePhotosLen = count($updateData['removePhotos']);
+            for ($i = 0; $i < $currentPhotosLen; $i++) {
+                for ($j = 0; $j < $removePhotosLen; $j++) {
+                    if ($updateData['removePhotos'][$j] == $updateData['currentPhotos'][$i]) {
+                        // Remove old product photo
+                        $oldPhotoSrc = _DIR_ROOT . '/public/' . $updateData['removePhotos'][$j];
+                        array_map('unlink', glob($oldPhotoSrc));
+
+                        // Remove old thumb product photo
+                        $oldThumbPhotoSrc = _DIR_ROOT . '/public/' . $updateData['removeThumbPhotos'][$j];
+                        array_map('unlink', glob($oldThumbPhotoSrc));
+                    }
+                }
+            }
+        }
+
+        // Use RegExr to get latest photo name
+        $latestPhotoSrc = end($updateData['currentPhotos']);
+        $regexLatestPhoto = "/\d+(?=\.)/i";
+        $matches = array();
+        $latestPhotoSrc = preg_match($regexLatestPhoto, $latestPhotoSrc, $matches);
+        $latestPhotoName = $matches[0];
+
+        // Add more product photos
+        $photos = [];
+        if ($_FILES['photos']['name'][0] != '') {
+            $len = sizeof($_FILES['photos']['tmp_name']);
+            for ($i = 0; $i < $len; ++$i) {
+                $src = $this->uploadProductPhoto($_FILES['photos']['tmp_name'][$i], strval($i + (int)$latestPhotoName + 1), str_replace('image/', '', $_FILES['photos']['type'][$i]), $shopId, $updateData['code'], 80);
+                array_push($photos, $src);
+            }
+        }
+
+        $updateData['addPhotos'] = $photos; // update photos
+        $remainPhotos = array();
+        $remainPhotos = array_diff($updateData['currentPhotos'], $updateData['removePhotos']);
+        $updateData['productPhotos'] = array_merge($remainPhotos, $updateData['addPhotos']); // productPhotos will be used to update in database
+
+        // Update product in database
+        $apiResProduct = ApiCaller::put(PRODUCT_SERVICE_API_URL . '/update-product', $updateData);
+        if ($apiResProduct['statusCode'] === 200 || $apiResProduct['statusCode'] === 201) {
+            $this->setViewContent('isError', false);
+        } else {
+            $this->setViewContent('isError', true);
+        }
+
+        // Update product detail  in database
+        $apiResProductDetail = ApiCaller::put(PRODUCT_SERVICE_API_URL . '/update-product-detail', $updateData);
+        if ($apiResProductDetail['statusCode'] === 200 || $apiResProductDetail['statusCode'] === 201) {
+            $this->setViewContent('isError', false);
+            $this->setSessionMessage('Cập nhật thành công', false);
+            self::redirect('/kenh-ban-hang/san-pham/tat-ca');
+        } else {;
+            $this->setViewContent('isError', true);
+            $this->setSessionMessage('Cập nhật thất bại', true);
+            self::redirect('/kenh-ban-hang/san-pham/tat-ca');
+        }
     }
 
     // Statistic
