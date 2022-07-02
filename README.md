@@ -70,15 +70,15 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 
 ### **Use Case Diagram**
 
-![UC-Diagram](https://res.cloudinary.com/dynonary/image/upload/v1652197093/metamarket/UC-Diagram.png)
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1652197093/metamarket/UC-Diagram.png" /></div>
 
 ### **Microservices Architecture**
 
-![Microservices Architecture](https://res.cloudinary.com/dynonary/image/upload/v1652197017/metamarket/Microservice_Architecture.jpg)
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1652197017/metamarket/Microservice_Architecture.jpg" /></div>
 
 ### **Database Diagram**
 
-![DB Diagram](https://res.cloudinary.com/dynonary/image/upload/v1652197204/metamarket/DB-Diagram.jpg)
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1652197204/metamarket/DB-Diagram.jpg" /></div>
 
 # Hướng dẫn chạy
 
@@ -158,4 +158,28 @@ Java framework (NodeJS ...) dùng để xây dựng API, trả dữ liệu về 
 > **Thông tin dùng kiểm thử**
 
 - Test thanh toán bằng MoMo ATM, [xem tại đây](https://developers.momo.vn/v3/vi/docs/payment/onboarding/test-instructions/)
-  ![Momo Test](https://res.cloudinary.com/dynonary/image/upload/v1652176343/metamarket/momo-test.jpg)
+
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1652176343/metamarket/momo-test.jpg" /></div>
+
+# Kết quả sau khi chạy
+
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture5.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture6.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture7.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture8.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture9.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture10.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture11.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture11.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture13.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture14.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture15.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture16.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture17.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture18.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture19.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture20.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture21.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture22.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture23.png" /></div>
+<div align="center"><img src="https://res.cloudinary.com/dynonary/image/upload/v1656727391/metamarket/result/Picture24.png" /></div>
