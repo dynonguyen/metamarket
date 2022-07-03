@@ -12,11 +12,7 @@ $navbarMenu = [
             [
                 'to' => 'them-shipper',
                 'label' => 'Thêm shipper'
-            ],
-            [
-                'to' => 'sua-shipper',
-                'label' => 'cập nhật thông tin shipper'
-            ],
+            ]
         ]
     ],
     [
@@ -30,7 +26,7 @@ $navbarMenu = [
             ],
             [
                 'to' => 'cho-duyet',
-                'label' => 'Các cửa hàng chờ duyệt'
+                'label' => 'Cửa hàng chờ duyệt'
             ]
         ]
     ],

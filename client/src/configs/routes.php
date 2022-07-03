@@ -20,7 +20,7 @@ $routes['thuc-hien-thay-doi-mat-khau'] = 'account/postChangePassword';
 $routes['dang-ky-ban-hang'] = 'account/shopRegister';
 
 // User
-$routes['tai-khoan'] = 'user/index';
+$routes['tai-khoan/thong-tin'] = 'user/index';
 $routes['tai-khoan/cap-nhat-thong-tin'] = 'user/postUpdateInfo';
 $routes['tai-khoan/don-hang'] = 'user/orders';
 
@@ -72,3 +72,4 @@ $routes['ket-qua-thanh-toan'] = 'order/momoPaymentResult';
 $routes['kenh-quan-ly/shipper'] = 'admin/shipperList';
 $routes['kenh-quan-ly/shipper/them-shipper'] = 'admin/viewAddShipper';
 $routes['kenh-quan-ly/shipper/them-shipper/post'] = 'admin/addShipper';
+$routes['kenh-quan-ly/cua-hang/tat-ca'] = 'admin/shopList';

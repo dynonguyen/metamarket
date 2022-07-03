@@ -50,11 +50,33 @@ class Admin extends Controller
         }
         $this->renderViewAddShipper();
     }
+    public function shopList()
+    {
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $pageSize = DEFAULT_PAGE_SIZE;
+
+        $total = ShopModel::countAllShop();
+        $shops = ShopModel::findAll($page, $pageSize);
+        $this->renderShopList($shops, $page, $total, $pageSize);
+    }
+
+    private function renderShopList($shops, $page, $total, $pageSize)
+    {
+        $this->setViewContent('shops', $shops);
+        $this->setViewContent('totalPage', ceil($total / $pageSize));
+        $this->setViewContent('page', $page);
+
+        $this->appendCssLink(['pagination.css']);
+        $this->appendJSLink(['pagination.js']);
+        $this->setPageTitle('Quản lý cửa hàng');
+        $this->setContentViewPath('admin/shop-list');
+        $this->render('layouts/admin');
+    }
     private function renderViewAddShipper()
     {
         $this->setPageTitle('Quản lý shipper');
         $this->setPassedVariables(['STATIC_FILE_URL' => STATIC_FILE_URL]);
-        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', '/public/vendors/nicEdit/nicEdit.min.js']);
+        $this->appendJsCDN(['https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js']);
         $this->appendCssLink(['home.css', 'admin/shipper.css',]);
         $this->appendJSLink(['utils/format.js', 'admin/shipper.js']);
         $this->setPassedVariables(['INTERNAL_SERVICE_API_URL' => INTERNAL_SERVICE_API_URL]);

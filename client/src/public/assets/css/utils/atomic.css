@@ -68,7 +68,8 @@
 	pointer-events: none;
 }
 
-.shop-title {
+.shop-title,
+.admin-title {
 	text-align: center;
 	text-transform: uppercase;
 	font-size: 2.4rem;

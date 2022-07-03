@@ -11,59 +11,42 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
             <i class="bi bi-search" id="search"></i>
         </button>
     </div>
-
-    <table class='table table-striped fs-3'>
-        <thead>
-            <tr class='header'>
-                <th>Mã shipper
-                </th>
-                <th>Tên tài khoản
-                </th>
-                <th>Địa chỉ
-                </th>
-                <th>GPLX
-                </th>
-                <th>CMND/CCCD
-                </th>
-                <th>Tình trạng
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $shippers = $shipperData->result->rows;
-            $total = $shipperData->result->count;
-            $page = $shipperData->page;
-            $pagesize = $shipperData->pagesize;
-            $totalpage = ceil($total / $pagesize);
-            foreach ($shippers as $item) {
-                if ($item->status == 1)
+    <h1 class="admin-title">Danh sách shipper</h1>
+    <div class='bg-white p-4'>
+        <table class='table table-striped fs-3'>
+            <thead>
+                <tr class='header'>
+                    <th>Mã shipper</th>
+                    <th>Tên tài khoản</th>
+                    <th>Địa chỉ</th>
+                    <th>GPLX</th>
+                    <th>CMND/CCCD</th>
+                    <th>Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $shippers = $shipperData->result->rows;
+                $total = $shipperData->result->count;
+                $page = $shipperData->page;
+                $pagesize = $shipperData->pagesize;
+                $totalPage = ceil($total / $pagesize);
+                foreach ($shippers as $shipper) {
+                    $status = $shipper->status === 1 ? 'Đang hoạt động' : 'Không hoạt động';
                     echo "<tr>
-                    <td>$item->shipperId</td>
-                    <td>$item->username</td>
-                    <td>$item->address</td>
-                    <td>$item->driverLicense</td>
-                    <td>$item->peopleId</td>
-                    <td>Hoạt động</td>
-                </tr>";
-                else {
-                    echo "<tr>
-                    <td>$item->shipperId</td>
-                    <td>$item->username</td>
-                    <td>$item->address</td>
-                    <td>$item->driverLicense</td>
-                    <td>$item->peopleId</td>
-                    <td>Không hoạt động</td>
-                </tr>";
-                }
-            } ?></tbody>
-    </table>
+                            <td>$shipper->shipperId</td>
+                            <td>$shipper->username</td>
+                            <td>$shipper->address</td>
+                            <td>$shipper->driverLicense</td>
+                            <td>$shipper->peopleId</td>
+                            <td>$status</td>
+                        </tr>";
+                } ?>
+            </tbody>
+        </table>
+    </div>
 
-    <?php
-    echo "<div class='col col-12'>";
-    renderPagination($totalpage, $page);
-    echo "</div>";
-    ?>
+    <?php renderPagination($totalPage, $page); ?>
 </div>
 <?php require_once _DIR_ROOT . '/app/views/blocks/scroll-top.php'; ?>
 </div>

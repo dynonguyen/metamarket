@@ -63,4 +63,35 @@ class ShopModel
             return false;
         }
     }
+
+    public static function findAll($page = 1, $limit = DEFAULT_PAGE_SIZE)
+    {
+        try {
+            $offset = ($page - 1) * $limit;
+            $conn = MySQLConnection::getConnect();
+            $queryStr = "SELECT s.shopId, s.phone, s.name, s.foundingDate, s.supporterName, s.createdAt, s.openHours, a.email, a.status
+                        FROM shops AS s, accounts AS a
+                        WHERE a.accountId = s.accountId
+                        LIMIT $offset, $limit";
+            $query = $conn->query($queryStr);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $shops = $query->fetchAll();
+            return $shops;
+        } catch (Exception $ex) {
+            error_log($ex);
+            return [];
+        }
+    }
+
+    public static function countAllShop()
+    {
+        try {
+            $conn = MySQLConnection::getConnect();
+            $query = $conn->query("SELECT COUNT(*) FROM shops");
+            return $query->fetchColumn();
+        } catch (Exception $ex) {
+            error_log($ex);
+            return 0;
+        }
+    }
 }

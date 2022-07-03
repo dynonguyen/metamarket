@@ -20,4 +20,18 @@ class ConvertUtil
                 return 'Đang xử lý';
         }
     }
+
+    public static function accountStatusToString($status)
+    {
+        switch ((int)$status) {
+            case ACCOUNT_STATUS['LOCKED']:
+                return 'Đã khoá';
+            case ACCOUNT_STATUS['ACTIVE']:
+                return 'Đang hoạt động';
+            case ACCOUNT_STATUS['WAITING_APPROVAL']:
+                return 'Chờ xét duyệt';
+            default:
+                return '_';
+        }
+    }
 }

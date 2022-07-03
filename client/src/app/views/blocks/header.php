@@ -2,7 +2,7 @@
     <nav class="container-fluid">
         <!-- Mobile navigation -->
         <div class="nav-mobile container d-none">
-            <a href="/tai-khoan" class="vertical-center account-group">
+            <a href="/tai-khoan/thong-tin" class="vertical-center account-group">
                 <i class="bi bi-person-circle me-2"></i>
                 <?php
                 global $user;
@@ -41,7 +41,7 @@
             </div>
 
             <div class="d-flex right-side">
-                <a href="/tai-khoan" class="vertical-center account-group">
+                <a href="/tai-khoan/thong-tin" class="vertical-center account-group">
                     <i class="bi bi-person-circle me-2"></i>
                     <?php
                     global $user;
