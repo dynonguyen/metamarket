@@ -64,14 +64,18 @@ class ShopModel
         }
     }
 
-    public static function findAll($page = 1, $limit = DEFAULT_PAGE_SIZE)
+    public static function findAll($page = 1, $limit = DEFAULT_PAGE_SIZE, $status = NULL)
     {
         try {
             $offset = ($page - 1) * $limit;
             $conn = MySQLConnection::getConnect();
-            $queryStr = "SELECT s.shopId, s.phone, s.name, s.foundingDate, s.supporterName, s.createdAt, s.openHours, a.email, a.status
-                        FROM shops AS s, accounts AS a
-                        WHERE a.accountId = s.accountId
+            $statusQuery = $status !== NULL ? "AND status = $status" : '';
+
+            $queryStr = "SELECT s.shopId, s.phone, s.name, s.foundingDate,
+                                s.supporterName, s.createdAt, s.openHours, a.email, a.status,
+                                c.businessLicense, c.foodSafetyCertificate, a.accountId
+                        FROM shops AS s, accounts AS a, contracts AS c
+                        WHERE a.accountId = s.accountId AND c.shopId = s.shopId $statusQuery
                         LIMIT $offset, $limit";
             $query = $conn->query($queryStr);
             $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -83,11 +87,12 @@ class ShopModel
         }
     }
 
-    public static function countAllShop()
+    public static function countAllShop($status = NULL)
     {
         try {
             $conn = MySQLConnection::getConnect();
-            $query = $conn->query("SELECT COUNT(*) FROM shops");
+            $statusQuery = $status !== NULL ? "AND status = $status" : '';
+            $query = $conn->query("SELECT COUNT(*) FROM shops AS s, accounts AS a WHERE a.accountId = s.accountId $statusQuery");
             return $query->fetchColumn();
         } catch (Exception $ex) {
             error_log($ex);

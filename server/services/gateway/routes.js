@@ -78,6 +78,7 @@ const userAliases = {
 	'GET users/user-by-id/:userId': `${USER_SVC}.getUserByUserId`,
 
 	'POST users/account/create-shop': `${USER_SVC}.postCreateShop`,
+	'PUT users/account/update-status': `${USER_SVC}.putUpdateAccountStatus`,
 };
 
 const supportAliases = {

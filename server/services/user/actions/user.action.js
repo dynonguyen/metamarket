@@ -118,4 +118,25 @@ module.exports = {
 			}
 		},
 	},
+
+	putUpdateAccountStatus: {
+		params: {
+			accountId: ['number', { type: 'string', numeric: true }],
+			status: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { accountId, status } = ctx.params;
+			console.log(accountId, status);
+			try {
+				await Account.update(
+					{ status: Number(status) },
+					{ where: { accountId: Number(accountId) } },
+				);
+				return true;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
 };

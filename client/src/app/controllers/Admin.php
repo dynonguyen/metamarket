@@ -54,10 +54,24 @@ class Admin extends Controller
     {
         $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
         $pageSize = DEFAULT_PAGE_SIZE;
+        $status = isset($_GET['status']) ? (int)$_GET['status'] : NULL;
 
         $total = ShopModel::countAllShop();
-        $shops = ShopModel::findAll($page, $pageSize);
+        $shops = ShopModel::findAll($page, $pageSize, $status);
+
         $this->renderShopList($shops, $page, $total, $pageSize);
+        $this->render('layouts/admin');
+    }
+    public function waitingApprovalShopList()
+    {
+        $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+        $pageSize = DEFAULT_PAGE_SIZE;
+
+        $total = ShopModel::countAllShop(ACCOUNT_STATUS['WAITING_APPROVAL']);
+        $shops = ShopModel::findAll($page, $pageSize, ACCOUNT_STATUS['WAITING_APPROVAL']);
+
+        $this->renderShopList($shops, $page, $total, $pageSize);
+        $this->render('layouts/admin');
     }
 
     private function renderShopList($shops, $page, $total, $pageSize)
@@ -67,7 +81,8 @@ class Admin extends Controller
         $this->setViewContent('page', $page);
 
         $this->appendCssLink(['pagination.css']);
-        $this->appendJSLink(['pagination.js']);
+        $this->appendJSLink(['pagination.js', 'admin/shop-list.js']);
+        $this->setPassedVariables(['USER_SERVICE_API_URL' => USER_SERVICE_API_URL]);
         $this->setPageTitle('Quản lý cửa hàng');
         $this->setContentViewPath('admin/shop-list');
         $this->render('layouts/admin');
