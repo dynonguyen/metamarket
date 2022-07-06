@@ -74,3 +74,7 @@ $routes['kenh-quan-ly/shipper/them-shipper'] = 'admin/viewAddShipper';
 $routes['kenh-quan-ly/shipper/them-shipper/post'] = 'admin/addShipper';
 $routes['kenh-quan-ly/cua-hang/tat-ca'] = 'admin/shopList';
 $routes['kenh-quan-ly/cua-hang/cho-duyet'] = 'admin/waitingApprovalShopList';
+
+// Shipper
+$routes['kenh-van-chuyen/don-hang'] = 'shipper/orderList';
+$routes['kenh-van-chuyen/cap-nhat-don-hang'] = 'shipper/updateOrder';
