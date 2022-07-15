@@ -86,6 +86,10 @@ const supportAliases = {
 	'GET support/last-chats-by-shopId/:shopId': `${SUPPORT_SVC}.getLastChatsByShopId`,
 };
 
+const shopAliases = {
+	'GET shops/by-id/:shopId': `${SHOP_SVC}.getShopById`,
+};
+
 module.exports = [
 	{
 		path: '/api/v1',
@@ -121,6 +125,7 @@ module.exports = [
 			// Shipping service
 
 			// Shop service
+			...shopAliases,
 
 			// Support service
 			...supportAliases,
