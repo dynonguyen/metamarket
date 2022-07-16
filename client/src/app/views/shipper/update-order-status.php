@@ -7,7 +7,7 @@ global $shipper;
 
 <div class='p-4'>
     <div class="bg-white p-4">
-        <h1 class="admin-title">Danh sách đơn hàng chưa có shipper</h1>
+        <h1 class="admin-title">Danh sách đơn hàng của <?php print_r($shipper['data']->username) ?></h1>
         <div class='bg-white p-4'>
             <table class='table table-striped fs-3'>
                 <thead>
@@ -22,7 +22,6 @@ global $shipper;
                         <th>Phí vận chuyển</th>
                         <th>Ghi chú</th>
                         <th>Trạng thái đơn hàng</th>
-                        <th>Nhận đơn hàng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,12 +71,6 @@ global $shipper;
 
                             echo "<td>";
                             print_r(ConvertUtil::orderStatusToString($orderData[$i]->orderStatus));
-                            echo "</td>";
-
-                            $currentOrderId = $orderData[$i]->_id;
-                            $currentShipperId = $shipper['data']->shipperId;
-                            echo "<td>";
-                            echo "<button type='button' class='btn btn-lg btn-outline-primary-accent confirm-btn' data-orderId='$currentOrderId' data-shipperId='$currentShipperId'>Nhận đơn hàng</button>";
                             echo "</td>";
 
                             echo "</tr>";

@@ -19,9 +19,8 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                         <th>Địa chỉ giao hàng</th>
                         <th>Ngày giao hàng</th>
                         <th>Phí vận chuyển</th>
-                        <th>Trạng thái đơn hàng</th>
                         <th>Ghi chú</th>
-                        <th></th>
+                        <th>Trạng thái đơn hàng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,11 +69,11 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                             echo "</td>";
 
                             echo "<td>";
-                            print_r(ConvertUtil::orderStatusToString($orderData[$i]->orderStatus));
+                            print_r($orderData[$i]->note);
                             echo "</td>";
 
                             echo "<td>";
-                            print_r($orderData[$i]->note);
+                            print_r(ConvertUtil::orderStatusToString($orderData[$i]->orderStatus));
                             echo "</td>";
 
                             echo "</tr>";
