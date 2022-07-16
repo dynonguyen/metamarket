@@ -2,11 +2,12 @@
 require_once _DIR_ROOT . '/utils/Format.php';
 require_once _DIR_ROOT . '/utils/Convert.php';
 require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
+global $shipper;
 ?>
 
 <div class='p-4'>
     <div class="bg-white p-4">
-        <h1 class="admin-title">Danh sách đơn hàng</h1>
+        <h1 class="admin-title">Danh sách đơn hàng chưa có shipper</h1>
         <div class='bg-white p-4'>
             <table class='table table-striped fs-3'>
                 <thead>
@@ -21,6 +22,7 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                         <th>Phí vận chuyển</th>
                         <th>Trạng thái đơn hàng</th>
                         <th>Ghi chú</th>
+                        <th>Nhận đơn hàng</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -40,13 +42,9 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
                             print_r($shopName[$i]);
                             echo "</td>";
 
-                            if ($shipperName[$i] == -1) {
-                                echo "<td>Chưa được nhận</td>";
-                            } else {
-                                echo "<td>";
-                                print_r($shipperName[$i]);
-                                echo "</td>";
-                            }
+                            echo "<td>";
+                            echo "Chưa được nhận";
+                            echo "</td>";
 
                             echo "<td>";
                             print_r($orderData[$i]->receiverName);
@@ -75,6 +73,18 @@ require_once _DIR_ROOT . '/app/views/mixins/pagination.php';
 
                             echo "<td>";
                             print_r($orderData[$i]->note);
+                            echo "</td>";
+
+                            // echo "<td>";
+                            // echo "<pre>";
+                            // print_r($shipper['data']->shipperId);
+                            // echo "<pre>";
+                            // echo "</td>";
+
+                            $currentOrderId = $orderData[$i]->_id;
+                            $currentShipperId = $shipper['data']->shipperId;
+                            echo "<td>";
+                            echo "<button type='button' class='btn btn-lg btn-outline-primary-accent confirm-btn' data-orderId='$currentOrderId' data-shipperId='$currentShipperId'>Nhận đơn hàng</button>";
                             echo "</td>";
 
                             echo "</tr>";

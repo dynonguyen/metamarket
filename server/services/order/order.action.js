@@ -166,6 +166,63 @@ module.exports = {
 		},
 	},
 
+	getUnconfirmedOrderList: {
+		cache: false,
+		params: {
+			page: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: '1',
+			},
+			pageSize: {
+				type: 'string',
+				numeric: true,
+				min: '1',
+				default: DEFAULT.PAGE_SIZE.toString(),
+			},
+			select: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+			sort: {
+				type: 'string',
+				optional: true,
+				default: 'orderDate',
+			},
+			where: {
+				type: 'string',
+				optional: true,
+				default: '',
+			},
+		},
+		async handler(ctx) {
+			const { page, pageSize, select, sort, where } = ctx.params;
+			let query = { shipperId: -1 }; // Get unconfirmed orders list
+
+			console.log('test unconfirmed order list');
+
+			if (where) {
+				query = JSON.parse(where);
+			}
+
+			try {
+				const orderDocs = await mongoosePaginate(
+					Order,
+					query,
+					{ page: Number(page), pageSize: Number(pageSize) },
+					{ select, sort },
+				);
+
+				return orderDocs;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
 	getOrderDetailById: {
 		cache: false,
 		params: {
@@ -286,6 +343,26 @@ module.exports = {
 				await Order.updateOne(
 					{ _id: orderId },
 					{ orderStatus: Number(status) },
+				);
+				return true;
+			} catch (error) {
+				this.logger.error(error);
+				throw new MoleculerError(error.toString(), 500);
+			}
+		},
+	},
+
+	putConfirmOrderShipper: {
+		params: {
+			orderId: 'string',
+			shipperId: ['number', { type: 'string', numeric: true }],
+		},
+		async handler(ctx) {
+			const { orderId, shipperId } = ctx.params;
+			try {
+				await Order.updateOne(
+					{ _id: orderId },
+					{ shipperId: Number(shipperId) },
 				);
 				return true;
 			} catch (error) {

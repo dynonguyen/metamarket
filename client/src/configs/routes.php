@@ -76,5 +76,6 @@ $routes['kenh-quan-ly/cua-hang/tat-ca'] = 'admin/shopList';
 $routes['kenh-quan-ly/cua-hang/cho-duyet'] = 'admin/waitingApprovalShopList';
 
 // Shipper
-$routes['kenh-van-chuyen/don-hang'] = 'shipper/orderList';
-$routes['kenh-van-chuyen/cap-nhat-don-hang'] = 'shipper/updateOrder';
+$routes['kenh-van-chuyen/don-hang/tat-ca'] = 'shipper/orderList';
+$routes['kenh-van-chuyen/don-hang/chua-xac-nhan'] = 'shipper/unconfirmedOrderList';
+$routes['kenh-van-chuyen/don-hang/cap-nhat'] = 'shipper/updateOrder';

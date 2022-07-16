@@ -148,7 +148,7 @@ class App
 
     private function getGlobalUserWithRole($role, $userId)
     {
-        global $user, $shop, $isAuth;
+        global $user, $shop, $shipper, $isAuth;
 
         if ($role === USER_ROLE) {
             $user = UserModel::findUserById($userId);
