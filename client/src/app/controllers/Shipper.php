@@ -103,16 +103,23 @@ class Shipper extends Controller
             array_push($shopName, $shopApiRes['data']->name);
         }
 
+        $shipperName = array();
+        foreach ($apiRes['data']->docs as $myData) {
+            $shipperApiRes = ApiCaller::get(INTERNAL_SERVICE_API_URL . "/shipper/by-id/$myData->shipperId");
+            array_push($shipperName, $shipperApiRes['data']->username);
+        }
+
         if ($apiRes['statusCode'] === 200) {
             $this->setViewContent('page', $apiRes['data']->page);
             $this->setViewContent('totalPage', ceil($apiRes['data']->total / $apiRes['data']->pageSize));
             $this->setViewContent('orderData', $apiRes['data']->docs);
             $this->setViewContent('shopName', $shopName);
+            $this->setViewContent('shipperName', $shipperName);
         }
 
         $this->setPageTitle('Quản lý đơn hàng');
         $this->appendCssLink(['home.css', 'pagination.css']);
-        $this->appendJSLink(['pagination.js', 'utils/format.js', 'search.js']);
+        $this->appendJSLink(['pagination.js', 'utils/format.js', 'shipper/update-order-status.js']);
         $this->setPassedVariables(['ORDER_SERVICE_API_URL' => ORDER_SERVICE_API_URL]);
         $this->setContentViewPath('shipper/update-order-status');
         $this->render('layouts/shipper', $this->data);

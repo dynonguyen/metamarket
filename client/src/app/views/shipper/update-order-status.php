@@ -22,6 +22,7 @@ global $shipper;
                         <th>Phí vận chuyển</th>
                         <th>Ghi chú</th>
                         <th>Trạng thái đơn hàng</th>
+                        <th>Cập nhật trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +42,7 @@ global $shipper;
                             echo "</td>";
 
                             echo "<td>";
-                            echo "Chưa được nhận";
+                            print_r($shipperName[$i]);
                             echo "</td>";
 
                             echo "<td>";
@@ -71,6 +72,13 @@ global $shipper;
 
                             echo "<td>";
                             print_r(ConvertUtil::orderStatusToString($orderData[$i]->orderStatus));
+                            echo "</td>";
+
+                            $currentOrderId = $orderData[$i]->_id;
+                            $currentOrderStatus = $orderData[$i]->orderStatus;
+                            $currenOrderCode = $orderData[$i]->orderCode;
+                            echo "<td>";
+                            echo "<button type='button' class='btn btn-lg btn-outline-primary-accent update-btn' data-orderId='$currentOrderId' data-orderStatus='$currentOrderStatus' data-orderCode='$currenOrderCode'>Cập nhật</button>";
                             echo "</td>";
 
                             echo "</tr>";

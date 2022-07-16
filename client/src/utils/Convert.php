@@ -12,9 +12,9 @@ class ConvertUtil
                 return 'Chờ cửa hàng xử lý';
             case ORDER_STATUS['SHIPPING']:
                 return 'Đang giao hàng';
-            case ORDER_STATUS['COMPLETE']:
+            case ORDER_STATUS['COMPLETED']:
                 return 'Hoàn tất đơn hàng';
-            case ORDER_STATUS['CANCEL']:
+            case ORDER_STATUS['CANCELED']:
                 return 'Đơn hàng bị huỷ';
             default:
                 return 'Đang xử lý';

@@ -81,6 +81,6 @@ define('ORDER_STATUS',  [
     'PENDING_PAYMENT' => 1,
     'PENDING_SHOP' => 2,
     'SHIPPING' => 3,
-    'COMPLETE' => 4,
+    'COMPLETED' => 4,
     'CANCELED' => 5,
 ]);
